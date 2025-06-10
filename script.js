@@ -5,163 +5,91 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 	const brickTypes = [
-		'bamboo1','bamboo2','bamboo3','bamboo4','bamboo5','bamboo6','bamboo7','bamboo8','bamboo9',
-		'bamboo1','bamboo2','bamboo3','bamboo4','bamboo5','bamboo6','bamboo7','bamboo8','bamboo9',
-		'bamboo1','bamboo2','bamboo3','bamboo4','bamboo5','bamboo6','bamboo7','bamboo8','bamboo9',
-		'bamboo1','bamboo2','bamboo3','bamboo4','bamboo5','bamboo6','bamboo7','bamboo8','bamboo9',
-		'character1','character2','character3','character4','character5','character6','character7','character8','character9',
-		'character1','character2','character3','character4','character5','character6','character7','character8','character9',
-		'character1','character2','character3','character4','character5','character6','character7','character8','character9',
-		'character1','character2','character3','character4','character5','character6','character7','character8','character9',
-		'circle1','circle2','circle3','circle4','circle5','circle6','circle7','circle8','circle9',
-		'circle1','circle2','circle3','circle4','circle5','circle6','circle7','circle8','circle9',
-		'circle1','circle2','circle3','circle4','circle5','circle6','circle7','circle8','circle9',
-		'circle1','circle2','circle3','circle4','circle5','circle6','circle7','circle8','circle9',
-		'dragonB','dragonG','dragonR',
-		'dragonB','dragonG','dragonR',
-		'dragonB','dragonG','dragonR',
-		'dragonB','dragonG','dragonR',
-		'windE','windN','windS','windW',
-		'windE','windN','windS','windW',
-		'windE','windN','windS','windW',
-		'windE','windN','windS','windW',
-		'flowerB','flowerG','flowerO','flowerR',
-		'seasonB','seasonG','seasonO','seasonY'
+		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
+		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
+		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
+		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
+		'🀇','🀈','🀉','🀊','🀋','🀌','🀍','🀎','🀏',
+		'🀇','🀈','🀉','🀊','🀋','🀌','🀍','🀎','🀏',
+		'🀇','🀈','🀉','🀊','🀋','🀌','🀍','🀎','🀏',
+		'🀇','🀈','🀉','🀊','🀋','🀌','🀍','🀎','🀏',
+		'🀙','🀚','🀛','🀜','🀝','🀞','🀟','🀠','🀡',
+		'🀙','🀚','🀛','🀜','🀝','🀞','🀟','🀠','🀡',
+		'🀙','🀚','🀛','🀜','🀝','🀞','🀟','🀠','🀡',
+		'🀙','🀚','🀛','🀜','🀝','🀞','🀟','🀠','🀡',
+		'🀆','🀅','🀄︎',
+		'🀆','🀅','🀄︎',
+		'🀆','🀅','🀄︎',
+		'🀆','🀅','🀄︎',
+		'🀀','🀃','🀁','🀂',
+		'🀀','🀃','🀁','🀂',
+		'🀀','🀃','🀁','🀂',
+		'🀀','🀃','🀁','🀂',
+		'🀢', '🀣', '🀤', '🀥',
+		'🀩', '🀦', '🀨', '🀧'
 	];
 
-	const nameMap = {
-		bamboo1: "Jednička Bambus",
-		bamboo2: "Dvojka Bambus",
-		bamboo3: "Trojka Bambus",
-		bamboo4: "Čtyřka Bambus",
-		bamboo5: "Pětka Bambus",
-		bamboo6: "Šestka Bambus",
-		bamboo7: "Sedma Bambus",
-		bamboo8: "Osma Bambus",
-		bamboo9: "Devítka Bambus",
-		character1: "Jednička Znak",
-		character2: "Dvojka Znak",
-		character3: "Trojka Znak",
-		character4: "Čtyřka Znak",
-		character5: "Pětka Znak",
-		character6: "Šestka Znak",
-		character7: "Sedma Znak",
-		character8: "Osma Znak",
-		character9: "Devítka Znak",
-		circle1: "Jednička Kruh",
-		circle2: "Dvojka Kruh",
-		circle3: "Trojka Kruh",
-		circle4: "Čtyřka Kruh",
-		circle5: "Pětka Kruh",
-		circle6: "Šestka Kruh",
-		circle7: "Sedma Kruh",
-		circle8: "Osma Kruh",
-		circle9: "Devítka Kruh",
-		dragonB: "Modrý Drak",
-		dragonG: "Zelený Drak",
-		dragonR: "Červený Drak",
-		windE: "Východní Vítr",
-		windN: "Severní Vítr",
-		windS: "Jižní Vítr",
-		windW: "Západní Vítr",
-		flowerB: "Modrá Květina",
-		flowerG: "Zelená Květina",
-		flowerO: "Oranžová Květina",
-		flowerR: "Červená Květina",
-		seasonB: "Zimní Období",
-		seasonG: "Jarní Období",
-		seasonO: "Podzimní Období",
-		seasonY: "Letní Období",
-	};
+	const characters = ['🀇','🀈','🀉','🀊','🀋','🀌','🀍','🀎','🀏'];
+	const circles = ['🀙','🀚','🀛','🀜','🀝','🀞','🀟','🀠','🀡'];
+	const sticks = ['🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘'];
+	const dragons = ['🀆','🀅','🀄︎'];
+	const winds = ['🀀','🀃','🀁','🀂'];
+	const flowers = ['🀢', '🀣', '🀤', '🀥'];
+	const seasons = ['🀩', '🀦', '🀨', '🀧'];
 
-	const symbolMap = {
-		bamboo1: '🀐',
-		bamboo2: '🀑',
-		bamboo3: '🀒',
-		bamboo4: '🀓',
-		bamboo5: '🀔',
-		bamboo6: '🀕',
-		bamboo7: '🀖',
-		bamboo8: '🀗',
-		bamboo9: '🀘',
-		character1: '🀇',
-		character2: '🀈',
-		character3: '🀉',
-		character4: '🀊',
-		character5: '🀋',
-		character6: '🀌',
-		character7: '🀍',
-		character8: '🀎',
-		character9: '🀏',
-		circle1: '🀙',
-		circle2: '🀚',
-		circle3: '🀛',
-		circle4: '🀜',
-		circle5: '🀝',
-		circle6: '🀞',
-		circle7: '🀟',
-		circle8: '🀠',
-		circle9: '🀡',
-		dragonB: '🀆',
-		dragonG: '🀅',
-		dragonR: '🀄︎',
-		windE: '🀀',
-		windN: '🀃',
-		windS: '🀁',
-		windW: '🀂',
-		flowerB: '🀢',
-		flowerG: '🀣',
-		flowerO: '🀤',
-		flowerR: '🀥',
-		seasonB: '🀩',
-		seasonG: '🀦',
-		seasonO: '🀨',
-		seasonY: '🀧',
+	const nameMap = {
+		'🀐': "Vrabec",
+		'🀑': "Dvě tyčky",
+		'🀒': "Tři tyčky",
+		'🀓': "Čtyři tyčky",
+		'🀔': "Pět tyček",
+		'🀕': "Šest tyček",
+		'🀖': "Sedm tyček",
+		'🀗': "Osm tyček",
+		'🀘': "Devět tyček",
+		'🀇': "Deset tisíc",
+		'🀈': "Dvacet tisíc",
+		'🀉': "Třicet tisíc",
+		'🀊': "Čtyřicet tisíc",
+		'🀋': "Padesát tisíc",
+		'🀌': "Šedesát tisíc",
+		'🀍': "Sedmdesát tisíc",
+		'🀎': "Osmdesát tisíc",
+		'🀏': "Devadesát tisíc",
+		'🀙': "Jedna mince",
+		'🀚': "Dvě mince",
+		'🀛': "Tři mince",
+		'🀜': "Čtyři mince",
+		'🀝': "Pět mincí",
+		'🀞': "Šest mincí",
+		'🀟': "Sedm mincí",
+		'🀠': "Osm mincí",
+		'🀡': "Devět mincí",
+		'🀆': "Bílý drak",
+		'🀅': "Zelený drak",
+		'🀄︎': "Červený drak",
+		'🀀': "Východní vítr",
+		'🀃': "Severní vítr",
+		'🀁': "Jižní vítr",
+		'🀂': "Západní vítr",
+		'🀢': "Švestka",
+		'🀣': "Orchidej",
+		'🀤': "Bambus",
+		'🀥': "Chryzantéma",
+		'🀩': "Zima",
+		'🀦': "Jaro",
+		'🀨': "Podzim",
+		'🀧': "Léto",
 	};
 
 	const pointsMap = {
-		character1: 2,
-		character2: 2,
-		character3: 2,
-		character4: 2,
-		character5: 2,
-		character6: 2,
-		character7: 2,
-		character8: 2,
-		character9: 2,
-		circle1: 4,
-		circle2: 4,
-		circle3: 4,
-		circle4: 4,
-		circle5: 4,
-		circle6: 4,
-		circle7: 4,
-		circle8: 4,
-		circle9: 4,
-		bamboo1: 6,
-		bamboo2: 6,
-		bamboo3: 6,
-		bamboo4: 6,
-		bamboo5: 6,
-		bamboo6: 6,
-		bamboo7: 6,
-		bamboo8: 6,
-		bamboo9: 6,
-		windE: 8,
-		windN: 8,
-		windS: 8,
-		windW: 8,
-		dragonB: 10,
-		dragonG: 10,
-		dragonR: 10,
-		flowerB: 12,
-		flowerG: 12,
-		flowerO: 12,
-		flowerR: 12,
-		seasonB: 14,
-		seasonG: 14,
-		seasonO: 14,
-		seasonY: 14,
+		'🀇': 2, '🀈': 2, '🀉': 2, '🀊': 2, '🀋': 2, '🀌': 2, '🀍': 2, '🀎': 2, '🀏': 2,
+		'🀙': 4, '🀚': 4, '🀛': 4, '🀜': 4, '🀝': 4, '🀞': 4, '🀟': 4, '🀠': 4, '🀡': 4,
+		'🀐': 6, '🀑': 6, '🀒': 6, '🀓': 6, '🀔': 6, '🀕': 6, '🀖': 6, '🀗': 6, '🀘': 6,
+		'🀀': 8, '🀃': 8, '🀁': 8, '🀂': 8,
+		'🀆': 10, '🀅': 10, '🀄︎': 10,
+		'🀢': 12, '🀣': 12, '🀤': 12, '🀥': 12,
+		'🀩': 14, '🀦': 14, '🀨': 14, '🀧': 14,
 	};
 
 	const checkLose = () => {
@@ -169,14 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
 		let notBlocked = [];
 		for (const tile of allTiles) {
 			if (isBlocked(tile) === false) {
-				notBlocked.push(tile.dataset.t);
+				notBlocked.push(tile.innerText);
 			}
 		}
 		notBlocked.sort();
 		const notBlockedPairs = [];
 		let prev = null;
 		for (const one of notBlocked) {
-			if (prev !== null && ((prev.startsWith('flower') && one.startsWith('flower')) || (prev.startsWith('season') && one.startsWith('season')) || prev === one) && notBlockedPairs.indexOf(one) === -1) {
+			if (prev !== null && (prev === one || (flowers.indexOf(prev) > -1 && flowers.indexOf(one) > -1) || (seasons.indexOf(prev) > -1 && seasons.indexOf(one) > -1)) && notBlockedPairs.indexOf(one) === -1) {
 				notBlockedPairs.push(one);
 			}
 			prev = one;
@@ -216,10 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const isBrick = (elem) => {
 		return (
 			(elem instanceof Element) &&
-			elem.classList.contains('tile') &&
-			('x' in elem.dataset) &&
-			('y' in elem.dataset) &&
-			('z' in elem.dataset)
+			elem.classList.contains('tile')
 		);
 	}
 
@@ -228,9 +153,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			return null;
 		}
 
-		const myX = parseInt(brick.dataset.x);
-		const myY = parseInt(brick.dataset.y);
-		const myZ = parseInt(brick.dataset.z);
+		const myX = parseInt(brick.style.gridColumn);
+		const myY = parseInt(brick.style.gridRow);
+		const myZ = parseInt(brick.style.zIndex);
 
 		if (
 			(
@@ -285,11 +210,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		if (
-			(listSel[0].dataset.t.startsWith('flower') && listSel[1].dataset.t.startsWith('flower')) ||
-			(listSel[0].dataset.t.startsWith('season') && listSel[1].dataset.t.startsWith('season')) ||
-			listSel[0].dataset.t === listSel[1].dataset.t
+			listSel[0].innerText === listSel[1].innerText ||
+			(flowers.indexOf(listSel[0].innerText) > -1 && flowers.indexOf(listSel[1].innerText) > -1) ||
+			(seasons.indexOf(listSel[0].innerText) > -1 && seasons.indexOf(listSel[1].innerText) > -1)
 		) {
-			window.mahjongg.points += (pointsMap[listSel[0].dataset.t] + pointsMap[listSel[1].dataset.t]);
+			window.mahjongg.points += (pointsMap[listSel[0].innerText] + pointsMap[listSel[1].innerText]);
 			let strPoints = 'bodů';
 			if (window.mahjongg.points === 1) {
 				strPoints = 'bod';
@@ -312,62 +237,22 @@ document.addEventListener('DOMContentLoaded', () => {
 	const onTileMouseEnter = (evt) => {
 		const elImg = document.getElementById('currentimg');
 		const elText = document.getElementById('currentname');
-		if (!(elImg instanceof HTMLImageElement) || !(elText instanceof HTMLElement)) {
+		if (!(elImg instanceof HTMLElement) || !(elText instanceof HTMLElement)) {
 			return;
 		}
-		elImg.src = 'tiles/tile_' + evt.target.dataset.t + '.svg';
-		elText.innerText = nameMap[evt.target.dataset.t];
+		elImg.innerText = evt.target.innerText;
+		elText.innerText = nameMap[evt.target.innerText];
 	};
 
 	const onTileMouseLeave = (evt) => {
 		const elImg = document.getElementById('currentimg');
 		const elText = document.getElementById('currentname');
-		if (!(elImg instanceof HTMLImageElement) || !(elText instanceof HTMLElement)) {
+		if (!(elImg instanceof HTMLElement) || !(elText instanceof HTMLElement)) {
 			return;
 		}
-		elImg.src = 'tiles/tile_empty.svg';
-		elText.innerText = 'Nula Nic';
+		elImg.innerText = '';
+		elText.innerText = '';
 	};
-
-	const initTiles = () => {
-		const elGame = document.getElementById('game');
-		if (!(elGame instanceof HTMLElement)) {
-			return;
-		}
-
-		const shapeRatio = (window.mahjongg.shapeDim.w / window.mahjongg.shapeDim.h);
-		const screenRatio = (elGame.clientWidth / elGame.clientHeight);
-
-		let tileH = 0;
-		let tileW = 0;
-		let tileS = 0;
-
-		if (shapeRatio > screenRatio) {
-			tileW = ((2 * elGame.clientWidth) / window.mahjongg.shapeDim.w);
-			tileH = ((tileW * 9) / 7);
-			tileS = (tileW / 7);
-		} else {
-			tileH = ((2 * elGame.clientHeight) / window.mahjongg.shapeDim.h);
-			tileW = ((tileH * 7) / 9);
-			tileS = (tileH / 9);
-		}
-
-		const tiles = document.getElementsByClassName('tile');
-		for (const tile of tiles) {
-			if (!isBrick(tile)) {
-				continue;
-			}
-			const tileX = parseInt(tile.dataset.x);
-			const tileY = parseInt(tile.dataset.y);
-			const tileZ = parseInt(tile.dataset.z);
-			const tileLeft = Math.round(((tileX - 1) * ((tileW - tileS) / 2)) - ((tileZ - 1) * tileS));
-			const tileTop = Math.round(((tileY - 1) * ((tileH - tileS) / 2)) - ((tileZ - 1) * (tileS * 3 / 4)));
-			tile.style.width = `${Math.round(tileW)}px`;
-			tile.style.height = `${Math.round(tileH)}px`;
-			tile.style.left = `${tileLeft}px`;
-			tile.style.top = `${tileTop}px`;
-		}
-	}
 
 	const elWinClose = document.getElementById('winClose');
 	if (elWinClose instanceof EventTarget) {
@@ -436,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const drawGame = (shape) => {
 		let shapeDef = [];
-		window.mahjongg.shapeDim = {w: 0, h: 0};
+		let shapeDim = {w: 0, h: 0};
 		if (shape === 'turtle') {
 			shapeDef = [
 				{x: 3, y: 1, z: 1}, {x: 5, y: 1, z: 1}, {x: 7, y: 1, z: 1}, {x: 9, y: 1, z: 1},
@@ -476,19 +361,51 @@ document.addEventListener('DOMContentLoaded', () => {
 				{x: 13, y: 11, z: 3}, {x: 15, y: 11, z: 3}, {x: 17, y: 11, z: 3}, {x: 13, y: 7, z: 4},
 				{x: 15, y: 7, z: 4}, {x: 13, y: 9, z: 4}, {x: 15, y: 9, z: 4}, {x: 14, y: 8, z: 5}
 			];
-			window.mahjongg.shapeDim.w = 29;
-			window.mahjongg.shapeDim.h = 15;
+			shapeDim.w = 29;
+			shapeDim.h = 15;
 		}
 
 		const elGame = document.getElementById('game');
-		if (!(elGame instanceof Element)) {
+		const elPanel = document.getElementById('toppanel');
+		if (!(elGame instanceof Element) || !(elPanel instanceof Element)) {
 			return;
 		}
+
+		const screenWidth = visualViewport.width;
+		const screenHeight = (visualViewport.height - elPanel.clientHeight); 
+
+		const shapeRatio = (shapeDim.w / shapeDim.h);
+		const screenRatio = (screenWidth / screenHeight);
+
+		let tileH = 0;
+		let tileW = 0;
+		let tileS = 0;
+
+		if (shapeRatio > screenRatio) {
+			tileW = ((2 * screenWidth) / shapeDim.w);
+			tileH = ((tileW * 9) / 7);
+			tileS = (tileW / 7);
+		} else {
+			tileH = ((2 * screenHeight) / shapeDim.h);
+			tileW = ((tileH * 7) / 9);
+			tileS = (tileH / 9);
+		}
+
+		elGame.style.gridTemplateColumns = `repeat(${shapeDim.w + 1}, ${Math.round(tileW / 2)}px)`;
+		elGame.style.gridTemplateRows = `repeat(${shapeDim.h + 1}, ${Math.round(tileH / 2)}px)`;
 		let counter = 0;
 		for (const tileShape of shapeDef) {
 			const elTile = document.createElement('div');
 			elTile.id = `t${counter++}`;
 			elTile.classList.add('tile');
+			elTile.style.gridColumn = `${tileShape.x} / ${tileShape.x + 2}`;
+			elTile.style.gridRow = `${tileShape.y} / ${tileShape.y + 2}`;
+			elTile.style.zIndex = tileShape.z;
+			elTile.style.left = `${Math.round(((tileShape.x/2-1) + (tileShape.z-1)) * (-tileS))}px`;
+			elTile.style.top = `${Math.round(((tileShape.y/2-1) + ((tileShape.z-1) * 3/4)) * (-tileS))}px`;
+			elTile.style.width = `${Math.round(tileW)}px`;
+			elTile.style.height = `${Math.round(tileH)}px`;
+			elTile.style.fontSize = `${Math.round(tileW * 1.1)}px`;
 			elTile.dataset.x = tileShape.x;
 			elTile.dataset.y = tileShape.y;
 			elTile.dataset.z = tileShape.z;
@@ -496,18 +413,32 @@ document.addEventListener('DOMContentLoaded', () => {
 			elTile.addEventListener('mouseenter', onTileMouseEnter);
 			elTile.addEventListener('mouseleave', onTileMouseLeave);
 			const randomType = Math.floor(Math.random() * brickTypes.length);
-			elTile.dataset.t = brickTypes[randomType];
+			elTile.innerText = brickTypes[randomType];
+			if (characters.indexOf(elTile.innerText) > -1) {
+				elTile.style.color = '#BD0000';
+			}
+			if (sticks.indexOf(elTile.innerText) > -1) {
+				elTile.style.color = '#3E6800';
+			}
+			if (circles.indexOf(elTile.innerText) > -1) {
+				elTile.style.color = '#3A3AFF';
+			}
+			if (dragons.indexOf(elTile.innerText) > -1) {
+				elTile.style.color = '#7B5700';
+			}
+			if (winds.indexOf(elTile.innerText) > -1) {
+				elTile.style.color = '#A600A6';
+			}
+			if (flowers.indexOf(elTile.innerText) > -1) {
+				elTile.style.color = '#006868';
+			}
+			if (seasons.indexOf(elTile.innerText) > -1) {
+				elTile.style.color = '#000000';
+			}
 			brickTypes.splice(randomType, 1);
 			elGame.insertAdjacentElement('beforeend', elTile);
 		}
 	}
 
 	drawGame('turtle');
-	initTiles();
-
-	var resizeTimeout = false;
-	window.addEventListener('resize', () => {
-		clearTimeout(resizeTimeout);
-		resizeTimeout = setTimeout(initTiles, 250);
-	});
 });

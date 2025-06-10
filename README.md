@@ -39,8 +39,8 @@ Types of tiles:
 - Suited tiles
    - Character (9 ranks, 4x each)
    - Circle (9 ranks, 4x each)
-   - Bamboo (9 ranks, 4x each)
-- Honor tiles
+   - Stick (9 ranks, 4x each)
+- Honors tiles
    - Wind (4 kinds, 4x each)
    - Dragon (3 kinds, 4x each)
 - Bonus tiles
@@ -74,11 +74,4 @@ I'll be very thankful if you:
 
 [Mahjongg Solitaire](https://github.com/tommander/mahjongg) by [Tomáš Rajnoha](https://tommander.cz) is marked [CC0 1.0](LICENSE).
 
-For some parts of the codebase, a different license may be applicable. Here you can find original links and source pages.
-
-- [Background photo](https://get.pxhere.com/photo/architecture-bridge-river-jungle-garden-waterway-rainforest-china-rural-area-arch-bridge-leshan-1166576.jpg) from [Pxhere](https://pxhere.com/ko/photo/1166576)
-- [Dragon Head](https://www.vecteezy.com/vector-art/10985777-illustration-vector-graphic-of-tribal-head-dragon-perfect-for-tattoo-and-other) from [Vecteezy](https://www.vecteezy.com/free-vector/illustration)
-- [Flower](https://i.etsystatic.com/27648046/r/il/f03932/3078086523/il_fullxfull.3078086523_fg5n.jpg) from [Etsy](https://www.etsy.com/listing/1005341539/flower-svg-flower-silhouette-svg-flower)
-- [Tree](https://png.pngtree.com/png-clipart/20191121/original/pngtree-vector-of-black-tree-silhouette-png-image_5107617.jpg) from [PngTree](https://th.pngtree.com/freepng/vector-of-black-tree-silhouette_5107617.html)
-- [Wind](https://www.creativefabrica.com/wp-content/uploads/2022/09/26/1664194038/Wind.jpg) from [Creative Fabrica](https://www.creativefabrica.com/product/wind-79/)
-- [CC](https://mirrors.creativecommons.org/presskit/icons/cc.svg) and [Zero](https://mirrors.creativecommons.org/presskit/icons/zero.svg) from [Creative Commons](https://creativecommons.org/chooser/)
+[Background photo](https://get.pxhere.com/photo/architecture-bridge-river-jungle-garden-waterway-rainforest-china-rural-area-arch-bridge-leshan-1166576.jpg) comes from [Pxhere](https://pxhere.com/ko/photo/1166576).
