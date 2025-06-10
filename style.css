@@ -3,491 +3,523 @@
 /* Basic */
 
 :root {
-    --tile-width: 80px;
-    --tile-height: 100px;
-    font-family: sans-serif;
-    font-size: 125%;
+	font-family: sans-serif;
+	font-size: 125%;
+}
+*, ::before, ::after {
+	margin: 0;
+	padding: 0;
+}
+@media (max-width: 1094px) {
+	:root {
+		font-size: 100%;
+	}
 }
 body {
-    background-image: url('graphics/background.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 0;
-    margin: 0;
+	height: 100vh;
+	width: 100vw;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto 1fr;
+	background-image: url('graphics/background.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 #game {
-    position: relative;
-    margin: auto;
+	position: relative;
+	margin-top: 1rem;
 }
 
+@media (max-width: 1094px) {
+	#game {
+		margin-top: 0.5rem;
+	}
+}
+button {
+	padding: 0.25rem 0.5rem;
+}
+
+@media (max-width: 1094px) {
+	button {
+		padding: 0.125rem 0.25rem;
+	}
+}
 /* Top Bar */
 
-#panel {
-    position: relative;
-    top: 0;
-    width: 100%;
-    border: 1px solid black;
-    background-color: rgba(255,255,255,0.75);
-    display: flex;
-    justify-content: center;
-    column-gap: 1rem;
-    margin-bottom: 1rem;
-    padding: 0.25rem 0.5rem;
+.panel {
+	background-color: rgba(255,255,255,0.75);
+	display: flex;
+	justify-content: center;
+	column-gap: 1rem;
+	padding: 0.25rem 0.5rem;
+}
+
+@media (max-width: 1094px) {
+	.panel {
+		padding: 0.125rem 0.25rem;
+	}
 }
 
 /* Current Tile Panel */
 
 #current {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    border: 1px solid black;
-    border-radius: 10%;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0.25rem 0.5rem;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	border: 1px solid black;
+	border-radius: 10%;
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0.25rem 0.5rem;
+}
+
+@media (max-width: 1094px) {
+	#current {
+		display: none;
+	}
 }
 
 /* Dialogs */
 
 .gamedlg::backdrop {
-    background-color: rgba(0,0,0,0.4);
+	background-color: rgba(0,0,0,0.75);
 }
 .gamedlg {
-    margin: auto;
-    background-color: #fff;
-    padding: 1rem 2rem;
-    border: 2px solid black;
-    border-radius: 5%;
+	margin: auto;
+	background-color: #fff;
+	padding: 1rem 2rem;
+	border: 2px solid black;
+	border-radius: 1rem;
+	max-width: 50%;
 }
-.dlgcontent {
-    height: 100%;
-    display: grid;
-    grid-template-rows: 1fr 2rem;
-    grid-template-columns: 1fr;
-    row-gap: 1rem;
+@media (max-width: 1094px) {
+	.gamedlg {
+		max-width: 90%;
+		padding: 0.5rem 1rem;
+	}
 }
 .dlgmessage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.dlgmessage img {
-    width: 5rem;
-    margin-bottom: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 0.5rem;
 }
 .dlgbuttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  column-gap: 1rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	column-gap: 1rem;
+	margin-top: 1rem;
+}
+@media (max-width: 1094px) {
+	.dlgbuttons {
+		margin-top: 0.5rem;
+	}
 }
 .dlgheading {
-    font-size: 125%;
-    font-weight: bold;
+	font-size: 125%;
+	font-weight: bold;
 }
 .dlgsmiley {
-    font-size: 300%;
+	font-size: 300%;
 }
 
 /* Tiles (common) */
 
 .tile, .mock {
-    width: var(--tile-width, 40px);
-    height: var(--tile-height, 50px);
-    background-image: url('tiles/tile_empty.svg');
-    background-repeat: no-repeat;
-    background-size: 100%;
+	background-image: url('tiles/tile_empty.svg');
+	background-repeat: no-repeat;
+	background-size: 100%;
 }
 .tile {
-    position: absolute;
+	position: absolute;
 }
 
 /* Tiles (normal) */
 
 .tile[data-t="bamboo1"] {
-    background-image: url('tiles/tile_bamboo1.svg');
+	background-image: url('tiles/tile_bamboo1.svg');
 }
 .tile[data-t="bamboo2"] {
-    background-image: url('tiles/tile_bamboo2.svg');
+	background-image: url('tiles/tile_bamboo2.svg');
 }
 .tile[data-t="bamboo3"] {
-    background-image: url('tiles/tile_bamboo3.svg');
+	background-image: url('tiles/tile_bamboo3.svg');
 }
 .tile[data-t="bamboo4"] {
-    background-image: url('tiles/tile_bamboo4.svg');
+	background-image: url('tiles/tile_bamboo4.svg');
 }
 .tile[data-t="bamboo5"] {
-    background-image: url('tiles/tile_bamboo5.svg');
+	background-image: url('tiles/tile_bamboo5.svg');
 }
 .tile[data-t="bamboo6"] {
-    background-image: url('tiles/tile_bamboo6.svg');
+	background-image: url('tiles/tile_bamboo6.svg');
 }
 .tile[data-t="bamboo7"] {
-    background-image: url('tiles/tile_bamboo7.svg');
+	background-image: url('tiles/tile_bamboo7.svg');
 }
 .tile[data-t="bamboo8"] {
-    background-image: url('tiles/tile_bamboo8.svg');
+	background-image: url('tiles/tile_bamboo8.svg');
 }
 .tile[data-t="bamboo9"] {
-    background-image: url('tiles/tile_bamboo9.svg');
+	background-image: url('tiles/tile_bamboo9.svg');
 }
 .tile[data-t="character1"] {
-    background-image: url('tiles/tile_character1.svg');
+	background-image: url('tiles/tile_character1.svg');
 }
 .tile[data-t="character2"] {
-    background-image: url('tiles/tile_character2.svg');
+	background-image: url('tiles/tile_character2.svg');
 }
 .tile[data-t="character3"] {
-    background-image: url('tiles/tile_character3.svg');
+	background-image: url('tiles/tile_character3.svg');
 }
 .tile[data-t="character4"] {
-    background-image: url('tiles/tile_character4.svg');
+	background-image: url('tiles/tile_character4.svg');
 }
 .tile[data-t="character5"] {
-    background-image: url('tiles/tile_character5.svg');
+	background-image: url('tiles/tile_character5.svg');
 }
 .tile[data-t="character6"] {
-    background-image: url('tiles/tile_character6.svg');
+	background-image: url('tiles/tile_character6.svg');
 }
 .tile[data-t="character7"] {
-    background-image: url('tiles/tile_character7.svg');
+	background-image: url('tiles/tile_character7.svg');
 }
 .tile[data-t="character8"] {
-    background-image: url('tiles/tile_character8.svg');
+	background-image: url('tiles/tile_character8.svg');
 }
 .tile[data-t="character9"] {
-    background-image: url('tiles/tile_character9.svg');
+	background-image: url('tiles/tile_character9.svg');
 }
 .tile[data-t="circle1"] {
-    background-image: url('tiles/tile_circle1.svg');
+	background-image: url('tiles/tile_circle1.svg');
 }
 .tile[data-t="circle2"] {
-    background-image: url('tiles/tile_circle2.svg');
+	background-image: url('tiles/tile_circle2.svg');
 }
 .tile[data-t="circle3"] {
-    background-image: url('tiles/tile_circle3.svg');
+	background-image: url('tiles/tile_circle3.svg');
 }
 .tile[data-t="circle4"] {
-    background-image: url('tiles/tile_circle4.svg');
+	background-image: url('tiles/tile_circle4.svg');
 }
 .tile[data-t="circle5"] {
-    background-image: url('tiles/tile_circle5.svg');
+	background-image: url('tiles/tile_circle5.svg');
 }
 .tile[data-t="circle6"] {
-    background-image: url('tiles/tile_circle6.svg');
+	background-image: url('tiles/tile_circle6.svg');
 }
 .tile[data-t="circle7"] {
-    background-image: url('tiles/tile_circle7.svg');
+	background-image: url('tiles/tile_circle7.svg');
 }
 .tile[data-t="circle8"] {
-    background-image: url('tiles/tile_circle8.svg');
+	background-image: url('tiles/tile_circle8.svg');
 }
 .tile[data-t="circle9"] {
-    background-image: url('tiles/tile_circle9.svg');
+	background-image: url('tiles/tile_circle9.svg');
 }
 .tile[data-t="dragonB"] {
-    background-image: url('tiles/tile_dragonB.svg');
+	background-image: url('tiles/tile_dragonB.svg');
 }
 .tile[data-t="dragonG"] {
-    background-image: url('tiles/tile_dragonG.svg');
+	background-image: url('tiles/tile_dragonG.svg');
 }
 .tile[data-t="dragonR"] {
-    background-image: url('tiles/tile_dragonR.svg');
+	background-image: url('tiles/tile_dragonR.svg');
 }
 .tile[data-t="flowerB"] {
-    background-image: url('tiles/tile_flowerB.svg');
+	background-image: url('tiles/tile_flowerB.svg');
 }
 .tile[data-t="flowerG"] {
-    background-image: url('tiles/tile_flowerG.svg');
+	background-image: url('tiles/tile_flowerG.svg');
 }
 .tile[data-t="flowerO"] {
-    background-image: url('tiles/tile_flowerO.svg');
+	background-image: url('tiles/tile_flowerO.svg');
 }
 .tile[data-t="flowerR"] {
-    background-image: url('tiles/tile_flowerR.svg');
+	background-image: url('tiles/tile_flowerR.svg');
 }
 .tile[data-t="seasonB"] {
-    background-image: url('tiles/tile_seasonB.svg');
+	background-image: url('tiles/tile_seasonB.svg');
 }
 .tile[data-t="seasonG"] {
-    background-image: url('tiles/tile_seasonG.svg');
+	background-image: url('tiles/tile_seasonG.svg');
 }
 .tile[data-t="seasonO"] {
-    background-image: url('tiles/tile_seasonO.svg');
+	background-image: url('tiles/tile_seasonO.svg');
 }
 .tile[data-t="seasonY"] {
-    background-image: url('tiles/tile_seasonY.svg');
+	background-image: url('tiles/tile_seasonY.svg');
 }
 .tile[data-t="windE"] {
-    background-image: url('tiles/tile_windE.svg');
+	background-image: url('tiles/tile_windE.svg');
 }
 .tile[data-t="windN"] {
-    background-image: url('tiles/tile_windN.svg');
+	background-image: url('tiles/tile_windN.svg');
 }
 .tile[data-t="windS"] {
-    background-image: url('tiles/tile_windS.svg');
+	background-image: url('tiles/tile_windS.svg');
 }
 .tile[data-t="windW"] {
-    background-image: url('tiles/tile_windW.svg');
+	background-image: url('tiles/tile_windW.svg');
 }
 
 /* Tiles (hover) */
 
 .tile[data-t="bamboo1"]:hover {
-    background-image: url('tiles/tile-hover_bamboo1.svg');
+	background-image: url('tiles/tile-hover_bamboo1.svg');
 }
 .tile[data-t="bamboo2"]:hover {
-    background-image: url('tiles/tile-hover_bamboo2.svg');
+	background-image: url('tiles/tile-hover_bamboo2.svg');
 }
 .tile[data-t="bamboo3"]:hover {
-    background-image: url('tiles/tile-hover_bamboo3.svg');
+	background-image: url('tiles/tile-hover_bamboo3.svg');
 }
 .tile[data-t="bamboo4"]:hover {
-    background-image: url('tiles/tile-hover_bamboo4.svg');
+	background-image: url('tiles/tile-hover_bamboo4.svg');
 }
 .tile[data-t="bamboo5"]:hover {
-    background-image: url('tiles/tile-hover_bamboo5.svg');
+	background-image: url('tiles/tile-hover_bamboo5.svg');
 }
 .tile[data-t="bamboo6"]:hover {
-    background-image: url('tiles/tile-hover_bamboo6.svg');
+	background-image: url('tiles/tile-hover_bamboo6.svg');
 }
 .tile[data-t="bamboo7"]:hover {
-    background-image: url('tiles/tile-hover_bamboo7.svg');
+	background-image: url('tiles/tile-hover_bamboo7.svg');
 }
 .tile[data-t="bamboo8"]:hover {
-    background-image: url('tiles/tile-hover_bamboo8.svg');
+	background-image: url('tiles/tile-hover_bamboo8.svg');
 }
 .tile[data-t="bamboo9"]:hover {
-    background-image: url('tiles/tile-hover_bamboo9.svg');
+	background-image: url('tiles/tile-hover_bamboo9.svg');
 }
 .tile[data-t="character1"]:hover {
-    background-image: url('tiles/tile-hover_character1.svg');
+	background-image: url('tiles/tile-hover_character1.svg');
 }
 .tile[data-t="character2"]:hover {
-    background-image: url('tiles/tile-hover_character2.svg');
+	background-image: url('tiles/tile-hover_character2.svg');
 }
 .tile[data-t="character3"]:hover {
-    background-image: url('tiles/tile-hover_character3.svg');
+	background-image: url('tiles/tile-hover_character3.svg');
 }
 .tile[data-t="character4"]:hover {
-    background-image: url('tiles/tile-hover_character4.svg');
+	background-image: url('tiles/tile-hover_character4.svg');
 }
 .tile[data-t="character5"]:hover {
-    background-image: url('tiles/tile-hover_character5.svg');
+	background-image: url('tiles/tile-hover_character5.svg');
 }
 .tile[data-t="character6"]:hover {
-    background-image: url('tiles/tile-hover_character6.svg');
+	background-image: url('tiles/tile-hover_character6.svg');
 }
 .tile[data-t="character7"]:hover {
-    background-image: url('tiles/tile-hover_character7.svg');
+	background-image: url('tiles/tile-hover_character7.svg');
 }
 .tile[data-t="character8"]:hover {
-    background-image: url('tiles/tile-hover_character8.svg');
+	background-image: url('tiles/tile-hover_character8.svg');
 }
 .tile[data-t="character9"]:hover {
-    background-image: url('tiles/tile-hover_character9.svg');
+	background-image: url('tiles/tile-hover_character9.svg');
 }
 .tile[data-t="circle1"]:hover {
-    background-image: url('tiles/tile-hover_circle1.svg');
+	background-image: url('tiles/tile-hover_circle1.svg');
 }
 .tile[data-t="circle2"]:hover {
-    background-image: url('tiles/tile-hover_circle2.svg');
+	background-image: url('tiles/tile-hover_circle2.svg');
 }
 .tile[data-t="circle3"]:hover {
-    background-image: url('tiles/tile-hover_circle3.svg');
+	background-image: url('tiles/tile-hover_circle3.svg');
 }
 .tile[data-t="circle4"]:hover {
-    background-image: url('tiles/tile-hover_circle4.svg');
+	background-image: url('tiles/tile-hover_circle4.svg');
 }
 .tile[data-t="circle5"]:hover {
-    background-image: url('tiles/tile-hover_circle5.svg');
+	background-image: url('tiles/tile-hover_circle5.svg');
 }
 .tile[data-t="circle6"]:hover {
-    background-image: url('tiles/tile-hover_circle6.svg');
+	background-image: url('tiles/tile-hover_circle6.svg');
 }
 .tile[data-t="circle7"]:hover {
-    background-image: url('tiles/tile-hover_circle7.svg');
+	background-image: url('tiles/tile-hover_circle7.svg');
 }
 .tile[data-t="circle8"]:hover {
-    background-image: url('tiles/tile-hover_circle8.svg');
+	background-image: url('tiles/tile-hover_circle8.svg');
 }
 .tile[data-t="circle9"]:hover {
-    background-image: url('tiles/tile-hover_circle9.svg');
+	background-image: url('tiles/tile-hover_circle9.svg');
 }
 .tile[data-t="dragonB"]:hover {
-    background-image: url('tiles/tile-hover_dragonB.svg');
+	background-image: url('tiles/tile-hover_dragonB.svg');
 }
 .tile[data-t="dragonG"]:hover {
-    background-image: url('tiles/tile-hover_dragonG.svg');
+	background-image: url('tiles/tile-hover_dragonG.svg');
 }
 .tile[data-t="dragonR"]:hover {
-    background-image: url('tiles/tile-hover_dragonR.svg');
+	background-image: url('tiles/tile-hover_dragonR.svg');
 }
 .tile[data-t="flowerB"]:hover {
-    background-image: url('tiles/tile-hover_flowerB.svg');
+	background-image: url('tiles/tile-hover_flowerB.svg');
 }
 .tile[data-t="flowerG"]:hover {
-    background-image: url('tiles/tile-hover_flowerG.svg');
+	background-image: url('tiles/tile-hover_flowerG.svg');
 }
 .tile[data-t="flowerO"]:hover {
-    background-image: url('tiles/tile-hover_flowerO.svg');
+	background-image: url('tiles/tile-hover_flowerO.svg');
 }
 .tile[data-t="flowerR"]:hover {
-    background-image: url('tiles/tile-hover_flowerR.svg');
+	background-image: url('tiles/tile-hover_flowerR.svg');
 }
 .tile[data-t="seasonB"]:hover {
-    background-image: url('tiles/tile-hover_seasonB.svg');
+	background-image: url('tiles/tile-hover_seasonB.svg');
 }
 .tile[data-t="seasonG"]:hover {
-    background-image: url('tiles/tile-hover_seasonG.svg');
+	background-image: url('tiles/tile-hover_seasonG.svg');
 }
 .tile[data-t="seasonO"]:hover {
-    background-image: url('tiles/tile-hover_seasonO.svg');
+	background-image: url('tiles/tile-hover_seasonO.svg');
 }
 .tile[data-t="seasonY"]:hover {
-    background-image: url('tiles/tile-hover_seasonY.svg');
+	background-image: url('tiles/tile-hover_seasonY.svg');
 }
 .tile[data-t="windE"]:hover {
-    background-image: url('tiles/tile-hover_windE.svg');
+	background-image: url('tiles/tile-hover_windE.svg');
 }
 .tile[data-t="windN"]:hover {
-    background-image: url('tiles/tile-hover_windN.svg');
+	background-image: url('tiles/tile-hover_windN.svg');
 }
 .tile[data-t="windS"]:hover {
-    background-image: url('tiles/tile-hover_windS.svg');
+	background-image: url('tiles/tile-hover_windS.svg');
 }
 .tile[data-t="windW"]:hover {
-    background-image: url('tiles/tile-hover_windW.svg');
+	background-image: url('tiles/tile-hover_windW.svg');
 }
 
 /* Tiles (selected) */
 
 .tile[data-t="bamboo1"][data-s="selected"] {
-    background-image: url('tiles/tile-select_bamboo1.svg');
+	background-image: url('tiles/tile-select_bamboo1.svg');
 }
 .tile[data-t="bamboo2"][data-s="selected"] {
-    background-image: url('tiles/tile-select_bamboo2.svg');
+	background-image: url('tiles/tile-select_bamboo2.svg');
 }
 .tile[data-t="bamboo3"][data-s="selected"] {
-    background-image: url('tiles/tile-select_bamboo3.svg');
+	background-image: url('tiles/tile-select_bamboo3.svg');
 }
 .tile[data-t="bamboo4"][data-s="selected"] {
-    background-image: url('tiles/tile-select_bamboo4.svg');
+	background-image: url('tiles/tile-select_bamboo4.svg');
 }
 .tile[data-t="bamboo5"][data-s="selected"] {
-    background-image: url('tiles/tile-select_bamboo5.svg');
+	background-image: url('tiles/tile-select_bamboo5.svg');
 }
 .tile[data-t="bamboo6"][data-s="selected"] {
-    background-image: url('tiles/tile-select_bamboo6.svg');
+	background-image: url('tiles/tile-select_bamboo6.svg');
 }
 .tile[data-t="bamboo7"][data-s="selected"] {
-    background-image: url('tiles/tile-select_bamboo7.svg');
+	background-image: url('tiles/tile-select_bamboo7.svg');
 }
 .tile[data-t="bamboo8"][data-s="selected"] {
-    background-image: url('tiles/tile-select_bamboo8.svg');
+	background-image: url('tiles/tile-select_bamboo8.svg');
 }
 .tile[data-t="bamboo9"][data-s="selected"] {
-    background-image: url('tiles/tile-select_bamboo9.svg');
+	background-image: url('tiles/tile-select_bamboo9.svg');
 }
 .tile[data-t="character1"][data-s="selected"] {
-    background-image: url('tiles/tile-select_character1.svg');
+	background-image: url('tiles/tile-select_character1.svg');
 }
 .tile[data-t="character2"][data-s="selected"] {
-    background-image: url('tiles/tile-select_character2.svg');
+	background-image: url('tiles/tile-select_character2.svg');
 }
 .tile[data-t="character3"][data-s="selected"] {
-    background-image: url('tiles/tile-select_character3.svg');
+	background-image: url('tiles/tile-select_character3.svg');
 }
 .tile[data-t="character4"][data-s="selected"] {
-    background-image: url('tiles/tile-select_character4.svg');
+	background-image: url('tiles/tile-select_character4.svg');
 }
 .tile[data-t="character5"][data-s="selected"] {
-    background-image: url('tiles/tile-select_character5.svg');
+	background-image: url('tiles/tile-select_character5.svg');
 }
 .tile[data-t="character6"][data-s="selected"] {
-    background-image: url('tiles/tile-select_character6.svg');
+	background-image: url('tiles/tile-select_character6.svg');
 }
 .tile[data-t="character7"][data-s="selected"] {
-    background-image: url('tiles/tile-select_character7.svg');
+	background-image: url('tiles/tile-select_character7.svg');
 }
 .tile[data-t="character8"][data-s="selected"] {
-    background-image: url('tiles/tile-select_character8.svg');
+	background-image: url('tiles/tile-select_character8.svg');
 }
 .tile[data-t="character9"][data-s="selected"] {
-    background-image: url('tiles/tile-select_character9.svg');
+	background-image: url('tiles/tile-select_character9.svg');
 }
 .tile[data-t="circle1"][data-s="selected"] {
-    background-image: url('tiles/tile-select_circle1.svg');
+	background-image: url('tiles/tile-select_circle1.svg');
 }
 .tile[data-t="circle2"][data-s="selected"] {
-    background-image: url('tiles/tile-select_circle2.svg');
+	background-image: url('tiles/tile-select_circle2.svg');
 }
 .tile[data-t="circle3"][data-s="selected"] {
-    background-image: url('tiles/tile-select_circle3.svg');
+	background-image: url('tiles/tile-select_circle3.svg');
 }
 .tile[data-t="circle4"][data-s="selected"] {
-    background-image: url('tiles/tile-select_circle4.svg');
+	background-image: url('tiles/tile-select_circle4.svg');
 }
 .tile[data-t="circle5"][data-s="selected"] {
-    background-image: url('tiles/tile-select_circle5.svg');
+	background-image: url('tiles/tile-select_circle5.svg');
 }
 .tile[data-t="circle6"][data-s="selected"] {
-    background-image: url('tiles/tile-select_circle6.svg');
+	background-image: url('tiles/tile-select_circle6.svg');
 }
 .tile[data-t="circle7"][data-s="selected"] {
-    background-image: url('tiles/tile-select_circle7.svg');
+	background-image: url('tiles/tile-select_circle7.svg');
 }
 .tile[data-t="circle8"][data-s="selected"] {
-    background-image: url('tiles/tile-select_circle8.svg');
+	background-image: url('tiles/tile-select_circle8.svg');
 }
 .tile[data-t="circle9"][data-s="selected"] {
-    background-image: url('tiles/tile-select_circle9.svg');
+	background-image: url('tiles/tile-select_circle9.svg');
 }
 .tile[data-t="dragonB"][data-s="selected"] {
-    background-image: url('tiles/tile-select_dragonB.svg');
+	background-image: url('tiles/tile-select_dragonB.svg');
 }
 .tile[data-t="dragonG"][data-s="selected"] {
-    background-image: url('tiles/tile-select_dragonG.svg');
+	background-image: url('tiles/tile-select_dragonG.svg');
 }
 .tile[data-t="dragonR"][data-s="selected"] {
-    background-image: url('tiles/tile-select_dragonR.svg');
+	background-image: url('tiles/tile-select_dragonR.svg');
 }
 .tile[data-t="flowerB"][data-s="selected"] {
-    background-image: url('tiles/tile-select_flowerB.svg');
+	background-image: url('tiles/tile-select_flowerB.svg');
 }
 .tile[data-t="flowerG"][data-s="selected"] {
-    background-image: url('tiles/tile-select_flowerG.svg');
+	background-image: url('tiles/tile-select_flowerG.svg');
 }
 .tile[data-t="flowerO"][data-s="selected"] {
-    background-image: url('tiles/tile-select_flowerO.svg');
+	background-image: url('tiles/tile-select_flowerO.svg');
 }
 .tile[data-t="flowerR"][data-s="selected"] {
-    background-image: url('tiles/tile-select_flowerR.svg');
+	background-image: url('tiles/tile-select_flowerR.svg');
 }
 .tile[data-t="seasonB"][data-s="selected"] {
-    background-image: url('tiles/tile-select_seasonB.svg');
+	background-image: url('tiles/tile-select_seasonB.svg');
 }
 .tile[data-t="seasonG"][data-s="selected"] {
-    background-image: url('tiles/tile-select_seasonG.svg');
+	background-image: url('tiles/tile-select_seasonG.svg');
 }
 .tile[data-t="seasonO"][data-s="selected"] {
-    background-image: url('tiles/tile-select_seasonO.svg');
+	background-image: url('tiles/tile-select_seasonO.svg');
 }
 .tile[data-t="seasonY"][data-s="selected"] {
-    background-image: url('tiles/tile-select_seasonY.svg');
+	background-image: url('tiles/tile-select_seasonY.svg');
 }
 .tile[data-t="windE"][data-s="selected"] {
-    background-image: url('tiles/tile-select_windE.svg');
+	background-image: url('tiles/tile-select_windE.svg');
 }
 .tile[data-t="windN"][data-s="selected"] {
-    background-image: url('tiles/tile-select_windN.svg');
+	background-image: url('tiles/tile-select_windN.svg');
 }
 .tile[data-t="windS"][data-s="selected"] {
-    background-image: url('tiles/tile-select_windS.svg');
+	background-image: url('tiles/tile-select_windS.svg');
 }
 .tile[data-t="windW"][data-s="selected"] {
-    background-image: url('tiles/tile-select_windW.svg');
+	background-image: url('tiles/tile-select_windW.svg');
 }

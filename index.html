@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs-CZ">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -135,211 +135,46 @@
 	<title>Mahjongg Solitaire</title>
 </head>
 <body>
-	<div id="panel">
+	<div class="panel">
 		<div id="points">0 bodů</div>
 		<div id="time">0m 0s</div>
-		<div id="buttons">
-			<button type="button" class="newGame">Nová hra</button>
-			<button type="button" class="helpButton">Nápověda</button>
-			<button type="button" class="aboutButton">O hře</button>
-		</div>
+		<button type="button" class="helpButton">Nápověda</button>
 	</div>
 
-	<div id="game">
-		<div id="t0" class="tile" data-x="3" data-y="1" data-z="1"></div>
-		<div id="t1" class="tile" data-x="5" data-y="1" data-z="1"></div>
-		<div id="t2" class="tile" data-x="7" data-y="1" data-z="1"></div>
-		<div id="t3" class="tile" data-x="9" data-y="1" data-z="1"></div>
-		<div id="t4" class="tile" data-x="11" data-y="1" data-z="1"></div>
-		<div id="t5" class="tile" data-x="13" data-y="1" data-z="1"></div>
-		<div id="t6" class="tile" data-x="15" data-y="1" data-z="1"></div>
-		<div id="t7" class="tile" data-x="17" data-y="1" data-z="1"></div>
-		<div id="t8" class="tile" data-x="19" data-y="1" data-z="1"></div>
-		<div id="t9" class="tile" data-x="21" data-y="1" data-z="1"></div>
-		<div id="t10" class="tile" data-x="23" data-y="1" data-z="1"></div>
-		<div id="t11" class="tile" data-x="25" data-y="1" data-z="1"></div>
-		<div id="t12" class="tile" data-x="7" data-y="3" data-z="1"></div>
-		<div id="t13" class="tile" data-x="9" data-y="3" data-z="1"></div>
-		<div id="t14" class="tile" data-x="11" data-y="3" data-z="1"></div>
-		<div id="t15" class="tile" data-x="13" data-y="3" data-z="1"></div>
-		<div id="t16" class="tile" data-x="15" data-y="3" data-z="1"></div>
-		<div id="t17" class="tile" data-x="17" data-y="3" data-z="1"></div>
-		<div id="t18" class="tile" data-x="19" data-y="3" data-z="1"></div>
-		<div id="t19" class="tile" data-x="21" data-y="3" data-z="1"></div>
-		<div id="t20" class="tile" data-x="5" data-y="5" data-z="1"></div>
-		<div id="t21" class="tile" data-x="7" data-y="5" data-z="1"></div>
-		<div id="t22" class="tile" data-x="9" data-y="5" data-z="1"></div>
-		<div id="t23" class="tile" data-x="11" data-y="5" data-z="1"></div>
-		<div id="t24" class="tile" data-x="13" data-y="5" data-z="1"></div>
-		<div id="t25" class="tile" data-x="15" data-y="5" data-z="1"></div>
-		<div id="t26" class="tile" data-x="17" data-y="5" data-z="1"></div>
-		<div id="t27" class="tile" data-x="19" data-y="5" data-z="1"></div>
-		<div id="t28" class="tile" data-x="21" data-y="5" data-z="1"></div>
-		<div id="t29" class="tile" data-x="23" data-y="5" data-z="1"></div>
-		<div id="t30" class="tile" data-x="1" data-y="8" data-z="1"></div>
-		<div id="t31" class="tile" data-x="3" data-y="7" data-z="1"></div>
-		<div id="t32" class="tile" data-x="5" data-y="7" data-z="1"></div>
-		<div id="t33" class="tile" data-x="7" data-y="7" data-z="1"></div>
-		<div id="t34" class="tile" data-x="9" data-y="7" data-z="1"></div>
-		<div id="t35" class="tile" data-x="11" data-y="7" data-z="1"></div>
-		<div id="t36" class="tile" data-x="13" data-y="7" data-z="1"></div>
-		<div id="t37" class="tile" data-x="15" data-y="7" data-z="1"></div>
-		<div id="t38" class="tile" data-x="17" data-y="7" data-z="1"></div>
-		<div id="t39" class="tile" data-x="19" data-y="7" data-z="1"></div>
-		<div id="t40" class="tile" data-x="21" data-y="7" data-z="1"></div>
-		<div id="t41" class="tile" data-x="23" data-y="7" data-z="1"></div>
-		<div id="t42" class="tile" data-x="25" data-y="7" data-z="1"></div>
-		<div id="t43" class="tile" data-x="3" data-y="9" data-z="1"></div>
-		<div id="t44" class="tile" data-x="5" data-y="9" data-z="1"></div>
-		<div id="t45" class="tile" data-x="7" data-y="9" data-z="1"></div>
-		<div id="t46" class="tile" data-x="9" data-y="9" data-z="1"></div>
-		<div id="t47" class="tile" data-x="11" data-y="9" data-z="1"></div>
-		<div id="t48" class="tile" data-x="13" data-y="9" data-z="1"></div>
-		<div id="t49" class="tile" data-x="15" data-y="9" data-z="1"></div>
-		<div id="t50" class="tile" data-x="17" data-y="9" data-z="1"></div>
-		<div id="t51" class="tile" data-x="19" data-y="9" data-z="1"></div>
-		<div id="t52" class="tile" data-x="21" data-y="9" data-z="1"></div>
-		<div id="t53" class="tile" data-x="23" data-y="9" data-z="1"></div>
-		<div id="t54" class="tile" data-x="25" data-y="9" data-z="1"></div>
-		<div id="t55" class="tile" data-x="27" data-y="8" data-z="1"></div>
-		<div id="t56" class="tile" data-x="29" data-y="8" data-z="1"></div>
-		<div id="t57" class="tile" data-x="5" data-y="11" data-z="1"></div>
-		<div id="t58" class="tile" data-x="7" data-y="11" data-z="1"></div>
-		<div id="t59" class="tile" data-x="9" data-y="11" data-z="1"></div>
-		<div id="t60" class="tile" data-x="11" data-y="11" data-z="1"></div>
-		<div id="t61" class="tile" data-x="13" data-y="11" data-z="1"></div>
-		<div id="t62" class="tile" data-x="15" data-y="11" data-z="1"></div>
-		<div id="t63" class="tile" data-x="17" data-y="11" data-z="1"></div>
-		<div id="t64" class="tile" data-x="19" data-y="11" data-z="1"></div>
-		<div id="t65" class="tile" data-x="21" data-y="11" data-z="1"></div>
-		<div id="t66" class="tile" data-x="23" data-y="11" data-z="1"></div>
-		<div id="t67" class="tile" data-x="7" data-y="13" data-z="1"></div>
-		<div id="t68" class="tile" data-x="9" data-y="13" data-z="1"></div>
-		<div id="t69" class="tile" data-x="11" data-y="13" data-z="1"></div>
-		<div id="t70" class="tile" data-x="13" data-y="13" data-z="1"></div>
-		<div id="t71" class="tile" data-x="15" data-y="13" data-z="1"></div>
-		<div id="t72" class="tile" data-x="17" data-y="13" data-z="1"></div>
-		<div id="t73" class="tile" data-x="19" data-y="13" data-z="1"></div>
-		<div id="t74" class="tile" data-x="21" data-y="13" data-z="1"></div>
-		<div id="t75" class="tile" data-x="3" data-y="15" data-z="1"></div>
-		<div id="t76" class="tile" data-x="5" data-y="15" data-z="1"></div>
-		<div id="t77" class="tile" data-x="7" data-y="15" data-z="1"></div>
-		<div id="t78" class="tile" data-x="9" data-y="15" data-z="1"></div>
-		<div id="t79" class="tile" data-x="11" data-y="15" data-z="1"></div>
-		<div id="t80" class="tile" data-x="13" data-y="15" data-z="1"></div>
-		<div id="t81" class="tile" data-x="15" data-y="15" data-z="1"></div>
-		<div id="t82" class="tile" data-x="17" data-y="15" data-z="1"></div>
-		<div id="t83" class="tile" data-x="19" data-y="15" data-z="1"></div>
-		<div id="t84" class="tile" data-x="21" data-y="15" data-z="1"></div>
-		<div id="t85" class="tile" data-x="23" data-y="15" data-z="1"></div>
-		<div id="t86" class="tile" data-x="25" data-y="15" data-z="1"></div>
-		<div id="t87" class="tile" data-x="9" data-y="3" data-z="2"></div>
-		<div id="t88" class="tile" data-x="11" data-y="3" data-z="2"></div>
-		<div id="t89" class="tile" data-x="13" data-y="3" data-z="2"></div>
-		<div id="t90" class="tile" data-x="15" data-y="3" data-z="2"></div>
-		<div id="t91" class="tile" data-x="17" data-y="3" data-z="2"></div>
-		<div id="t92" class="tile" data-x="19" data-y="3" data-z="2"></div>
-		<div id="t93" class="tile" data-x="9" data-y="5" data-z="2"></div>
-		<div id="t94" class="tile" data-x="11" data-y="5" data-z="2"></div>
-		<div id="t95" class="tile" data-x="13" data-y="5" data-z="2"></div>
-		<div id="t96" class="tile" data-x="15" data-y="5" data-z="2"></div>
-		<div id="t97" class="tile" data-x="17" data-y="5" data-z="2"></div>
-		<div id="t98" class="tile" data-x="19" data-y="5" data-z="2"></div>
-		<div id="t99" class="tile" data-x="9" data-y="7" data-z="2"></div>
-		<div id="t100" class="tile" data-x="11" data-y="7" data-z="2"></div>
-		<div id="t101" class="tile" data-x="13" data-y="7" data-z="2"></div>
-		<div id="t102" class="tile" data-x="15" data-y="7" data-z="2"></div>
-		<div id="t103" class="tile" data-x="17" data-y="7" data-z="2"></div>
-		<div id="t104" class="tile" data-x="19" data-y="7" data-z="2"></div>
-		<div id="t105" class="tile" data-x="9" data-y="9" data-z="2"></div>
-		<div id="t106" class="tile" data-x="11" data-y="9" data-z="2"></div>
-		<div id="t107" class="tile" data-x="13" data-y="9" data-z="2"></div>
-		<div id="t108" class="tile" data-x="15" data-y="9" data-z="2"></div>
-		<div id="t109" class="tile" data-x="17" data-y="9" data-z="2"></div>
-		<div id="t110" class="tile" data-x="19" data-y="9" data-z="2"></div>
-		<div id="t111" class="tile" data-x="9" data-y="11" data-z="2"></div>
-		<div id="t112" class="tile" data-x="11" data-y="11" data-z="2"></div>
-		<div id="t113" class="tile" data-x="13" data-y="11" data-z="2"></div>
-		<div id="t114" class="tile" data-x="15" data-y="11" data-z="2"></div>
-		<div id="t115" class="tile" data-x="17" data-y="11" data-z="2"></div>
-		<div id="t116" class="tile" data-x="19" data-y="11" data-z="2"></div>
-		<div id="t117" class="tile" data-x="9" data-y="13" data-z="2"></div>
-		<div id="t118" class="tile" data-x="11" data-y="13" data-z="2"></div>
-		<div id="t119" class="tile" data-x="13" data-y="13" data-z="2"></div>
-		<div id="t120" class="tile" data-x="15" data-y="13" data-z="2"></div>
-		<div id="t121" class="tile" data-x="17" data-y="13" data-z="2"></div>
-		<div id="t122" class="tile" data-x="19" data-y="13" data-z="2"></div>
-		<div id="t123" class="tile" data-x="11" data-y="5" data-z="3"></div>
-		<div id="t124" class="tile" data-x="13" data-y="5" data-z="3"></div>
-		<div id="t125" class="tile" data-x="15" data-y="5" data-z="3"></div>
-		<div id="t126" class="tile" data-x="17" data-y="5" data-z="3"></div>
-		<div id="t127" class="tile" data-x="11" data-y="7" data-z="3"></div>
-		<div id="t128" class="tile" data-x="13" data-y="7" data-z="3"></div>
-		<div id="t129" class="tile" data-x="15" data-y="7" data-z="3"></div>
-		<div id="t130" class="tile" data-x="17" data-y="7" data-z="3"></div>
-		<div id="t131" class="tile" data-x="11" data-y="9" data-z="3"></div>
-		<div id="t132" class="tile" data-x="13" data-y="9" data-z="3"></div>
-		<div id="t133" class="tile" data-x="15" data-y="9" data-z="3"></div>
-		<div id="t134" class="tile" data-x="17" data-y="9" data-z="3"></div>
-		<div id="t135" class="tile" data-x="11" data-y="11" data-z="3"></div>
-		<div id="t136" class="tile" data-x="13" data-y="11" data-z="3"></div>
-		<div id="t137" class="tile" data-x="15" data-y="11" data-z="3"></div>
-		<div id="t138" class="tile" data-x="17" data-y="11" data-z="3"></div>
-		<div id="t139" class="tile" data-x="13" data-y="7" data-z="4"></div>
-		<div id="t140" class="tile" data-x="15" data-y="7" data-z="4"></div>
-		<div id="t141" class="tile" data-x="13" data-y="9" data-z="4"></div>
-		<div id="t142" class="tile" data-x="15" data-y="9" data-z="4"></div>
-		<div id="t143" class="tile" data-x="14" data-y="8" data-z="5"></div>
-	</div>
+	<div id="game"></div>
 
 	<dialog id="win" class="gamedlg">
-		<div class="dlgcontent">
-			<div class="dlgmessage">
-				<div class="dlgsmiley">👑</div>
-				<div class="dlgheading">Vyhráli jste!</div>
-				<div class="dlgdetail">0m 0s</div>
-			</div>
-			<div class="dlgbuttons">
-				<button type="button" class="newGame">Nová hra</button>
-				<button type="button" id="winClose">Zavřít</button>
-			</div>
+		<div class="dlgmessage">
+			<div class="dlgsmiley">👑</div>
+			<div class="dlgheading">Vyhráli jste!</div>
+			<div class="dlgdetail">0m 0s</div>
+		</div>
+		<div class="dlgbuttons">
+			<button type="button" class="newGame">Nová hra</button>
+			<button type="button" id="winClose">Zavřít</button>
 		</div>
 	</dialog>
 	<dialog id="lose" class="gamedlg">
-		<div class="dlgcontent">
-			<div class="dlgmessage">
-				<div class="dlgsmiley">🥺</div>
-				<div class="dlgheading">Prohráli jste.</div>
-				<div class="dlgdetail">Asi jsem to špatně rozdal.</div>
-			</div>
-			<div class="dlgbuttons">
-				<button type="button" class="newGame">Nová hra</button>
-				<button type="button" id="loseClose">Zavřít</button>
-			</div>
+		<div class="dlgmessage">
+			<div class="dlgsmiley">🥺</div>
+			<div class="dlgheading">Prohráli jste.</div>
+			<div>Asi jsem to špatně rozdal.</div>
+		</div>
+		<div class="dlgbuttons">
+			<button type="button" class="newGame">Nová hra</button>
+			<button type="button" id="loseClose">Zavřít</button>
 		</div>
 	</dialog>
 	<dialog id="help" class="gamedlg">
-		<div class="dlgcontent">
-			<div class="dlgmessage">
-				<div class="dlgsmiley">❓</div>
-				<div class="dlgheading">Nápověda</div>
-				<div class="dlgdetail">Vaším cílem je posbírat všech 144 kostek.<br>Sbírat můžete kostky se stejnými symboly,<br>které nemají jinou kostku nad sebou<br>či z obou delších stran.<br>Kostky typu Období a Květina<br>mohou být v páru v odlišných barvách.<br><strong>Pozor!</strong> Hra nemusí být nutně rozdána tak,<br>že určitě lze vyhrát!</div>
-			</div>
-			<div class="dlgbuttons">
-				<button type="button" id="helpClose">Zavřít</button>
-			</div>
+		<div class="dlgmessage">
+			<div class="dlgsmiley">❓</div>
+			<div class="dlgheading">Nápověda</div>
+			<div>Vaším cílem je posbírat všech 144 kostek. Sbírat můžete kostky se stejnými symboly, které nemají jinou kostku nad sebou či z obou delších stran. Kostky typu Období a Květina mohou být v páru v odlišných barvách. <strong>Pozor!</strong> Hra nemusí být nutně rozdána tak, že určitě lze vyhrát!</div>
+			<div><a href="https://github.com/tommander/mahjongg">Mahjongg Solitaire</a> od <a href="https://tommander.cz">Tomáše Rajnohy</a> je označen jako <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></div>
 		</div>
-	</dialog>
-	<dialog id="about" class="gamedlg">
-		<div class="dlgcontent">
-			<div class="dlgmessage">
-				<div class="dlgsmiley">ℹ️</div>
-				<div class="dlgheading">O hře</div>
-				<div class="dlgdetail"><a href="https://github.com/tommander/mahjongg">Mahjongg Solitaire</a> od <a href="https://tommander.cz">Tomáše Rajnohy</a> je označen jako <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a><img src="graphics/cc.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="graphics/zero.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"></div>
-			</div>
-			<div class="dlgbuttons">
-				<button type="button" id="aboutClose">Zavřít</button>
-			</div>
+		<div class="dlgbuttons">
+			<button type="button" class="newGame">Nová hra</button>
+			<button type="button" id="helpClose">Zavřít</button>
 		</div>
 	</dialog>
 

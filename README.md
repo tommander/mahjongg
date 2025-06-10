@@ -5,7 +5,7 @@ A simple Mahjongg Solitaire game, using HTML + CSS + JS with a timer and points.
 Main advantages:
 
 - No external dependencies or assets
-- Should work on most devices and browsers
+- Should work on most devices and browsers (auto-resize)
 - Fast even on slower devices
 - No personal data collection, analytics etc.
 - No frameworks, composers, npms etc.
