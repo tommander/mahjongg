@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<link rel="preload" href="tiles/tile_bamboo1.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_bamboo2.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_bamboo3.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_bamboo4.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_bamboo5.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_bamboo6.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_bamboo7.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_bamboo8.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_bamboo9.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_character1.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_character2.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_character3.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_character4.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_character5.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_character6.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_character7.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_character8.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_character9.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_circle1.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_circle2.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_circle3.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_circle4.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_circle5.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_circle6.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_circle7.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_circle8.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_circle9.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_dragonB.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_dragonG.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_dragonR.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_empty.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_flowerB.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_flowerG.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_flowerO.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_flowerR.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_bamboo1.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_bamboo2.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_bamboo3.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_bamboo4.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_bamboo5.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_bamboo6.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_bamboo7.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_bamboo8.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_bamboo9.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_character1.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_character2.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_character3.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_character4.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_character5.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_character6.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_character7.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_character8.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_character9.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_circle1.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_circle2.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_circle3.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_circle4.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_circle5.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_circle6.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_circle7.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_circle8.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_circle9.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_dragonB.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_dragonG.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_dragonR.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_empty.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_flowerB.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_flowerG.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_flowerO.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_flowerR.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_seasonB.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_seasonG.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_seasonO.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_seasonY.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_windE.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_windN.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_windS.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-hover_windW.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_seasonB.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_seasonG.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_seasonO.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_seasonY.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_bamboo1.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_bamboo2.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_bamboo3.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_bamboo4.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_bamboo5.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_bamboo6.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_bamboo7.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_bamboo8.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_bamboo9.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_character1.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_character2.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_character3.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_character4.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_character5.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_character6.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_character7.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_character8.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_character9.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_circle1.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_circle2.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_circle3.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_circle4.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_circle5.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_circle6.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_circle7.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_circle8.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_circle9.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_dragonB.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_dragonG.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_dragonR.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_flowerB.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_flowerG.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_flowerO.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_flowerR.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_seasonB.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_seasonG.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_seasonO.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_seasonY.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_windE.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_windN.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_windS.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile-select_windW.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_windE.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_windN.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_windS.svg" as="image" type="image/svg+xml">
+	<link rel="preload" href="tiles/tile_windW.svg" as="image" type="image/svg+xml">
+	<title>Mahjongg Solitaire</title>
+</head>
+<body>
+	<div id="panel">
+		<div id="points">0 bodů</div>
+		<div id="time">0m 0s</div>
+		<div id="buttons">
+			<button type="button" class="newGame">Nová hra</button>
+			<button type="button" class="helpButton">Nápověda</button>
+			<button type="button" class="aboutButton">O hře</button>
+		</div>
+	</div>
+
+	<div id="game">
+		<div id="t0" class="tile" data-x="3" data-y="1" data-z="1"></div>
+		<div id="t1" class="tile" data-x="5" data-y="1" data-z="1"></div>
+		<div id="t2" class="tile" data-x="7" data-y="1" data-z="1"></div>
+		<div id="t3" class="tile" data-x="9" data-y="1" data-z="1"></div>
+		<div id="t4" class="tile" data-x="11" data-y="1" data-z="1"></div>
+		<div id="t5" class="tile" data-x="13" data-y="1" data-z="1"></div>
+		<div id="t6" class="tile" data-x="15" data-y="1" data-z="1"></div>
+		<div id="t7" class="tile" data-x="17" data-y="1" data-z="1"></div>
+		<div id="t8" class="tile" data-x="19" data-y="1" data-z="1"></div>
+		<div id="t9" class="tile" data-x="21" data-y="1" data-z="1"></div>
+		<div id="t10" class="tile" data-x="23" data-y="1" data-z="1"></div>
+		<div id="t11" class="tile" data-x="25" data-y="1" data-z="1"></div>
+		<div id="t12" class="tile" data-x="7" data-y="3" data-z="1"></div>
+		<div id="t13" class="tile" data-x="9" data-y="3" data-z="1"></div>
+		<div id="t14" class="tile" data-x="11" data-y="3" data-z="1"></div>
+		<div id="t15" class="tile" data-x="13" data-y="3" data-z="1"></div>
+		<div id="t16" class="tile" data-x="15" data-y="3" data-z="1"></div>
+		<div id="t17" class="tile" data-x="17" data-y="3" data-z="1"></div>
+		<div id="t18" class="tile" data-x="19" data-y="3" data-z="1"></div>
+		<div id="t19" class="tile" data-x="21" data-y="3" data-z="1"></div>
+		<div id="t20" class="tile" data-x="5" data-y="5" data-z="1"></div>
+		<div id="t21" class="tile" data-x="7" data-y="5" data-z="1"></div>
+		<div id="t22" class="tile" data-x="9" data-y="5" data-z="1"></div>
+		<div id="t23" class="tile" data-x="11" data-y="5" data-z="1"></div>
+		<div id="t24" class="tile" data-x="13" data-y="5" data-z="1"></div>
+		<div id="t25" class="tile" data-x="15" data-y="5" data-z="1"></div>
+		<div id="t26" class="tile" data-x="17" data-y="5" data-z="1"></div>
+		<div id="t27" class="tile" data-x="19" data-y="5" data-z="1"></div>
+		<div id="t28" class="tile" data-x="21" data-y="5" data-z="1"></div>
+		<div id="t29" class="tile" data-x="23" data-y="5" data-z="1"></div>
+		<div id="t30" class="tile" data-x="1" data-y="8" data-z="1"></div>
+		<div id="t31" class="tile" data-x="3" data-y="7" data-z="1"></div>
+		<div id="t32" class="tile" data-x="5" data-y="7" data-z="1"></div>
+		<div id="t33" class="tile" data-x="7" data-y="7" data-z="1"></div>
+		<div id="t34" class="tile" data-x="9" data-y="7" data-z="1"></div>
+		<div id="t35" class="tile" data-x="11" data-y="7" data-z="1"></div>
+		<div id="t36" class="tile" data-x="13" data-y="7" data-z="1"></div>
+		<div id="t37" class="tile" data-x="15" data-y="7" data-z="1"></div>
+		<div id="t38" class="tile" data-x="17" data-y="7" data-z="1"></div>
+		<div id="t39" class="tile" data-x="19" data-y="7" data-z="1"></div>
+		<div id="t40" class="tile" data-x="21" data-y="7" data-z="1"></div>
+		<div id="t41" class="tile" data-x="23" data-y="7" data-z="1"></div>
+		<div id="t42" class="tile" data-x="25" data-y="7" data-z="1"></div>
+		<div id="t43" class="tile" data-x="3" data-y="9" data-z="1"></div>
+		<div id="t44" class="tile" data-x="5" data-y="9" data-z="1"></div>
+		<div id="t45" class="tile" data-x="7" data-y="9" data-z="1"></div>
+		<div id="t46" class="tile" data-x="9" data-y="9" data-z="1"></div>
+		<div id="t47" class="tile" data-x="11" data-y="9" data-z="1"></div>
+		<div id="t48" class="tile" data-x="13" data-y="9" data-z="1"></div>
+		<div id="t49" class="tile" data-x="15" data-y="9" data-z="1"></div>
+		<div id="t50" class="tile" data-x="17" data-y="9" data-z="1"></div>
+		<div id="t51" class="tile" data-x="19" data-y="9" data-z="1"></div>
+		<div id="t52" class="tile" data-x="21" data-y="9" data-z="1"></div>
+		<div id="t53" class="tile" data-x="23" data-y="9" data-z="1"></div>
+		<div id="t54" class="tile" data-x="25" data-y="9" data-z="1"></div>
+		<div id="t55" class="tile" data-x="27" data-y="8" data-z="1"></div>
+		<div id="t56" class="tile" data-x="29" data-y="8" data-z="1"></div>
+		<div id="t57" class="tile" data-x="5" data-y="11" data-z="1"></div>
+		<div id="t58" class="tile" data-x="7" data-y="11" data-z="1"></div>
+		<div id="t59" class="tile" data-x="9" data-y="11" data-z="1"></div>
+		<div id="t60" class="tile" data-x="11" data-y="11" data-z="1"></div>
+		<div id="t61" class="tile" data-x="13" data-y="11" data-z="1"></div>
+		<div id="t62" class="tile" data-x="15" data-y="11" data-z="1"></div>
+		<div id="t63" class="tile" data-x="17" data-y="11" data-z="1"></div>
+		<div id="t64" class="tile" data-x="19" data-y="11" data-z="1"></div>
+		<div id="t65" class="tile" data-x="21" data-y="11" data-z="1"></div>
+		<div id="t66" class="tile" data-x="23" data-y="11" data-z="1"></div>
+		<div id="t67" class="tile" data-x="7" data-y="13" data-z="1"></div>
+		<div id="t68" class="tile" data-x="9" data-y="13" data-z="1"></div>
+		<div id="t69" class="tile" data-x="11" data-y="13" data-z="1"></div>
+		<div id="t70" class="tile" data-x="13" data-y="13" data-z="1"></div>
+		<div id="t71" class="tile" data-x="15" data-y="13" data-z="1"></div>
+		<div id="t72" class="tile" data-x="17" data-y="13" data-z="1"></div>
+		<div id="t73" class="tile" data-x="19" data-y="13" data-z="1"></div>
+		<div id="t74" class="tile" data-x="21" data-y="13" data-z="1"></div>
+		<div id="t75" class="tile" data-x="3" data-y="15" data-z="1"></div>
+		<div id="t76" class="tile" data-x="5" data-y="15" data-z="1"></div>
+		<div id="t77" class="tile" data-x="7" data-y="15" data-z="1"></div>
+		<div id="t78" class="tile" data-x="9" data-y="15" data-z="1"></div>
+		<div id="t79" class="tile" data-x="11" data-y="15" data-z="1"></div>
+		<div id="t80" class="tile" data-x="13" data-y="15" data-z="1"></div>
+		<div id="t81" class="tile" data-x="15" data-y="15" data-z="1"></div>
+		<div id="t82" class="tile" data-x="17" data-y="15" data-z="1"></div>
+		<div id="t83" class="tile" data-x="19" data-y="15" data-z="1"></div>
+		<div id="t84" class="tile" data-x="21" data-y="15" data-z="1"></div>
+		<div id="t85" class="tile" data-x="23" data-y="15" data-z="1"></div>
+		<div id="t86" class="tile" data-x="25" data-y="15" data-z="1"></div>
+		<div id="t87" class="tile" data-x="9" data-y="3" data-z="2"></div>
+		<div id="t88" class="tile" data-x="11" data-y="3" data-z="2"></div>
+		<div id="t89" class="tile" data-x="13" data-y="3" data-z="2"></div>
+		<div id="t90" class="tile" data-x="15" data-y="3" data-z="2"></div>
+		<div id="t91" class="tile" data-x="17" data-y="3" data-z="2"></div>
+		<div id="t92" class="tile" data-x="19" data-y="3" data-z="2"></div>
+		<div id="t93" class="tile" data-x="9" data-y="5" data-z="2"></div>
+		<div id="t94" class="tile" data-x="11" data-y="5" data-z="2"></div>
+		<div id="t95" class="tile" data-x="13" data-y="5" data-z="2"></div>
+		<div id="t96" class="tile" data-x="15" data-y="5" data-z="2"></div>
+		<div id="t97" class="tile" data-x="17" data-y="5" data-z="2"></div>
+		<div id="t98" class="tile" data-x="19" data-y="5" data-z="2"></div>
+		<div id="t99" class="tile" data-x="9" data-y="7" data-z="2"></div>
+		<div id="t100" class="tile" data-x="11" data-y="7" data-z="2"></div>
+		<div id="t101" class="tile" data-x="13" data-y="7" data-z="2"></div>
+		<div id="t102" class="tile" data-x="15" data-y="7" data-z="2"></div>
+		<div id="t103" class="tile" data-x="17" data-y="7" data-z="2"></div>
+		<div id="t104" class="tile" data-x="19" data-y="7" data-z="2"></div>
+		<div id="t105" class="tile" data-x="9" data-y="9" data-z="2"></div>
+		<div id="t106" class="tile" data-x="11" data-y="9" data-z="2"></div>
+		<div id="t107" class="tile" data-x="13" data-y="9" data-z="2"></div>
+		<div id="t108" class="tile" data-x="15" data-y="9" data-z="2"></div>
+		<div id="t109" class="tile" data-x="17" data-y="9" data-z="2"></div>
+		<div id="t110" class="tile" data-x="19" data-y="9" data-z="2"></div>
+		<div id="t111" class="tile" data-x="9" data-y="11" data-z="2"></div>
+		<div id="t112" class="tile" data-x="11" data-y="11" data-z="2"></div>
+		<div id="t113" class="tile" data-x="13" data-y="11" data-z="2"></div>
+		<div id="t114" class="tile" data-x="15" data-y="11" data-z="2"></div>
+		<div id="t115" class="tile" data-x="17" data-y="11" data-z="2"></div>
+		<div id="t116" class="tile" data-x="19" data-y="11" data-z="2"></div>
+		<div id="t117" class="tile" data-x="9" data-y="13" data-z="2"></div>
+		<div id="t118" class="tile" data-x="11" data-y="13" data-z="2"></div>
+		<div id="t119" class="tile" data-x="13" data-y="13" data-z="2"></div>
+		<div id="t120" class="tile" data-x="15" data-y="13" data-z="2"></div>
+		<div id="t121" class="tile" data-x="17" data-y="13" data-z="2"></div>
+		<div id="t122" class="tile" data-x="19" data-y="13" data-z="2"></div>
+		<div id="t123" class="tile" data-x="11" data-y="5" data-z="3"></div>
+		<div id="t124" class="tile" data-x="13" data-y="5" data-z="3"></div>
+		<div id="t125" class="tile" data-x="15" data-y="5" data-z="3"></div>
+		<div id="t126" class="tile" data-x="17" data-y="5" data-z="3"></div>
+		<div id="t127" class="tile" data-x="11" data-y="7" data-z="3"></div>
+		<div id="t128" class="tile" data-x="13" data-y="7" data-z="3"></div>
+		<div id="t129" class="tile" data-x="15" data-y="7" data-z="3"></div>
+		<div id="t130" class="tile" data-x="17" data-y="7" data-z="3"></div>
+		<div id="t131" class="tile" data-x="11" data-y="9" data-z="3"></div>
+		<div id="t132" class="tile" data-x="13" data-y="9" data-z="3"></div>
+		<div id="t133" class="tile" data-x="15" data-y="9" data-z="3"></div>
+		<div id="t134" class="tile" data-x="17" data-y="9" data-z="3"></div>
+		<div id="t135" class="tile" data-x="11" data-y="11" data-z="3"></div>
+		<div id="t136" class="tile" data-x="13" data-y="11" data-z="3"></div>
+		<div id="t137" class="tile" data-x="15" data-y="11" data-z="3"></div>
+		<div id="t138" class="tile" data-x="17" data-y="11" data-z="3"></div>
+		<div id="t139" class="tile" data-x="13" data-y="7" data-z="4"></div>
+		<div id="t140" class="tile" data-x="15" data-y="7" data-z="4"></div>
+		<div id="t141" class="tile" data-x="13" data-y="9" data-z="4"></div>
+		<div id="t142" class="tile" data-x="15" data-y="9" data-z="4"></div>
+		<div id="t143" class="tile" data-x="14" data-y="8" data-z="5"></div>
+	</div>
+
+	<dialog id="win" class="gamedlg">
+		<div class="dlgcontent">
+			<div class="dlgmessage">
+				<div class="dlgsmiley">👑</div>
+				<div class="dlgheading">Vyhráli jste!</div>
+				<div class="dlgdetail">0m 0s</div>
+			</div>
+			<div class="dlgbuttons">
+				<button type="button" class="newGame">Nová hra</button>
+				<button type="button" id="winClose">Zavřít</button>
+			</div>
+		</div>
+	</dialog>
+	<dialog id="lose" class="gamedlg">
+		<div class="dlgcontent">
+			<div class="dlgmessage">
+				<div class="dlgsmiley">🥺</div>
+				<div class="dlgheading">Prohráli jste.</div>
+				<div class="dlgdetail">Asi jsem to špatně rozdal.</div>
+			</div>
+			<div class="dlgbuttons">
+				<button type="button" class="newGame">Nová hra</button>
+				<button type="button" id="loseClose">Zavřít</button>
+			</div>
+		</div>
+	</dialog>
+	<dialog id="help" class="gamedlg">
+		<div class="dlgcontent">
+			<div class="dlgmessage">
+				<div class="dlgsmiley">❓</div>
+				<div class="dlgheading">Nápověda</div>
+				<div class="dlgdetail">Vaším cílem je posbírat všech 144 kostek.<br>Sbírat můžete kostky se stejnými symboly,<br>které nemají jinou kostku nad sebou<br>či z obou delších stran.<br>Kostky typu Období a Květina<br>mohou být v páru v odlišných barvách.<br><strong>Pozor!</strong> Hra nemusí být nutně rozdána tak,<br>že určitě lze vyhrát!</div>
+			</div>
+			<div class="dlgbuttons">
+				<button type="button" id="helpClose">Zavřít</button>
+			</div>
+		</div>
+	</dialog>
+	<dialog id="about" class="gamedlg">
+		<div class="dlgcontent">
+			<div class="dlgmessage">
+				<div class="dlgsmiley">ℹ️</div>
+				<div class="dlgheading">O hře</div>
+				<div class="dlgdetail"><a href="https://github.com/tommander/mahjongg">Mahjongg Solitaire</a> od <a href="https://tommander.cz">Tomáše Rajnohy</a> je označen jako <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a><img src="graphics/cc.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="graphics/zero.svg" style="max-width: 1em;max-height:1em;margin-left: .2em;"></div>
+			</div>
+			<div class="dlgbuttons">
+				<button type="button" id="aboutClose">Zavřít</button>
+			</div>
+		</div>
+	</dialog>
+
+	<div id="current"><img id="currentimg" src="tiles/tile_empty.svg" alt="Aktuální blok" class="mock"><div id="currentname">Nula Nic</div></div>
+
+	<script src="script.js"></script>
+</body>
+</html>
