@@ -38,7 +38,7 @@ button {
 	position: relative;
 	border: 1px solid #aaa;
 	border-radius: 5px;
-	box-shadow: 1px 1px #555, 2px 2px #555, 3px 3px #555, 4px 4px black;
+	box-shadow: 1px 1px #777, 2px 2px #777, 3px 3px #777, 4px 4px #000;
 	background-color: white;
 	display: flex;
 	justify-content: center;
