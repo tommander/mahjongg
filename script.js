@@ -7,14 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	 * @property {number} points - Player's collected points
 	 * @property {object} shapeDim - Width, height and maximum z-index of the current deal shape
 	 */
-	window.mahjongg = {
-		start: new Date().valueOf(),
-		points: 0,
-		shapeDim: {
-			w: 0,
-			h: 0,
-			maxz: 0,
-		}
+	const initSession = () => {
+		sessionStorage.setItem('start', new Date().valueOf());
+		sessionStorage.setItem('points', 0);
+		sessionStorage.setItem('shapew', 0);
+		sessionStorage.setItem('shapeh', 0);
+		sessionStorage.setItem('shapez', 0);
+
 	};
 
 	/**
@@ -257,10 +256,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			(flowers.indexOf(listSel[0].innerText) > -1 && flowers.indexOf(listSel[1].innerText) > -1) ||
 			(seasons.indexOf(listSel[0].innerText) > -1 && seasons.indexOf(listSel[1].innerText) > -1)
 		) {
-			window.mahjongg.points += (pointsMap[listSel[0].innerText] + pointsMap[listSel[1].innerText]);
+			sessionStorage.setItem('points', parseInt(sessionStorage.getItem('points')) + (pointsMap[listSel[0].innerText] + pointsMap[listSel[1].innerText]));
 			const elPoints = document.getElementById('points');
 			if (elPoints instanceof HTMLElement) {
-				elPoints.innerText = window.mahjongg.points;
+				elPoints.innerText = sessionStorage.getItem('points');
 			}
 			listSel[0].remove();
 			listSel[1].remove();
@@ -359,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	/**
-	 * Updates elapsed time based on the difference between now and `mahjongg.start`.
+	 * Updates elapsed time based on the difference between now and game start.
 	 *
 	 * @returns {void}
 	 */
@@ -368,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (!(elTime instanceof HTMLElement)) {
 			return;
 		}
-		const diff = Math.floor((new Date().valueOf() - window.mahjongg.start) / 1000);
+		const diff = Math.floor((new Date().valueOf() - parseInt(sessionStorage.getItem('start'))) / 1000);
 		const diffM = Math.floor(diff / 60);
 		const diffS = diff % 60;
 		const diffS0 = diffS < 10 ? '0' : '';
@@ -397,22 +396,22 @@ document.addEventListener('DOMContentLoaded', () => {
 		const screenWidth = visualViewport.width;
 		const screenHeight = (visualViewport.height - elPanel.clientHeight); 
 
-		const shapeRatio = (window.mahjongg.shapeDim.w / window.mahjongg.shapeDim.h);
+		const shapeRatio = (parseInt(sessionStorage.getItem('shapew')) / parseInt(sessionStorage.getItem('shapeh')));
 		const screenRatio = (screenWidth / screenHeight);
 
 		let tileH = 0;
 		let tileW = 0;
 
 		if (shapeRatio > screenRatio) {
-			tileW = ((2 * screenWidth) / (window.mahjongg.shapeDim.w + 1));
+			tileW = ((2 * screenWidth) / (parseInt(sessionStorage.getItem('shapew')) + 1));
 			tileH = ((tileW * 9) / 7);
 		} else {
-			tileH = ((2 * screenHeight) / (window.mahjongg.shapeDim.h + 1));
+			tileH = ((2 * screenHeight) / (parseInt(sessionStorage.getItem('shapeh')) + 1));
 			tileW = ((tileH * 7) / 9);
 		}
 
-		elGame.style.gridTemplateColumns = `repeat(${window.mahjongg.shapeDim.w + 1}, ${Math.round(tileW / 2)}px)`;
-		elGame.style.gridTemplateRows = `repeat(${window.mahjongg.shapeDim.h + 1}, ${Math.round(tileH / 2)}px)`;
+		elGame.style.gridTemplateColumns = `repeat(${parseInt(sessionStorage.getItem('shapew')) + 1}, ${Math.round(tileW / 2)}px)`;
+		elGame.style.gridTemplateRows = `repeat(${parseInt(sessionStorage.getItem('shapeh')) + 1}, ${Math.round(tileH / 2)}px)`;
 		elGame.style.fontSize = `${Math.round(tileH * 0.625)}px`;
 	}
 
@@ -424,7 +423,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	 */
 	const drawGame = (shape) => {
 		let shapeDef = [];
-		window.mahjongg.shapeDim = {w: 0, h: 0, maxz: 0};
 		if (shape === 'turtle') {
 			shapeDef = [
 				{x: 3, y: 1, z: 1}, {x: 5, y: 1, z: 1}, {x: 7, y: 1, z: 1}, {x: 9, y: 1, z: 1},
@@ -464,9 +462,9 @@ document.addEventListener('DOMContentLoaded', () => {
 				{x: 13, y: 11, z: 3}, {x: 15, y: 11, z: 3}, {x: 17, y: 11, z: 3}, {x: 13, y: 7, z: 4},
 				{x: 15, y: 7, z: 4}, {x: 13, y: 9, z: 4}, {x: 15, y: 9, z: 4}, {x: 14, y: 8, z: 5}
 			];
-			window.mahjongg.shapeDim.w = 29;
-			window.mahjongg.shapeDim.h = 15;
-			window.mahjongg.shapeDim.maxz = 5;
+			sessionStorage.setItem('shapew', 29);
+			sessionStorage.setItem('shapeh', 15);
+			sessionStorage.setItem('shapez', 5);
 		}
 
 		resizeBoard();
@@ -491,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			elTile.dataset.x = tileShape.x;
 			elTile.dataset.y = tileShape.y;
 			elTile.dataset.z = tileShape.z;
-			const colorPart = (255 - ((window.mahjongg.shapeDim.maxz - tileShape.z) * 17)).toString(16);
+			const colorPart = (255 - ((parseInt(sessionStorage.getItem('shapez')) - tileShape.z) * 17)).toString(16);
 			elTile.style.backgroundColor = `#${colorPart}${colorPart}${colorPart}`;
 			elTile.addEventListener('click', onTileClick);
 			elTile.addEventListener('keyup', onTileKeyUp);
@@ -526,6 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	// Here is the end of definitions and start of the actual program flow. Finally :)
+	initSession();
 
 	// Start game time updating
 	const timeInt = setInterval(timeProc, 1000);
