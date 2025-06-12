@@ -24,10 +24,10 @@
 			<div id="winHeading" class="dlgheading">Vyhráli jste!</div>
 			<div class="dlgdetail">0m 0s</div>
 		</div>
-		<div class="dlgbuttons">
+		<form method="dialog" class="dlgbuttons">
 			<button type="button" class="newGame">Nová hra</button>
-			<button type="button" id="winClose">Zavřít</button>
-		</div>
+			<button type="submit" class="closeButton">Zavřít</button>
+		</form>
 	</dialog>
 	<dialog id="lose" class="gamedlg">
 		<div class="dlgmessage">
@@ -35,10 +35,10 @@
 			<div id="loseHeading" class="dlgheading">Prohráli jste.</div>
 			<div id="loseText">Asi jsem to špatně rozdal.</div>
 		</div>
-		<div class="dlgbuttons">
+		<form method="dialog" class="dlgbuttons">
 			<button type="button" class="newGame">Nová hra</button>
-			<button type="button" id="loseClose">Zavřít</button>
-		</div>
+			<button type="submit" class="closeButton">Zavřít</button>
+		</form>
 	</dialog>
 	<dialog id="help" class="gamedlg">
 		<div class="dlgmessage">
@@ -47,10 +47,10 @@
 			<div id="helpText">Vaším cílem je posbírat všech 144 kostek. Sbírat můžete kostky se stejnými symboly, které nemají jinou kostku nad sebou či z obou delších stran. Kostky typu Období a Květina mohou být v páru v odlišných barvách. <strong>Pozor!</strong> Hra nemusí být nutně rozdána tak, že určitě lze vyhrát!</div>
 			<div id="helpCopy"><a href="https://github.com/tommander/mahjongg">Mahjongg Solitaire</a> od <a href="https://tommander.cz">Tomáše Rajnohy</a> je označen jako <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></div>
 		</div>
-		<div class="dlgbuttons">
+		<form method="dialog" class="dlgbuttons">
 			<button type="button" class="newGame">Nová hra</button>
-			<button type="button" id="helpClose">Zavřít</button>
-		</div>
+			<button type="submit" class="closeButton">Zavřít</button>
+		</form>
 	</dialog>
 
 	<div id="current">
@@ -101,7 +101,7 @@
 		</div>
 	</div>
 
-	<script src="script.js" integrity="sha256-sjhOgvZwfzKzq6m8Gfie0DxaB3UOkWOvrfHYIqlxdcQ="></script>
-	<script src="language.js" integrity="sha256-vC1p0Fj5PnRrxqcAVn1ARm0iAb7NCgaS77kpB4Wjz2M="></script>
+	<script src="script.js" integrity="sha256-KhEor2vhByujmBGgpcnH4HxrNXJyD75A8udNDHEedlY="></script>
+	<script src="language.js" integrity="sha256-sBKNQxuxkUHdWd4VQixxvGTupybTHpPnoZbJyRxVaXI="></script>
 </body>
 </html>

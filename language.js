@@ -194,23 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		elHelpButton.innerText = languages[lang].btnhelp;
 	}
 
-	// Close button (help dialog).
-	const elHelpClose = document.getElementById('helpClose');
-	if (elHelpClose instanceof HTMLElement) {
-		elHelpClose.innerText = languages[lang].btnclose;
-	}
-
-
-	// Close button (lose dialog).
-	const elLoseClose = document.getElementById('loseClose');
-	if (elLoseClose instanceof HTMLElement) {
-		elLoseClose.innerText = languages[lang].btnclose;
-	}
-
-	// Close button (win dialog).
-	const elWinClose = document.getElementById('winClose');
-	if (elWinClose instanceof HTMLElement) {
-		elWinClose.innerText = languages[lang].btnclose;
+	// Close button (all dialogs).
+	const elsCloseButton = document.getElementsByClassName('closeButton');
+	for (const elCloseButton of elsCloseButton) {
+		elCloseButton.innerText = languages[lang].btnclose;
 	}
 
 	// Heading (win dialog).

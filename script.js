@@ -337,36 +337,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	 * Adds events to all buttons.
 	 */
 	const initEvents = () => {
-		const elWinClose = document.getElementById('winClose');
-		if (elWinClose instanceof EventTarget) {
-			elWinClose.addEventListener('click', () => {
-				const elWin = document.getElementById('win');
-				if (elWin instanceof HTMLDialogElement) {
-					elWin.close();
-				}
-			});
-		}
-
-		const elLoseClose = document.getElementById('loseClose');
-		if (elLoseClose instanceof EventTarget) {
-			elLoseClose.addEventListener('click', () => {
-				const elLose = document.getElementById('lose');
-				if (elLose instanceof HTMLDialogElement) {
-					elLose.close();
-				}
-			});
-		}
-
-		const elHelpClose = document.getElementById('helpClose');
-		if (elHelpClose instanceof EventTarget) {
-			elHelpClose.addEventListener('click', () => {
-				const elHelp = document.getElementById('help');
-				if (elHelp instanceof HTMLDialogElement) {
-					elHelp.close();
-				}
-			});
-		}
-
 		const elsNewGame = document.getElementsByClassName('newGame');
 		for (const elNewGame of elsNewGame) {
 			if (!(elNewGame instanceof EventTarget)) {
