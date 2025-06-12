@@ -4,35 +4,39 @@ A simple Mahjongg Solitaire game, using HTML + CSS + JS with a timer and points.
 
 Main advantages:
 
-- No external dependencies or assets
+- Basic accessibility (contrasts, labels, keyboard-only)
 - Should work on most devices and browsers (auto-resize)
+   - It is recommended to play this game on mobile devices in landscape
 - Fast even on slower devices
-- No personal data collection, analytics etc.
-- No frameworks, composers, npms etc.
-- SVG graphics
+- Only around 62 KiB in total
+- No personal data collection, analytics, cookies etc.
+- No external dependencies or assets (e.g. frameworks, images, composer/npm/yarn packages)
+- No vibe-coded / "AI"-generated part
 
-> [!WARNING]
-> The game is translated to Czech only.
-> Other languages (esp. English) will be added later.
+[![Screenshot of Mahjongg Solitaire](screenshot_thumbnail.webp)](screenshot.webp)
 
 ## Installation
 
 1. Clone this repo somewhere inside your webserver root.
-2. Check and (if needed) change relative URLs/paths.
-3. That's it.
+2. That's it.
 
-It could work without a webserver (by opening the HTML file directly) if modern browsers didn't have [CSP rules](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) for `file` protocol that block CSS and/or JS files (and inline styles/scripts, too).
+Unfortunately, you cannot play the game by just opening the HTML file in a browser, since modern browsers have [CSP rules](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) for `file` protocol that block CSS and/or JS files ("inlining" styles/scripts won't work as well).
+
+There are some simple web server solutions out there that work out-of-the-box and can be used for
+local playing.
+
+If you want to just try playing the current version, go to [https://tommander.cz/mahjongg/](https://tommander.cz/mahjongg/).
 
 ## Game Rules
 
 You have 144 tiles that are placed in a predefined "turtle" shape.
 
-Your goal is to pick pairs of tiles with identical symbol (or any two Flower/Season) until there is no block left.
+Your goal is to pick pairs of tiles with an identical symbol (or any two Flower/Season) until there is no block left on the board.
 
 You can only pick a block that:
 
-- Is not blocked by another block above it, and
-- Has at least one long edge free.
+- is not blocked by another block above it, and
+- has at least one long edge free.
 
 Types of tiles:
 
@@ -61,7 +65,9 @@ There is no time restriction for the game.
 
 ## Development
 
-There is plenty of room for improvements, bug fixes, and new features.
+There is certianly *plenty* of room for improvements, bug fixes, and new features.
+
+Feel free to read [DEVELOPMENT.md](DEVELOPMENT.md) for some quick onboarding.
 
 I'll be very thankful if you:
 
@@ -74,4 +80,4 @@ I'll be very thankful if you:
 
 [Mahjongg Solitaire](https://github.com/tommander/mahjongg) by [Tomáš Rajnoha](https://tommander.cz) is marked [CC0 1.0](LICENSE).
 
-[Background photo](https://get.pxhere.com/photo/architecture-bridge-river-jungle-garden-waterway-rainforest-china-rural-area-arch-bridge-leshan-1166576.jpg) comes from [Pxhere](https://pxhere.com/ko/photo/1166576).
+[Background photo](https://get.pxhere.com/photo/architecture-bridge-river-jungle-garden-waterway-rainforest-china-rural-area-arch-bridge-leshan-1166576.jpg) from [Pxhere](https://pxhere.com/ko/photo/1166576) is also marked [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).

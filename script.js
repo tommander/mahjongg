@@ -37,51 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const flowers = ['🀢', '🀣', '🀤', '🀥'];
 	const seasons = ['🀩', '🀦', '🀨', '🀧'];
 
-	const nameMap = {
-		'🀐': "Vrabec",
-		'🀑': "Dvě tyčky",
-		'🀒': "Tři tyčky",
-		'🀓': "Čtyři tyčky",
-		'🀔': "Pět tyček",
-		'🀕': "Šest tyček",
-		'🀖': "Sedm tyček",
-		'🀗': "Osm tyček",
-		'🀘': "Devět tyček",
-		'🀇': "Deset tisíc",
-		'🀈': "Dvacet tisíc",
-		'🀉': "Třicet tisíc",
-		'🀊': "Čtyřicet tisíc",
-		'🀋': "Padesát tisíc",
-		'🀌': "Šedesát tisíc",
-		'🀍': "Sedmdesát tisíc",
-		'🀎': "Osmdesát tisíc",
-		'🀏': "Devadesát tisíc",
-		'🀙': "Jedna mince",
-		'🀚': "Dvě mince",
-		'🀛': "Tři mince",
-		'🀜': "Čtyři mince",
-		'🀝': "Pět mincí",
-		'🀞': "Šest mincí",
-		'🀟': "Sedm mincí",
-		'🀠': "Osm mincí",
-		'🀡': "Devět mincí",
-		'🀆': "Bílý drak",
-		'🀅': "Zelený drak",
-		'🀄︎': "Červený drak",
-		'🀀': "Východní vítr",
-		'🀃': "Severní vítr",
-		'🀁': "Jižní vítr",
-		'🀂': "Západní vítr",
-		'🀢': "Švestka",
-		'🀣': "Orchidej",
-		'🀤': "Bambus",
-		'🀥': "Chryzantéma",
-		'🀩': "Zima",
-		'🀦': "Jaro",
-		'🀨': "Podzim",
-		'🀧': "Léto",
-	};
-
 	const pointsMap = {
 		'🀇': 2, '🀈': 2, '🀉': 2, '🀊': 2, '🀋': 2, '🀌': 2, '🀍': 2, '🀎': 2, '🀏': 2,
 		'🀙': 4, '🀚': 4, '🀛': 4, '🀜': 4, '🀝': 4, '🀞': 4, '🀟': 4, '🀠': 4, '🀡': 4,
@@ -93,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 	const checkLose = () => {
-		const allTiles = document.querySelectorAll('div.tile');
+		const allTiles = document.querySelectorAll('.tile');
 		let notBlocked = [];
 		for (const tile of allTiles) {
 			if (isBlocked(tile) === false) {
@@ -122,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	const checkWin = () => {
-		const anyTile = document.querySelector('div.tile');
+		const anyTile = document.querySelector('.tile');
 		if (anyTile) {
 			checkLose();
 			return;
@@ -157,40 +112,33 @@ document.addEventListener('DOMContentLoaded', () => {
 		const myY = parseInt(brick.style.gridRow);
 		const myZ = parseInt(brick.style.zIndex);
 
-		if (
+		return (
 			(
-				// Left blocked, partial or full
-				document.querySelector(`div.tile[data-x="${myX-2}"][data-y="${myY-1}"][data-z="${myZ}"]`) ||
-				document.querySelector(`div.tile[data-x="${myX-2}"][data-y="${myY}"][data-z="${myZ}"]`) ||
-				document.querySelector(`div.tile[data-x="${myX-2}"][data-y="${myY+1}"][data-z="${myZ}"]`)
-			) && (
-				// Right blocked, partial or full
-				document.querySelector(`div.tile[data-x="${myX+2}"][data-y="${myY-1}"][data-z="${myZ}"]`) ||
-				document.querySelector(`div.tile[data-x="${myX+2}"][data-y="${myY}"][data-z="${myZ}"]`) ||
-				document.querySelector(`div.tile[data-x="${myX+2}"][data-y="${myY+1}"][data-z="${myZ}"]`)
-			)
-		) {
-			return true;
-		}
-
-		if (
+				(
+					// Left blocked, partial or full
+					document.querySelector(`.tile[data-x="${myX-2}"][data-y="${myY-1}"][data-z="${myZ}"]`) ||
+					document.querySelector(`.tile[data-x="${myX-2}"][data-y="${myY}"][data-z="${myZ}"]`) ||
+					document.querySelector(`.tile[data-x="${myX-2}"][data-y="${myY+1}"][data-z="${myZ}"]`)
+				) && (
+					// Right blocked, partial or full
+					document.querySelector(`.tile[data-x="${myX+2}"][data-y="${myY-1}"][data-z="${myZ}"]`) ||
+					document.querySelector(`.tile[data-x="${myX+2}"][data-y="${myY}"][data-z="${myZ}"]`) ||
+					document.querySelector(`.tile[data-x="${myX+2}"][data-y="${myY+1}"][data-z="${myZ}"]`)
+				)
+			) ||
 			// Same column, partial or full cover
-			document.querySelector(`div.tile[data-x="${myX-1}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`div.tile[data-x="${myX}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`div.tile[data-x="${myX+1}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX-1}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX+1}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
 			// One half column above
-			document.querySelector(`div.tile[data-x="${myX-1}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`div.tile[data-x="${myX}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`div.tile[data-x="${myX+1}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX-1}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX+1}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
 			// One half column below
-			document.querySelector(`div.tile[data-x="${myX-1}"][data-y="${myY+1}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`div.tile[data-x="${myX}"][data-y="${myY+1}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`div.tile[data-x="${myX+1}"][data-y="${myY+1}"][data-z="${myZ+1}"]`)
-		) {
-			return true;
-		}
-
-		return false;
+			document.querySelector(`.tile[data-x="${myX-1}"][data-y="${myY+1}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX}"][data-y="${myY+1}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX+1}"][data-y="${myY+1}"][data-z="${myZ+1}"]`)
+		);
 	}
 
 	const onTileClick = (evt) => {
@@ -204,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 		evt.target.dataset.s = "selected";
 
-		const listSel = document.querySelectorAll(`div.tile[data-s="selected"]`);
+		const listSel = document.querySelectorAll(`.tile[data-s="selected"]`);
 		if (listSel.length !== 2) {
 			return;
 		}
@@ -215,15 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			(seasons.indexOf(listSel[0].innerText) > -1 && seasons.indexOf(listSel[1].innerText) > -1)
 		) {
 			window.mahjongg.points += (pointsMap[listSel[0].innerText] + pointsMap[listSel[1].innerText]);
-			let strPoints = 'bodů';
-			if (window.mahjongg.points === 1) {
-				strPoints = 'bod';
-			} else if (window.mahjongg.points > 1 && window.mahjongg.points <= 4) {
-				strPoints = 'body';
-			}
 			const elPoints = document.getElementById('points');
 			if (elPoints instanceof HTMLElement) {
-				elPoints.innerText = `${window.mahjongg.points} ${strPoints}`;
+				elPoints.innerText = window.mahjongg.points;
 			}
 			listSel[0].remove();
 			listSel[1].remove();
@@ -234,24 +176,41 @@ document.addEventListener('DOMContentLoaded', () => {
 		delete evt.target.dataset.s;
 	};
 
+	const onTileKeyUp = (evt) => {
+		if (evt.key !== 'Enter' && evt.key !== ' ') {
+			return;
+		}
+		evt.preventDefault();
+		onTileClick(evt);
+	};
+
 	const onTileMouseEnter = (evt) => {
+		const elsShown = document.getElementsByClassName('shown');
+		for (const elShown of elsShown) {
+			elShown.classList.remove('shown');
+		}
 		const elImg = document.getElementById('currentimg');
-		const elText = document.getElementById('currentname');
+		const elText = document.getElementById(evt.target.innerText);
 		if (!(elImg instanceof HTMLElement) || !(elText instanceof HTMLElement)) {
 			return;
 		}
 		elImg.innerText = evt.target.innerText;
-		elText.innerText = nameMap[evt.target.innerText];
+		if (elText.classList.contains('shown')) {
+			return;
+		}
+		elText.classList.add('shown');
 	};
 
 	const onTileMouseLeave = (evt) => {
+		const elsShown = document.getElementsByClassName('shown');
+		for (const elShown of elsShown) {
+			elShown.classList.remove('shown');
+		}
 		const elImg = document.getElementById('currentimg');
-		const elText = document.getElementById('currentname');
-		if (!(elImg instanceof HTMLElement) || !(elText instanceof HTMLElement)) {
+		if (!(elImg instanceof HTMLElement)) {
 			return;
 		}
 		elImg.innerText = '';
-		elText.innerText = '';
 	};
 
 	const elWinClose = document.getElementById('winClose');
@@ -315,13 +274,43 @@ document.addEventListener('DOMContentLoaded', () => {
 		const diff = Math.floor((new Date().valueOf() - window.mahjongg.start) / 1000);
 		const diffM = Math.floor(diff / 60);
 		const diffS = diff % 60;
-		elTime.innerText = `${diffM}m ${diffS}s`;
+		const diffS0 = diffS < 10 ? '0' : '';
+		elTime.innerText = `${diffM}:${diffS0}${diffS}`;
 	};
 	const timeInt = setInterval(timeProc, 1000);
 
+	const resizeBoard = () => {
+		const elGame = document.getElementById('game');
+		const elPanel = document.getElementById('toppanel');
+		if (!(elGame instanceof Element) || !(elPanel instanceof Element)) {
+			return;
+		}
+
+		const screenWidth = visualViewport.width;
+		const screenHeight = (visualViewport.height - elPanel.clientHeight); 
+
+		const shapeRatio = (window.mahjongg.shapeDim.w / window.mahjongg.shapeDim.h);
+		const screenRatio = (screenWidth / screenHeight);
+
+		let tileH = 0;
+		let tileW = 0;
+
+		if (shapeRatio > screenRatio) {
+			tileW = ((2 * screenWidth) / (window.mahjongg.shapeDim.w + 1));
+			tileH = ((tileW * 9) / 7);
+		} else {
+			tileH = ((2 * screenHeight) / (window.mahjongg.shapeDim.h + 1));
+			tileW = ((tileH * 7) / 9);
+		}
+
+		elGame.style.gridTemplateColumns = `repeat(${window.mahjongg.shapeDim.w + 1}, ${Math.round(tileW / 2)}px)`;
+		elGame.style.gridTemplateRows = `repeat(${window.mahjongg.shapeDim.h + 1}, ${Math.round(tileH / 2)}px)`;
+		elGame.style.fontSize = `${Math.round(tileH * 0.625)}px`;
+	}
+
 	const drawGame = (shape) => {
 		let shapeDef = [];
-		let shapeDim = {w: 0, h: 0};
+		window.mahjongg.shapeDim = {w: 0, h: 0, maxz: 0};
 		if (shape === 'turtle') {
 			shapeDef = [
 				{x: 3, y: 1, z: 1}, {x: 5, y: 1, z: 1}, {x: 7, y: 1, z: 1}, {x: 9, y: 1, z: 1},
@@ -361,84 +350,72 @@ document.addEventListener('DOMContentLoaded', () => {
 				{x: 13, y: 11, z: 3}, {x: 15, y: 11, z: 3}, {x: 17, y: 11, z: 3}, {x: 13, y: 7, z: 4},
 				{x: 15, y: 7, z: 4}, {x: 13, y: 9, z: 4}, {x: 15, y: 9, z: 4}, {x: 14, y: 8, z: 5}
 			];
-			shapeDim.w = 29;
-			shapeDim.h = 15;
+			window.mahjongg.shapeDim.w = 29;
+			window.mahjongg.shapeDim.h = 15;
+			window.mahjongg.shapeDim.maxz = 5;
 		}
 
+		resizeBoard();
+
 		const elGame = document.getElementById('game');
-		const elPanel = document.getElementById('toppanel');
-		if (!(elGame instanceof Element) || !(elPanel instanceof Element)) {
+		if (!(elGame instanceof Element)) {
 			return;
 		}
 
-		const screenWidth = visualViewport.width;
-		const screenHeight = (visualViewport.height - elPanel.clientHeight); 
-
-		const shapeRatio = (shapeDim.w / shapeDim.h);
-		const screenRatio = (screenWidth / screenHeight);
-
-		let tileH = 0;
-		let tileW = 0;
-		let tileS = 0;
-
-		if (shapeRatio > screenRatio) {
-			tileW = ((2 * screenWidth) / shapeDim.w);
-			tileH = ((tileW * 9) / 7);
-			tileS = (tileW / 7);
-		} else {
-			tileH = ((2 * screenHeight) / shapeDim.h);
-			tileW = ((tileH * 7) / 9);
-			tileS = (tileH / 9);
-		}
-
-		elGame.style.gridTemplateColumns = `repeat(${shapeDim.w + 1}, ${Math.round(tileW / 2)}px)`;
-		elGame.style.gridTemplateRows = `repeat(${shapeDim.h + 1}, ${Math.round(tileH / 2)}px)`;
-		let counter = 0;
 		for (const tileShape of shapeDef) {
 			const elTile = document.createElement('div');
-			elTile.id = `t${counter++}`;
 			elTile.classList.add('tile');
+			elTile.role = 'button';
+			elTile.tabIndex = 0;
 			elTile.style.gridColumn = `${tileShape.x} / ${tileShape.x + 2}`;
 			elTile.style.gridRow = `${tileShape.y} / ${tileShape.y + 2}`;
 			elTile.style.zIndex = tileShape.z;
-			elTile.style.left = `${Math.round(((tileShape.x/2-1) + (tileShape.z-1)) * (-tileS))}px`;
-			elTile.style.top = `${Math.round(((tileShape.y/2-1) + ((tileShape.z-1) * 3/4)) * (-tileS))}px`;
-			elTile.style.width = `${Math.round(tileW)}px`;
-			elTile.style.height = `${Math.round(tileH)}px`;
-			elTile.style.fontSize = `${Math.round(tileW * 1.1)}px`;
+			if (tileShape.z > 1) {
+				elTile.style.left = `${Math.round((tileShape.z-1) * -4)}px`;
+				elTile.style.top = `${Math.round((tileShape.z-1) * -4)}px`;
+			}
 			elTile.dataset.x = tileShape.x;
 			elTile.dataset.y = tileShape.y;
 			elTile.dataset.z = tileShape.z;
+			const colorPart = (255 - ((window.mahjongg.shapeDim.maxz - tileShape.z) * 17)).toString(16);
+			elTile.style.backgroundColor = `#${colorPart}${colorPart}${colorPart}`;
 			elTile.addEventListener('click', onTileClick);
+			elTile.addEventListener('keyup', onTileKeyUp);
 			elTile.addEventListener('mouseenter', onTileMouseEnter);
 			elTile.addEventListener('mouseleave', onTileMouseLeave);
 			const randomType = Math.floor(Math.random() * brickTypes.length);
 			elTile.innerText = brickTypes[randomType];
+			brickTypes.splice(randomType, 1);
 			if (characters.indexOf(elTile.innerText) > -1) {
-				elTile.style.color = '#BD0000';
+				elTile.dataset.t = 'character';
 			}
 			if (sticks.indexOf(elTile.innerText) > -1) {
-				elTile.style.color = '#3E6800';
+				elTile.dataset.t = 'stick';
 			}
 			if (circles.indexOf(elTile.innerText) > -1) {
-				elTile.style.color = '#3A3AFF';
+				elTile.dataset.t = 'circle';
 			}
 			if (dragons.indexOf(elTile.innerText) > -1) {
-				elTile.style.color = '#7B5700';
+				elTile.dataset.t = 'dragon';
 			}
 			if (winds.indexOf(elTile.innerText) > -1) {
-				elTile.style.color = '#A600A6';
+				elTile.dataset.t = 'wind';
 			}
 			if (flowers.indexOf(elTile.innerText) > -1) {
-				elTile.style.color = '#006868';
+				elTile.dataset.t = 'flower';
 			}
 			if (seasons.indexOf(elTile.innerText) > -1) {
-				elTile.style.color = '#000000';
+				elTile.dataset.t = 'season';
 			}
-			brickTypes.splice(randomType, 1);
 			elGame.insertAdjacentElement('beforeend', elTile);
 		}
 	}
 
 	drawGame('turtle');
+
+	var resizeTimeout = false;
+	window.addEventListener('resize', () => {
+		clearTimeout(resizeTimeout);
+		resizeTimeout = setTimeout(resizeBoard, 250);
+	});
 });
