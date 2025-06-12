@@ -112,32 +112,26 @@ document.addEventListener('DOMContentLoaded', () => {
 		const myY = parseInt(brick.style.gridRow);
 		const myZ = parseInt(brick.style.zIndex);
 
+		const selectorL = `.tile[data-x="${myX-2}"][data-y="${myY-1}"][data-z="${myZ}"],` +
+						  `.tile[data-x="${myX-2}"][data-y="${myY}"][data-z="${myZ}"],` +
+						  `.tile[data-x="${myX-2}"][data-y="${myY+1}"][data-z="${myZ}"]`;
+		const selectorR = `.tile[data-x="${myX+2}"][data-y="${myY-1}"][data-z="${myZ}"],` + 
+						  `.tile[data-x="${myX+2}"][data-y="${myY}"][data-z="${myZ}"],` + 
+						  `.tile[data-x="${myX+2}"][data-y="${myY+1}"][data-z="${myZ}"]`;
+		const selectorA = `.tile[data-x="${myX-1}"][data-y="${myY}"][data-z="${myZ+1}"],` + 
+						  `.tile[data-x="${myX}"][data-y="${myY}"][data-z="${myZ+1}"],` +
+						  `.tile[data-x="${myX+1}"][data-y="${myY}"][data-z="${myZ+1}"],` +
+						  `.tile[data-x="${myX-1}"][data-y="${myY-1}"][data-z="${myZ+1}"],` +
+						  `.tile[data-x="${myX}"][data-y="${myY-1}"][data-z="${myZ+1}"],` +
+						  `.tile[data-x="${myX+1}"][data-y="${myY-1}"][data-z="${myZ+1}"],` +
+						  `.tile[data-x="${myX-1}"][data-y="${myY+1}"][data-z="${myZ+1}"],` +
+						  `.tile[data-x="${myX}"][data-y="${myY+1}"][data-z="${myZ+1}"],` +
+						  `.tile[data-x="${myX+1}"][data-y="${myY+1}"][data-z="${myZ+1}"]`;
+
 		return (
-			(
-				(
-					// Left blocked, partial or full
-					document.querySelector(`.tile[data-x="${myX-2}"][data-y="${myY-1}"][data-z="${myZ}"]`) ||
-					document.querySelector(`.tile[data-x="${myX-2}"][data-y="${myY}"][data-z="${myZ}"]`) ||
-					document.querySelector(`.tile[data-x="${myX-2}"][data-y="${myY+1}"][data-z="${myZ}"]`)
-				) && (
-					// Right blocked, partial or full
-					document.querySelector(`.tile[data-x="${myX+2}"][data-y="${myY-1}"][data-z="${myZ}"]`) ||
-					document.querySelector(`.tile[data-x="${myX+2}"][data-y="${myY}"][data-z="${myZ}"]`) ||
-					document.querySelector(`.tile[data-x="${myX+2}"][data-y="${myY+1}"][data-z="${myZ}"]`)
-				)
-			) ||
-			// Same column, partial or full cover
-			document.querySelector(`.tile[data-x="${myX-1}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`.tile[data-x="${myX}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`.tile[data-x="${myX+1}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
-			// One half column above
-			document.querySelector(`.tile[data-x="${myX-1}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`.tile[data-x="${myX}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`.tile[data-x="${myX+1}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
-			// One half column below
-			document.querySelector(`.tile[data-x="${myX-1}"][data-y="${myY+1}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`.tile[data-x="${myX}"][data-y="${myY+1}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`.tile[data-x="${myX+1}"][data-y="${myY+1}"][data-z="${myZ+1}"]`)
+			(document.querySelector(selectorL) !== null &&
+			document.querySelector(selectorR) !== null) ||
+			document.querySelector(selectorA) !== null
 		);
 	}
 
