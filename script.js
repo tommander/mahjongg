@@ -5,178 +5,61 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 	const brickTypes = [
-		'bamboo1','bamboo2','bamboo3','bamboo4','bamboo5','bamboo6','bamboo7','bamboo8','bamboo9',
-		'bamboo1','bamboo2','bamboo3','bamboo4','bamboo5','bamboo6','bamboo7','bamboo8','bamboo9',
-		'bamboo1','bamboo2','bamboo3','bamboo4','bamboo5','bamboo6','bamboo7','bamboo8','bamboo9',
-		'bamboo1','bamboo2','bamboo3','bamboo4','bamboo5','bamboo6','bamboo7','bamboo8','bamboo9',
-		'character1','character2','character3','character4','character5','character6','character7','character8','character9',
-		'character1','character2','character3','character4','character5','character6','character7','character8','character9',
-		'character1','character2','character3','character4','character5','character6','character7','character8','character9',
-		'character1','character2','character3','character4','character5','character6','character7','character8','character9',
-		'circle1','circle2','circle3','circle4','circle5','circle6','circle7','circle8','circle9',
-		'circle1','circle2','circle3','circle4','circle5','circle6','circle7','circle8','circle9',
-		'circle1','circle2','circle3','circle4','circle5','circle6','circle7','circle8','circle9',
-		'circle1','circle2','circle3','circle4','circle5','circle6','circle7','circle8','circle9',
-		'dragonB','dragonG','dragonR',
-		'dragonB','dragonG','dragonR',
-		'dragonB','dragonG','dragonR',
-		'dragonB','dragonG','dragonR',
-		'windE','windN','windS','windW',
-		'windE','windN','windS','windW',
-		'windE','windN','windS','windW',
-		'windE','windN','windS','windW',
-		'flowerB','flowerG','flowerO','flowerR',
-		'seasonB','seasonG','seasonO','seasonY'
+		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
+		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
+		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
+		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
+		'🀇','🀈','🀉','🀊','🀋','🀌','🀍','🀎','🀏',
+		'🀇','🀈','🀉','🀊','🀋','🀌','🀍','🀎','🀏',
+		'🀇','🀈','🀉','🀊','🀋','🀌','🀍','🀎','🀏',
+		'🀇','🀈','🀉','🀊','🀋','🀌','🀍','🀎','🀏',
+		'🀙','🀚','🀛','🀜','🀝','🀞','🀟','🀠','🀡',
+		'🀙','🀚','🀛','🀜','🀝','🀞','🀟','🀠','🀡',
+		'🀙','🀚','🀛','🀜','🀝','🀞','🀟','🀠','🀡',
+		'🀙','🀚','🀛','🀜','🀝','🀞','🀟','🀠','🀡',
+		'🀆','🀅','🀄︎',
+		'🀆','🀅','🀄︎',
+		'🀆','🀅','🀄︎',
+		'🀆','🀅','🀄︎',
+		'🀀','🀃','🀁','🀂',
+		'🀀','🀃','🀁','🀂',
+		'🀀','🀃','🀁','🀂',
+		'🀀','🀃','🀁','🀂',
+		'🀢', '🀣', '🀤', '🀥',
+		'🀩', '🀦', '🀨', '🀧'
 	];
 
-	const nameMap = {
-		bamboo1: "Jednička Bambus",
-		bamboo2: "Dvojka Bambus",
-		bamboo3: "Trojka Bambus",
-		bamboo4: "Čtyřka Bambus",
-		bamboo5: "Pětka Bambus",
-		bamboo6: "Šestka Bambus",
-		bamboo7: "Sedma Bambus",
-		bamboo8: "Osma Bambus",
-		bamboo9: "Devítka Bambus",
-		character1: "Jednička Znak",
-		character2: "Dvojka Znak",
-		character3: "Trojka Znak",
-		character4: "Čtyřka Znak",
-		character5: "Pětka Znak",
-		character6: "Šestka Znak",
-		character7: "Sedma Znak",
-		character8: "Osma Znak",
-		character9: "Devítka Znak",
-		circle1: "Jednička Kruh",
-		circle2: "Dvojka Kruh",
-		circle3: "Trojka Kruh",
-		circle4: "Čtyřka Kruh",
-		circle5: "Pětka Kruh",
-		circle6: "Šestka Kruh",
-		circle7: "Sedma Kruh",
-		circle8: "Osma Kruh",
-		circle9: "Devítka Kruh",
-		dragonB: "Modrý Drak",
-		dragonG: "Zelený Drak",
-		dragonR: "Červený Drak",
-		windE: "Východní Vítr",
-		windN: "Severní Vítr",
-		windS: "Jižní Vítr",
-		windW: "Západní Vítr",
-		flowerB: "Modrá Květina",
-		flowerG: "Zelená Květina",
-		flowerO: "Oranžová Květina",
-		flowerR: "Červená Květina",
-		seasonB: "Zimní Období",
-		seasonG: "Jarní Období",
-		seasonO: "Podzimní Období",
-		seasonY: "Letní Období",
-	};
-
-	const symbolMap = {
-		bamboo1: '🀐',
-		bamboo2: '🀑',
-		bamboo3: '🀒',
-		bamboo4: '🀓',
-		bamboo5: '🀔',
-		bamboo6: '🀕',
-		bamboo7: '🀖',
-		bamboo8: '🀗',
-		bamboo9: '🀘',
-		character1: '🀇',
-		character2: '🀈',
-		character3: '🀉',
-		character4: '🀊',
-		character5: '🀋',
-		character6: '🀌',
-		character7: '🀍',
-		character8: '🀎',
-		character9: '🀏',
-		circle1: '🀙',
-		circle2: '🀚',
-		circle3: '🀛',
-		circle4: '🀜',
-		circle5: '🀝',
-		circle6: '🀞',
-		circle7: '🀟',
-		circle8: '🀠',
-		circle9: '🀡',
-		dragonB: '🀆',
-		dragonG: '🀅',
-		dragonR: '🀄︎',
-		windE: '🀀',
-		windN: '🀃',
-		windS: '🀁',
-		windW: '🀂',
-		flowerB: '🀢',
-		flowerG: '🀣',
-		flowerO: '🀤',
-		flowerR: '🀥',
-		seasonB: '🀩',
-		seasonG: '🀦',
-		seasonO: '🀨',
-		seasonY: '🀧',
-	};
+	const characters = ['🀇','🀈','🀉','🀊','🀋','🀌','🀍','🀎','🀏'];
+	const circles = ['🀙','🀚','🀛','🀜','🀝','🀞','🀟','🀠','🀡'];
+	const sticks = ['🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘'];
+	const dragons = ['🀆','🀅','🀄︎'];
+	const winds = ['🀀','🀃','🀁','🀂'];
+	const flowers = ['🀢', '🀣', '🀤', '🀥'];
+	const seasons = ['🀩', '🀦', '🀨', '🀧'];
 
 	const pointsMap = {
-		character1: 2,
-		character2: 2,
-		character3: 2,
-		character4: 2,
-		character5: 2,
-		character6: 2,
-		character7: 2,
-		character8: 2,
-		character9: 2,
-		circle1: 4,
-		circle2: 4,
-		circle3: 4,
-		circle4: 4,
-		circle5: 4,
-		circle6: 4,
-		circle7: 4,
-		circle8: 4,
-		circle9: 4,
-		bamboo1: 6,
-		bamboo2: 6,
-		bamboo3: 6,
-		bamboo4: 6,
-		bamboo5: 6,
-		bamboo6: 6,
-		bamboo7: 6,
-		bamboo8: 6,
-		bamboo9: 6,
-		windE: 8,
-		windN: 8,
-		windS: 8,
-		windW: 8,
-		dragonB: 10,
-		dragonG: 10,
-		dragonR: 10,
-		flowerB: 12,
-		flowerG: 12,
-		flowerO: 12,
-		flowerR: 12,
-		seasonB: 14,
-		seasonG: 14,
-		seasonO: 14,
-		seasonY: 14,
+		'🀇': 2, '🀈': 2, '🀉': 2, '🀊': 2, '🀋': 2, '🀌': 2, '🀍': 2, '🀎': 2, '🀏': 2,
+		'🀙': 4, '🀚': 4, '🀛': 4, '🀜': 4, '🀝': 4, '🀞': 4, '🀟': 4, '🀠': 4, '🀡': 4,
+		'🀐': 6, '🀑': 6, '🀒': 6, '🀓': 6, '🀔': 6, '🀕': 6, '🀖': 6, '🀗': 6, '🀘': 6,
+		'🀀': 8, '🀃': 8, '🀁': 8, '🀂': 8,
+		'🀆': 10, '🀅': 10, '🀄︎': 10,
+		'🀢': 12, '🀣': 12, '🀤': 12, '🀥': 12,
+		'🀩': 14, '🀦': 14, '🀨': 14, '🀧': 14,
 	};
 
 	const checkLose = () => {
-		const allTiles = document.querySelectorAll('div.tile');
+		const allTiles = document.querySelectorAll('.tile');
 		let notBlocked = [];
 		for (const tile of allTiles) {
 			if (isBlocked(tile) === false) {
-				notBlocked.push(tile.dataset.t);
+				notBlocked.push(tile.innerText);
 			}
 		}
 		notBlocked.sort();
 		const notBlockedPairs = [];
 		let prev = null;
 		for (const one of notBlocked) {
-			if (prev !== null && ((prev.startsWith('flower') && one.startsWith('flower')) || (prev.startsWith('season') && one.startsWith('season')) || prev === one) && notBlockedPairs.indexOf(one) === -1) {
+			if (prev !== null && (prev === one || (flowers.indexOf(prev) > -1 && flowers.indexOf(one) > -1) || (seasons.indexOf(prev) > -1 && seasons.indexOf(one) > -1)) && notBlockedPairs.indexOf(one) === -1) {
 				notBlockedPairs.push(one);
 			}
 			prev = one;
@@ -194,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	const checkWin = () => {
-		const anyTile = document.querySelector('div.tile');
+		const anyTile = document.querySelector('.tile');
 		if (anyTile) {
 			checkLose();
 			return;
@@ -216,10 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const isBrick = (elem) => {
 		return (
 			(elem instanceof Element) &&
-			elem.classList.contains('tile') &&
-			('x' in elem.dataset) &&
-			('y' in elem.dataset) &&
-			('z' in elem.dataset)
+			elem.classList.contains('tile')
 		);
 	}
 
@@ -228,44 +108,37 @@ document.addEventListener('DOMContentLoaded', () => {
 			return null;
 		}
 
-		const myX = parseInt(brick.dataset.x);
-		const myY = parseInt(brick.dataset.y);
-		const myZ = parseInt(brick.dataset.z);
+		const myX = parseInt(brick.style.gridColumn);
+		const myY = parseInt(brick.style.gridRow);
+		const myZ = parseInt(brick.style.zIndex);
 
-		if (
+		return (
 			(
-				// Left blocked, partial or full
-				document.querySelector(`div.tile[data-x="${myX-2}"][data-y="${myY-1}"][data-z="${myZ}"]`) ||
-				document.querySelector(`div.tile[data-x="${myX-2}"][data-y="${myY}"][data-z="${myZ}"]`) ||
-				document.querySelector(`div.tile[data-x="${myX-2}"][data-y="${myY+1}"][data-z="${myZ}"]`)
-			) && (
-				// Right blocked, partial or full
-				document.querySelector(`div.tile[data-x="${myX+2}"][data-y="${myY-1}"][data-z="${myZ}"]`) ||
-				document.querySelector(`div.tile[data-x="${myX+2}"][data-y="${myY}"][data-z="${myZ}"]`) ||
-				document.querySelector(`div.tile[data-x="${myX+2}"][data-y="${myY+1}"][data-z="${myZ}"]`)
-			)
-		) {
-			return true;
-		}
-
-		if (
+				(
+					// Left blocked, partial or full
+					document.querySelector(`.tile[data-x="${myX-2}"][data-y="${myY-1}"][data-z="${myZ}"]`) ||
+					document.querySelector(`.tile[data-x="${myX-2}"][data-y="${myY}"][data-z="${myZ}"]`) ||
+					document.querySelector(`.tile[data-x="${myX-2}"][data-y="${myY+1}"][data-z="${myZ}"]`)
+				) && (
+					// Right blocked, partial or full
+					document.querySelector(`.tile[data-x="${myX+2}"][data-y="${myY-1}"][data-z="${myZ}"]`) ||
+					document.querySelector(`.tile[data-x="${myX+2}"][data-y="${myY}"][data-z="${myZ}"]`) ||
+					document.querySelector(`.tile[data-x="${myX+2}"][data-y="${myY+1}"][data-z="${myZ}"]`)
+				)
+			) ||
 			// Same column, partial or full cover
-			document.querySelector(`div.tile[data-x="${myX-1}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`div.tile[data-x="${myX}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`div.tile[data-x="${myX+1}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX-1}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX+1}"][data-y="${myY}"][data-z="${myZ+1}"]`) ||
 			// One half column above
-			document.querySelector(`div.tile[data-x="${myX-1}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`div.tile[data-x="${myX}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`div.tile[data-x="${myX+1}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX-1}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX+1}"][data-y="${myY-1}"][data-z="${myZ+1}"]`) ||
 			// One half column below
-			document.querySelector(`div.tile[data-x="${myX-1}"][data-y="${myY+1}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`div.tile[data-x="${myX}"][data-y="${myY+1}"][data-z="${myZ+1}"]`) ||
-			document.querySelector(`div.tile[data-x="${myX+1}"][data-y="${myY+1}"][data-z="${myZ+1}"]`)
-		) {
-			return true;
-		}
-
-		return false;
+			document.querySelector(`.tile[data-x="${myX-1}"][data-y="${myY+1}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX}"][data-y="${myY+1}"][data-z="${myZ+1}"]`) ||
+			document.querySelector(`.tile[data-x="${myX+1}"][data-y="${myY+1}"][data-z="${myZ+1}"]`)
+		);
 	}
 
 	const onTileClick = (evt) => {
@@ -279,26 +152,20 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 		evt.target.dataset.s = "selected";
 
-		const listSel = document.querySelectorAll(`div.tile[data-s="selected"]`);
+		const listSel = document.querySelectorAll(`.tile[data-s="selected"]`);
 		if (listSel.length !== 2) {
 			return;
 		}
 
 		if (
-			(listSel[0].dataset.t.startsWith('flower') && listSel[1].dataset.t.startsWith('flower')) ||
-			(listSel[0].dataset.t.startsWith('season') && listSel[1].dataset.t.startsWith('season')) ||
-			listSel[0].dataset.t === listSel[1].dataset.t
+			listSel[0].innerText === listSel[1].innerText ||
+			(flowers.indexOf(listSel[0].innerText) > -1 && flowers.indexOf(listSel[1].innerText) > -1) ||
+			(seasons.indexOf(listSel[0].innerText) > -1 && seasons.indexOf(listSel[1].innerText) > -1)
 		) {
-			window.mahjongg.points += (pointsMap[listSel[0].dataset.t] + pointsMap[listSel[1].dataset.t]);
-			let strPoints = 'bodů';
-			if (window.mahjongg.points === 1) {
-				strPoints = 'bod';
-			} else if (window.mahjongg.points > 1 && window.mahjongg.points <= 4) {
-				strPoints = 'body';
-			}
+			window.mahjongg.points += (pointsMap[listSel[0].innerText] + pointsMap[listSel[1].innerText]);
 			const elPoints = document.getElementById('points');
 			if (elPoints instanceof HTMLElement) {
-				elPoints.innerText = `${window.mahjongg.points} ${strPoints}`;
+				elPoints.innerText = window.mahjongg.points;
 			}
 			listSel[0].remove();
 			listSel[1].remove();
@@ -309,65 +176,42 @@ document.addEventListener('DOMContentLoaded', () => {
 		delete evt.target.dataset.s;
 	};
 
-	const onTileMouseEnter = (evt) => {
-		const elImg = document.getElementById('currentimg');
-		const elText = document.getElementById('currentname');
-		if (!(elImg instanceof HTMLImageElement) || !(elText instanceof HTMLElement)) {
+	const onTileKeyUp = (evt) => {
+		if (evt.key !== 'Enter' && evt.key !== ' ') {
 			return;
 		}
-		elImg.src = 'tiles/tile_' + evt.target.dataset.t + '.svg';
-		elText.innerText = nameMap[evt.target.dataset.t];
+		evt.preventDefault();
+		onTileClick(evt);
+	};
+
+	const onTileMouseEnter = (evt) => {
+		const elsShown = document.getElementsByClassName('shown');
+		for (const elShown of elsShown) {
+			elShown.classList.remove('shown');
+		}
+		const elImg = document.getElementById('currentimg');
+		const elText = document.getElementById(evt.target.innerText);
+		if (!(elImg instanceof HTMLElement) || !(elText instanceof HTMLElement)) {
+			return;
+		}
+		elImg.innerText = evt.target.innerText;
+		if (elText.classList.contains('shown')) {
+			return;
+		}
+		elText.classList.add('shown');
 	};
 
 	const onTileMouseLeave = (evt) => {
+		const elsShown = document.getElementsByClassName('shown');
+		for (const elShown of elsShown) {
+			elShown.classList.remove('shown');
+		}
 		const elImg = document.getElementById('currentimg');
-		const elText = document.getElementById('currentname');
-		if (!(elImg instanceof HTMLImageElement) || !(elText instanceof HTMLElement)) {
+		if (!(elImg instanceof HTMLElement)) {
 			return;
 		}
-		elImg.src = 'tiles/tile_empty.svg';
-		elText.innerText = 'Nula Nic';
+		elImg.innerText = '';
 	};
-
-	const initTiles = () => {
-		const elGame = document.getElementById('game');
-		if (!(elGame instanceof HTMLElement)) {
-			return;
-		}
-
-		const shapeRatio = (window.mahjongg.shapeDim.w / window.mahjongg.shapeDim.h);
-		const screenRatio = (elGame.clientWidth / elGame.clientHeight);
-
-		let tileH = 0;
-		let tileW = 0;
-		let tileS = 0;
-
-		if (shapeRatio > screenRatio) {
-			tileW = ((2 * elGame.clientWidth) / window.mahjongg.shapeDim.w);
-			tileH = ((tileW * 9) / 7);
-			tileS = (tileW / 7);
-		} else {
-			tileH = ((2 * elGame.clientHeight) / window.mahjongg.shapeDim.h);
-			tileW = ((tileH * 7) / 9);
-			tileS = (tileH / 9);
-		}
-
-		const tiles = document.getElementsByClassName('tile');
-		for (const tile of tiles) {
-			if (!isBrick(tile)) {
-				continue;
-			}
-			const tileX = parseInt(tile.dataset.x);
-			const tileY = parseInt(tile.dataset.y);
-			const tileZ = parseInt(tile.dataset.z);
-			const tileLeft = Math.round(((tileX - 1) * ((tileW - tileS) / 2)) - ((tileZ - 1) * tileS));
-			const tileTop = Math.round(((tileY - 1) * ((tileH - tileS) / 2)) - ((tileZ - 1) * (tileS * 3 / 4)));
-			tile.style.width = `${Math.round(tileW)}px`;
-			tile.style.height = `${Math.round(tileH)}px`;
-			tile.style.left = `${tileLeft}px`;
-			tile.style.top = `${tileTop}px`;
-		}
-	}
 
 	const elWinClose = document.getElementById('winClose');
 	if (elWinClose instanceof EventTarget) {
@@ -430,13 +274,43 @@ document.addEventListener('DOMContentLoaded', () => {
 		const diff = Math.floor((new Date().valueOf() - window.mahjongg.start) / 1000);
 		const diffM = Math.floor(diff / 60);
 		const diffS = diff % 60;
-		elTime.innerText = `${diffM}m ${diffS}s`;
+		const diffS0 = diffS < 10 ? '0' : '';
+		elTime.innerText = `${diffM}:${diffS0}${diffS}`;
 	};
 	const timeInt = setInterval(timeProc, 1000);
 
+	const resizeBoard = () => {
+		const elGame = document.getElementById('game');
+		const elPanel = document.getElementById('toppanel');
+		if (!(elGame instanceof Element) || !(elPanel instanceof Element)) {
+			return;
+		}
+
+		const screenWidth = visualViewport.width;
+		const screenHeight = (visualViewport.height - elPanel.clientHeight); 
+
+		const shapeRatio = (window.mahjongg.shapeDim.w / window.mahjongg.shapeDim.h);
+		const screenRatio = (screenWidth / screenHeight);
+
+		let tileH = 0;
+		let tileW = 0;
+
+		if (shapeRatio > screenRatio) {
+			tileW = ((2 * screenWidth) / (window.mahjongg.shapeDim.w + 1));
+			tileH = ((tileW * 9) / 7);
+		} else {
+			tileH = ((2 * screenHeight) / (window.mahjongg.shapeDim.h + 1));
+			tileW = ((tileH * 7) / 9);
+		}
+
+		elGame.style.gridTemplateColumns = `repeat(${window.mahjongg.shapeDim.w + 1}, ${Math.round(tileW / 2)}px)`;
+		elGame.style.gridTemplateRows = `repeat(${window.mahjongg.shapeDim.h + 1}, ${Math.round(tileH / 2)}px)`;
+		elGame.style.fontSize = `${Math.round(tileH * 0.625)}px`;
+	}
+
 	const drawGame = (shape) => {
 		let shapeDef = [];
-		window.mahjongg.shapeDim = {w: 0, h: 0};
+		window.mahjongg.shapeDim = {w: 0, h: 0, maxz: 0};
 		if (shape === 'turtle') {
 			shapeDef = [
 				{x: 3, y: 1, z: 1}, {x: 5, y: 1, z: 1}, {x: 7, y: 1, z: 1}, {x: 9, y: 1, z: 1},
@@ -478,36 +352,70 @@ document.addEventListener('DOMContentLoaded', () => {
 			];
 			window.mahjongg.shapeDim.w = 29;
 			window.mahjongg.shapeDim.h = 15;
+			window.mahjongg.shapeDim.maxz = 5;
 		}
+
+		resizeBoard();
 
 		const elGame = document.getElementById('game');
 		if (!(elGame instanceof Element)) {
 			return;
 		}
-		let counter = 0;
+
 		for (const tileShape of shapeDef) {
 			const elTile = document.createElement('div');
-			elTile.id = `t${counter++}`;
 			elTile.classList.add('tile');
+			elTile.role = 'button';
+			elTile.tabIndex = 0;
+			elTile.style.gridColumn = `${tileShape.x} / ${tileShape.x + 2}`;
+			elTile.style.gridRow = `${tileShape.y} / ${tileShape.y + 2}`;
+			elTile.style.zIndex = tileShape.z;
+			if (tileShape.z > 1) {
+				elTile.style.left = `${Math.round((tileShape.z-1) * -4)}px`;
+				elTile.style.top = `${Math.round((tileShape.z-1) * -4)}px`;
+			}
 			elTile.dataset.x = tileShape.x;
 			elTile.dataset.y = tileShape.y;
 			elTile.dataset.z = tileShape.z;
+			const colorPart = (255 - ((window.mahjongg.shapeDim.maxz - tileShape.z) * 17)).toString(16);
+			elTile.style.backgroundColor = `#${colorPart}${colorPart}${colorPart}`;
 			elTile.addEventListener('click', onTileClick);
+			elTile.addEventListener('keyup', onTileKeyUp);
 			elTile.addEventListener('mouseenter', onTileMouseEnter);
 			elTile.addEventListener('mouseleave', onTileMouseLeave);
 			const randomType = Math.floor(Math.random() * brickTypes.length);
-			elTile.dataset.t = brickTypes[randomType];
+			elTile.innerText = brickTypes[randomType];
 			brickTypes.splice(randomType, 1);
+			if (characters.indexOf(elTile.innerText) > -1) {
+				elTile.dataset.t = 'character';
+			}
+			if (sticks.indexOf(elTile.innerText) > -1) {
+				elTile.dataset.t = 'stick';
+			}
+			if (circles.indexOf(elTile.innerText) > -1) {
+				elTile.dataset.t = 'circle';
+			}
+			if (dragons.indexOf(elTile.innerText) > -1) {
+				elTile.dataset.t = 'dragon';
+			}
+			if (winds.indexOf(elTile.innerText) > -1) {
+				elTile.dataset.t = 'wind';
+			}
+			if (flowers.indexOf(elTile.innerText) > -1) {
+				elTile.dataset.t = 'flower';
+			}
+			if (seasons.indexOf(elTile.innerText) > -1) {
+				elTile.dataset.t = 'season';
+			}
 			elGame.insertAdjacentElement('beforeend', elTile);
 		}
 	}
 
 	drawGame('turtle');
-	initTiles();
 
 	var resizeTimeout = false;
 	window.addEventListener('resize', () => {
 		clearTimeout(resizeTimeout);
-		resizeTimeout = setTimeout(initTiles, 250);
+		resizeTimeout = setTimeout(resizeBoard, 250);
 	});
 });
