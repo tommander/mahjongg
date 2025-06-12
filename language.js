@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Text (lose dialog).
 	const elLoseText = document.getElementById('loseText');
 	if (elLoseText instanceof HTMLElement) {
-		elLoseText.innerText = languages[lang].hdglose;
+		elLoseText.innerText = languages[lang].txtlose;
 	}
 
 	// Heading (help dialog).
