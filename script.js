@@ -377,11 +377,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 		}
 
-		const elsHelpButton = document.getElementsByClassName('helpButton');
-		for (const elHelpButton of elsHelpButton) {
-			if (!(elHelpButton instanceof EventTarget)) {
-				continue;
-			}
+		const elHelpButton = document.getElementById('helpButton');
+		if (elHelpButton instanceof EventTarget) {
 			elHelpButton.addEventListener('click', () => {
 				const dlgHelp = document.getElementById('help');
 				if (dlgHelp instanceof HTMLDialogElement) {

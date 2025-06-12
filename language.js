@@ -189,8 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	// Help button (top panel).
-	const elsHelpButton = document.getElementsByClassName('helpButton');
-	for (const elHelpButton of elsHelpButton) {
+	const elHelpButton = document.getElementById('helpButton');
+	if (elHelpButton instanceof HTMLElement) {
 		elHelpButton.innerText = languages[lang].btnhelp;
 	}
 
