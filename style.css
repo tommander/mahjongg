@@ -32,7 +32,7 @@ button {
 	font-weight: bold;
 }
 
-/* Tiles (common) */
+/* Tiles */
 
 .tile {
 	position: relative;
@@ -73,7 +73,7 @@ button {
 	box-shadow: 1px 1px #f00, 2px 2px #f00, 3px 3px #f00, 4px 4px #f00;
 }
 
-/* Top Bar */
+/* Top Panel */
 
 .panel {
 	background-color: rgba(255,255,255,0.75);
@@ -99,7 +99,7 @@ button {
 	margin-right: 0.25rem;
 }
 
-/* Current Tile Panel */
+/* Current Tile (Bottom-Right) Panel */
 
 #current {
 	position: absolute;

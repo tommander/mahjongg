@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+	/**
+	 * Definition of translatable texts.
+	 * 
+	 * @constant {Object.<string, Object.<string, (string|Object.<string,string>)>>}
+	 */
 	const languages = {
 		'en-US': {
 			name: 'English',
@@ -120,13 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		},
 	};
 
-	let lang = 'cs-CZ';
-	const sp = new URL(location.href).searchParams;
-	const urllang = sp.get('lang');
-	if (urllang in languages) {
-		lang = urllang;
-	}
-
+	/**
+	 * Handler for language switcher's "change" event.
+	 *
+	 * @param {Event} evt 
+	 */
 	const switchLanguage = (evt) => {
 		if ((evt.target instanceof HTMLSelectElement) && evt.target.value in languages) {
 			const newUrl = new URL(location.href);
@@ -135,6 +138,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	};
 
+	// Set the current language ("cs-CZ" by default).
+	let lang = 'cs-CZ';
+	const sp = new URL(location.href).searchParams;
+	const urllang = sp.get('lang');
+	if (urllang in languages) {
+		lang = urllang;
+	}
+
+	// Build language switcher contents.
 	const elLanguageSwitcher = document.getElementById('language-switcher');
 	if (elLanguageSwitcher instanceof HTMLSelectElement) {
 		elLanguageSwitcher.addEventListener('change', switchLanguage);
@@ -146,65 +158,92 @@ document.addEventListener('DOMContentLoaded', () => {
 			elLanguageSwitcher.insertAdjacentElement('beforeend', elLanguage);
 		}
 	}
+
+	// From here on until the end: setting translatable texts.
+
+	// <html> element language.
+	document.documentElement.lang = lang;
+
+	// Language switcher label (top panel).
 	const elLanguageSwitcherLabel = document.getElementById('language-switcher-label');
 	if (elLanguageSwitcherLabel instanceof HTMLElement) {
 		elLanguageSwitcherLabel.innerText = `${languages[lang].language}:`;
 	}
 
-	document.documentElement.lang = lang;
-
+	// Points label (top panel).
 	const elPoints = document.getElementById('points');
 	if (elPoints instanceof HTMLElement) {
 		elPoints.ariaLabel = languages[lang].txtpoints;
 	}
 
+	// Elapsed time label (top panel).
 	const elTime = document.getElementById('time');
 	if (elTime instanceof HTMLElement) {
 		elTime.ariaLabel = languages[lang].txttime;
 	}
 
+	// New game button (top panel, all dialogs).
 	const elsNewGame = document.getElementsByClassName('newGame');
 	for (const elNewGame of elsNewGame) {
 		elNewGame.innerText = languages[lang].btnnewgame;
 	}
 
+	// Help button (top panel).
 	const elsHelpButton = document.getElementsByClassName('helpButton');
 	for (const elHelpButton of elsHelpButton) {
 		elHelpButton.innerText = languages[lang].btnhelp;
 	}
 
+	// Close button (help dialog).
 	const elHelpClose = document.getElementById('helpClose');
 	if (elHelpClose instanceof HTMLElement) {
 		elHelpClose.innerText = languages[lang].btnclose;
 	}
+
+
+	// Close button (lose dialog).
 	const elLoseClose = document.getElementById('loseClose');
 	if (elLoseClose instanceof HTMLElement) {
 		elLoseClose.innerText = languages[lang].btnclose;
 	}
+
+	// Close button (win dialog).
 	const elWinClose = document.getElementById('winClose');
 	if (elWinClose instanceof HTMLElement) {
 		elWinClose.innerText = languages[lang].btnclose;
 	}
+
+	// Heading (win dialog).
 	const elWinHeading = document.getElementById('winHeading');
 	if (elWinHeading instanceof HTMLElement) {
 		elWinHeading.innerText = languages[lang].hdgwin;
 	}
+
+	// Heading (lose dialog).
 	const elLoseHeading = document.getElementById('loseHeading');
 	if (elLoseHeading instanceof HTMLElement) {
 		elLoseHeading.innerText = languages[lang].hdglose;
 	}
+
+	// Text (lose dialog).
 	const elLoseText = document.getElementById('loseText');
 	if (elLoseText instanceof HTMLElement) {
 		elLoseText.innerText = languages[lang].hdglose;
 	}
+
+	// Heading (help dialog).
 	const elHelpHeading = document.getElementById('helpHeading');
 	if (elHelpHeading instanceof HTMLElement) {
 		elHelpHeading.innerText = languages[lang].hdghelp;
 	}
+
+	// Text (help dialog).
 	const elHelpText = document.getElementById('helpText');
 	if (elHelpText instanceof HTMLElement) {
 		elHelpText.innerText = languages[lang].txthelp;
 	}
+
+	// License info (help dialog).
 	const elHelpCopy = document.getElementById('helpCopy');
 	if (elHelpCopy instanceof HTMLElement) {
 		elHelpCopy.innerHTML = languages[lang].txtcopy
@@ -212,6 +251,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			.replace('%2s', '<a href="https://tommander.cz">Tomáš Rajnoha</a>')
 			.replace('%3s', '<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>');
 	}
+
+	// Cards (bottom-right panel).
 	for (const cardSymbol in languages[lang].cards) {
 		elCard = document.getElementById(cardSymbol);
 		if (elCard instanceof HTMLElement) {

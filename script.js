@@ -1,10 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
+	/**
+	 * Some information that is kept for the entire duration of the game.
+	 * 
+	 * @type {object}
+	 * @property {Date} start - Start timestamp of the game
+	 * @property {number} points - Player's collected points
+	 * @property {object} shapeDim - Width, height and maximum z-index of the current deal shape
+	 */
 	window.mahjongg = {
 		start: new Date().valueOf(),
 		points: 0,
+		shapeDim: {
+			w: 0,
+			h: 0,
+			maxz: 0,
+		}
 	};
 
-	const brickTypes = [
+	/**
+	 * Set of 144 tiles.
+	 * 
+	 * The code uses this when it's dealing tiles. It repeatedly takes a random tile and removes it
+	 * from this array, so, ideally, there is none left at the end of dealing.
+	 * 
+	 * @constant {string[]}
+	 */
+	const tileTypes = [
 		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
 		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
 		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
@@ -29,14 +50,54 @@ document.addEventListener('DOMContentLoaded', () => {
 		'🀩', '🀦', '🀨', '🀧'
 	];
 
+	/**
+	 * Suited tiles 1-9 of Characters.
+	 * 
+	 * @constant {string[]}
+	 */
 	const characters = ['🀇','🀈','🀉','🀊','🀋','🀌','🀍','🀎','🀏'];
+	/**
+	 * Suited tiles 1-9 of Circles.
+	 * 
+	 * @constant {string[]}
+	 */
 	const circles = ['🀙','🀚','🀛','🀜','🀝','🀞','🀟','🀠','🀡'];
+	/**
+	 * Suited tiles 1-9 of Sticks (Bamboos).
+	 * 
+	 * @constant {string[]}
+	 */
 	const sticks = ['🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘'];
+	/**
+	 * Honors tiles Red/White/Green Dragon.
+	 * 
+	 * @constant {string[]}
+	 */
 	const dragons = ['🀆','🀅','🀄︎'];
+	/**
+	 * Honors tiles North/West/South/East Wind.
+	 * 
+	 * @constant {string[]}
+	 */
 	const winds = ['🀀','🀃','🀁','🀂'];
+	/**
+	 * Bonus tiles of Flowers - Plum/Chrysanthemum/Orchid/Bamboo.
+	 * 
+	 * @constant {string[]}
+	 */
 	const flowers = ['🀢', '🀣', '🀤', '🀥'];
+	/**
+	 * Bonus tiles of Seasons - Spring, Summer, Autumn, Winter.
+	 * 
+	 * @constant {string[]}
+	 */
 	const seasons = ['🀩', '🀦', '🀨', '🀧'];
 
+	/**
+	 * Mapping of each Mahjongg tile to its points.
+	 * 
+	 * @constant {Object.<string,number>}
+	 */
 	const pointsMap = {
 		'🀇': 2, '🀈': 2, '🀉': 2, '🀊': 2, '🀋': 2, '🀌': 2, '🀍': 2, '🀎': 2, '🀏': 2,
 		'🀙': 4, '🀚': 4, '🀛': 4, '🀜': 4, '🀝': 4, '🀞': 4, '🀟': 4, '🀠': 4, '🀡': 4,
@@ -47,6 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		'🀩': 14, '🀦': 14, '🀨': 14, '🀧': 14,
 	};
 
+	/**
+	 * Checks whether the player still has some tiles to match. If not, it does not let them suffer
+	 * anymore and closes the game right away, showing the "You lost" dialog.
+	 * 
+	 * @returns {void}
+	 */
 	const checkLose = () => {
 		const allTiles = document.querySelectorAll('.tile');
 		let notBlocked = [];
@@ -76,6 +143,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		elLose.showModal();
 	}
 
+	/**
+	 * Checks whether there is at least one tile left in game. If not, it closes the game and shows
+	 * the "You won" dialog.
+	 *
+	 * @returns {void}
+	 */
 	const checkWin = () => {
 		const anyTile = document.querySelector('.tile');
 		if (anyTile) {
@@ -96,21 +169,38 @@ document.addEventListener('DOMContentLoaded', () => {
 		elWin.showModal();
 	}
 
-	const isBrick = (elem) => {
+	/**
+	 * Verifies that the given "something" is an element with class "tile".
+	 *
+	 * @param {*} elem Anything that needs to be checked.
+	 * @returns {boolean}
+	 */
+	const isTile = (elem) => {
 		return (
 			(elem instanceof Element) &&
 			elem.classList.contains('tile')
 		);
 	}
 
-	const isBlocked = (brick) => {
-		if (!isBrick(brick)) {
+	/**
+	 * Checks whether the given tile is blocked.
+	 * 
+	 * A blocked tile has either:
+	 *
+	 * - Tiles partially or fully covering both its left and right long edge, or
+	 * - A tile partially or fully covering it on the top.
+	 *
+	 * @param {*} tile 
+	 * @returns {(null|boolean)}
+	 */
+	const isBlocked = (tile) => {
+		if (!isTile(tile)) {
 			return null;
 		}
 
-		const myX = parseInt(brick.style.gridColumn);
-		const myY = parseInt(brick.style.gridRow);
-		const myZ = parseInt(brick.style.zIndex);
+		const myX = parseInt(tile.style.gridColumn);
+		const myY = parseInt(tile.style.gridRow);
+		const myZ = parseInt(tile.style.zIndex);
 
 		const selectorL = `.tile[data-x="${myX-2}"][data-y="${myY-1}"][data-z="${myZ}"],` +
 						  `.tile[data-x="${myX-2}"][data-y="${myY}"][data-z="${myZ}"],` +
@@ -135,6 +225,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		);
 	}
 
+	/**
+	 * Handler for a tile's "click" event.
+	 * 
+	 * This toggles the selection of the tile, if it's not blocked and it's the first selected tile.
+	 * 
+	 * If there is already another selected tile, it checks whether these two are a match. If not,
+	 * nothing happens, otherwise the two tiles are removed and the player is happy.
+	 *
+	 * @param {MouseEvent} evt Event object
+	 * @returns {void}
+	 */
 	const onTileClick = (evt) => {
 		if (isBlocked(evt.target) !== false) {
 			return;
@@ -170,6 +271,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		delete evt.target.dataset.s;
 	};
 
+	/**
+	 * Handler for a tile's "keyup" event.
+	 * 
+	 * If the key is different from *Enter* or *Spacebar*, nothing happens, otherwise the click
+	 * handler is called and default action is prevented.
+	 *
+	 * @param {KeyboardEvent} evt Event object
+	 * @returns {void}
+	 */
 	const onTileKeyUp = (evt) => {
 		if (evt.key !== 'Enter' && evt.key !== ' ') {
 			return;
@@ -178,6 +288,14 @@ document.addEventListener('DOMContentLoaded', () => {
 		onTileClick(evt);
 	};
 
+	/**
+	 * Handler for a tile's "mouseenter" event.
+	 * 
+	 * This updates the bottom-right panel showing the tile's symbol and name.
+	 * 
+	 * @param {MouseEvent} evt Event object
+	 * @returns {void}
+	 */
 	const onTileMouseEnter = (evt) => {
 		const elsShown = document.getElementsByClassName('shown');
 		for (const elShown of elsShown) {
@@ -195,6 +313,14 @@ document.addEventListener('DOMContentLoaded', () => {
 		elText.classList.add('shown');
 	};
 
+	/**
+	 * Handler for a tile's "mouseleave" event.
+	 * 
+	 * Resets the bottom-right panel to show nothing.
+	 * 
+	 * @param {MouseEvent} evt 
+	 * @returns {void}
+	 */
 	const onTileMouseLeave = (evt) => {
 		const elsShown = document.getElementsByClassName('shown');
 		for (const elShown of elsShown) {
@@ -207,59 +333,69 @@ document.addEventListener('DOMContentLoaded', () => {
 		elImg.innerText = '';
 	};
 
-	const elWinClose = document.getElementById('winClose');
-	if (elWinClose instanceof EventTarget) {
-		elWinClose.addEventListener('click', () => {
-			const elWin = document.getElementById('win');
-			if (elWin instanceof HTMLDialogElement) {
-				elWin.close();
-			}
-		});
-	}
-
-	const elLoseClose = document.getElementById('loseClose');
-	if (elLoseClose instanceof EventTarget) {
-		elLoseClose.addEventListener('click', () => {
-			const elLose = document.getElementById('lose');
-			if (elLose instanceof HTMLDialogElement) {
-				elLose.close();
-			}
-		});
-	}
-
-	const elHelpClose = document.getElementById('helpClose');
-	if (elHelpClose instanceof EventTarget) {
-		elHelpClose.addEventListener('click', () => {
-			const elHelp = document.getElementById('help');
-			if (elHelp instanceof HTMLDialogElement) {
-				elHelp.close();
-			}
-		});
-	}
-
-	const elsNewGame = document.getElementsByClassName('newGame');
-	for (const elNewGame of elsNewGame) {
-		if (!(elNewGame instanceof EventTarget)) {
-			continue;
+	/**
+	 * Adds events to all buttons.
+	 */
+	const initEvents = () => {
+		const elWinClose = document.getElementById('winClose');
+		if (elWinClose instanceof EventTarget) {
+			elWinClose.addEventListener('click', () => {
+				const elWin = document.getElementById('win');
+				if (elWin instanceof HTMLDialogElement) {
+					elWin.close();
+				}
+			});
 		}
-		elNewGame.addEventListener('click', () => {
-			window.location.reload();
-		});
-	}
 
-	const elsHelpButton = document.getElementsByClassName('helpButton');
-	for (const elHelpButton of elsHelpButton) {
-		if (!(elHelpButton instanceof EventTarget)) {
-			continue;
+		const elLoseClose = document.getElementById('loseClose');
+		if (elLoseClose instanceof EventTarget) {
+			elLoseClose.addEventListener('click', () => {
+				const elLose = document.getElementById('lose');
+				if (elLose instanceof HTMLDialogElement) {
+					elLose.close();
+				}
+			});
 		}
-		elHelpButton.addEventListener('click', () => {
-			const dlgHelp = document.getElementById('help');
-			if (dlgHelp instanceof HTMLDialogElement) {
-				dlgHelp.showModal();
+
+		const elHelpClose = document.getElementById('helpClose');
+		if (elHelpClose instanceof EventTarget) {
+			elHelpClose.addEventListener('click', () => {
+				const elHelp = document.getElementById('help');
+				if (elHelp instanceof HTMLDialogElement) {
+					elHelp.close();
+				}
+			});
+		}
+
+		const elsNewGame = document.getElementsByClassName('newGame');
+		for (const elNewGame of elsNewGame) {
+			if (!(elNewGame instanceof EventTarget)) {
+				continue;
 			}
-		});
+			elNewGame.addEventListener('click', () => {
+				window.location.reload();
+			});
+		}
+
+		const elsHelpButton = document.getElementsByClassName('helpButton');
+		for (const elHelpButton of elsHelpButton) {
+			if (!(elHelpButton instanceof EventTarget)) {
+				continue;
+			}
+			elHelpButton.addEventListener('click', () => {
+				const dlgHelp = document.getElementById('help');
+				if (dlgHelp instanceof HTMLDialogElement) {
+					dlgHelp.showModal();
+				}
+			});
+		}
 	}
 
+	/**
+	 * Updates elapsed time based on the difference between now and `mahjongg.start`.
+	 *
+	 * @returns {void}
+	 */
 	const timeProc = () => {
 		const elTime = document.getElementById('time');
 		if (!(elTime instanceof HTMLElement)) {
@@ -271,8 +407,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		const diffS0 = diffS < 10 ? '0' : '';
 		elTime.innerText = `${diffM}:${diffS0}${diffS}`;
 	};
-	const timeInt = setInterval(timeProc, 1000);
 
+	/**
+	 * Computes an ideal tile size so that the deal shape would fit the screen.
+	 * 
+	 * It takes into consideration the aspect ratio of the shape and of the screen to decide,
+	 * whether the tile has to fit to the screen's width or height.
+	 * 
+	 * Tile aspect ratio is 7:9 (width:height) and font size is 62.5% of tile height.
+	 * 
+	 * With that, it updates the game board's grid template columns and rows.
+	 *
+	 * @returns {void}
+	 */
 	const resizeBoard = () => {
 		const elGame = document.getElementById('game');
 		const elPanel = document.getElementById('toppanel');
@@ -302,6 +449,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		elGame.style.fontSize = `${Math.round(tileH * 0.625)}px`;
 	}
 
+	/**
+	 * Deals tiles according to the given shape, computes tile/board size and creates all tiles.
+	 *
+	 * @param {string} shape 
+	 * @returns {void}
+	 */
 	const drawGame = (shape) => {
 		let shapeDef = [];
 		window.mahjongg.shapeDim = {w: 0, h: 0, maxz: 0};
@@ -377,9 +530,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			elTile.addEventListener('keyup', onTileKeyUp);
 			elTile.addEventListener('mouseenter', onTileMouseEnter);
 			elTile.addEventListener('mouseleave', onTileMouseLeave);
-			const randomType = Math.floor(Math.random() * brickTypes.length);
-			elTile.innerText = brickTypes[randomType];
-			brickTypes.splice(randomType, 1);
+			const randomType = Math.floor(Math.random() * tileTypes.length);
+			elTile.innerText = tileTypes[randomType];
+			tileTypes.splice(randomType, 1);
 			if (characters.indexOf(elTile.innerText) > -1) {
 				elTile.dataset.t = 'character';
 			}
@@ -405,8 +558,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 
+	// Here is the end of definitions and start of the actual program flow. Finally :)
+
+	// Start game time updating
+	const timeInt = setInterval(timeProc, 1000);
+
+	// Prepare UI
+	initEvents();
 	drawGame('turtle');
 
+	// React to resizing with a 250ms timeout, so that we don't break the browser if the user gets
+	// crazy.
 	var resizeTimeout = false;
 	window.addEventListener('resize', () => {
 		clearTimeout(resizeTimeout);
