@@ -224,6 +224,67 @@ document.addEventListener('DOMContentLoaded', () => {
 		);
 	}
 
+	const markFreeSides = (tile) => {
+		if (!isTile(tile)) {
+			return;
+		}
+
+		if (tile.classList.contains('freeTop')) {
+			tile.classList.remove('freeTop');
+		}
+		if (tile.classList.contains('freeBottom')) {
+			tile.classList.remove('freeBottom');
+		}
+		if (tile.classList.contains('freeLeft')) {
+			tile.classList.remove('freeLeft');
+		}
+		if (tile.classList.contains('freeRight')) {
+			tile.classList.remove('freeRight');
+		}
+
+		const myX = parseInt(tile.style.gridColumn);
+		const myY = parseInt(tile.style.gridRow);
+		const myZ = parseInt(tile.style.zIndex);
+
+		const selectorL = `.tile[data-x="${myX-2}"][data-y="${myY-1}"][data-z="${myZ}"],` +
+						  `.tile[data-x="${myX-2}"][data-y="${myY}"][data-z="${myZ}"],` +
+						  `.tile[data-x="${myX-2}"][data-y="${myY+1}"][data-z="${myZ}"]`;
+		const selectorR = `.tile[data-x="${myX+2}"][data-y="${myY-1}"][data-z="${myZ}"],` + 
+						  `.tile[data-x="${myX+2}"][data-y="${myY}"][data-z="${myZ}"],` + 
+						  `.tile[data-x="${myX+2}"][data-y="${myY+1}"][data-z="${myZ}"]`;
+		const selectorT = `.tile[data-x="${myX-1}"][data-y="${myY-2}"][data-z="${myZ}"],` + 
+						  `.tile[data-x="${myX}"][data-y="${myY-2}"][data-z="${myZ}"],` + 
+						  `.tile[data-x="${myX+1}"][data-y="${myY-2}"][data-z="${myZ}"]`;
+		const selectorB = `.tile[data-x="${myX-1}"][data-y="${myY+2}"][data-z="${myZ}"],` + 
+						  `.tile[data-x="${myX}"][data-y="${myY+2}"][data-z="${myZ}"],` + 
+						  `.tile[data-x="${myX+1}"][data-y="${myY+2}"][data-z="${myZ}"]`;
+
+		if (!document.querySelector(selectorL)) {
+			tile.classList.add('freeLeft');
+		}
+		if (!document.querySelector(selectorR)) {
+			tile.classList.add('freeRight');
+		}
+		if (!document.querySelector(selectorT)) {
+			tile.classList.add('freeTop');
+		}
+		if (!document.querySelector(selectorB)) {
+			tile.classList.add('freeBottom');
+		}
+	}
+
+	/**
+	 * Mark free sides of all tiles by `free*` classes.
+	 *
+	 * @return {void}
+	 */
+	const markFreeSidesForAll = () => {
+		const elsTile = document.getElementsByClassName('tile');
+		for (const elTile of elsTile) {
+			markFreeSides(elTile);
+		}
+	}
+
 	/**
 	 * Handler for a tile's "click" event.
 	 * 
@@ -263,6 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 			listSel[0].remove();
 			listSel[1].remove();
+			markFreeSidesForAll();
 			checkWin();
 			return;
 		}
@@ -521,6 +583,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 			elGame.insertAdjacentElement('beforeend', elTile);
 		}
+
+		markFreeSidesForAll();
 	}
 
 	// Here is the end of definitions and start of the actual program flow. Finally :)

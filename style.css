@@ -36,7 +36,7 @@ button {
 
 .tile {
 	position: relative;
-	border: 1px solid black;
+	border: 1px solid #aaa;
 	border-radius: 5px;
 	box-shadow: 1px 1px #555, 2px 2px #555, 3px 3px #555, 4px 4px black;
 	background-color: white;
@@ -63,6 +63,22 @@ button {
 }
 .tile[data-t="season"] {
 	color: #000000;
+}
+.tile.freeTop {
+	border-top-color: #000;
+	border-top-width: 2px;
+}
+.tile.freeBottom {
+	border-bottom-color: #000;
+	border-bottom-width: 2px;
+}
+.tile.freeLeft {
+	border-left-color: #000;
+	border-left-width: 2px;
+}
+.tile.freeRight {
+	border-right-color: #000;
+	border-right-width: 2px;
 }
 .tile:hover {
 	border: 2px solid #f0f;
