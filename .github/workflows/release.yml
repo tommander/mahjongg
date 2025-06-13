@@ -10,6 +10,9 @@ jobs:
   assets:
     name: 'Create Release Assets'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
     steps:
       - name: 'Install Tools'
         run: |
@@ -32,3 +35,5 @@ jobs:
       - name: 'Create release'
         run: |
           gh release create ${{ inputs.version }} -t ${{ inputs.version }} --generate-notes --notes "Automatic release" --target master mahjongg-${{ inputs.version }}.tar.xz mahjongg-${{ inputs.version }}.zip
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
