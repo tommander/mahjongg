@@ -30,7 +30,7 @@ jobs:
       - id: create-release-step
         name: 'Create release'
         run: |
-          rlsupurl = $(gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/$OWNER/$REPO/releases -f "tag_name=$RELVER" -f "target_commitish=master" -f "name=$RELVER" -f "body=Automatic release $RELVER" -F "draft=false" -F "prerelease=false" -F "generate_release_notes=true" | jq .upload_url | sed 's/{?name,label}//' -)
+          rlsupurl=$(gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/$OWNER/$REPO/releases -f "tag_name=$RELVER" -f "target_commitish=master" -f "name=$RELVER" -f "body=Automatic release $RELVER" -F "draft=false" -F "prerelease=false" -F "generate_release_notes=true" | jq .upload_url | sed 's/{?name,label}//' -)
           echo 'RLS_UPLOAD_URL_TARXZ='$rlsupurl'?name=mahjongg-'$RELVER'.tar.xz' >> $GITHUB_ENV
           echo 'RLS_UPLOAD_URL_ZIP='$rlsupurl'?name=mahjongg-'$RELVER'.zip' >> $GITHUB_ENV
         env:
