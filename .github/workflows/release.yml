@@ -7,28 +7,42 @@ on:
         required: true
         type: string
 jobs:
-  sri:
-    name: 'Subresource Integrity'
+  archives:
+    name: 'SRI and Archives'
     runs-on: ubuntu-latest
     steps:
-      - id: sri1
-        name: 'Install utils'
+      - name: 'Install Tools'
         run: |
           sudo apt update
-          sudo apt install coreutils grep xxd sed
-      - id: sri2
-        name: 'Checkout'
+          sudo apt install coreutils xxd grep sed zip jq
+      - name: 'Checkout'
         uses: actions/checkout@master
-      - id: sri3
-        name: 'Create index.html'
+      - name: 'Create index.html'
         run: |
           SCRIPTJS=`echo -n "sha256-" && sha256sum -b script.js | grep -o '^[0-9a-f]\+' | xxd -r -p | base64`
           LANGJS=`echo -n "sha256-" && sha256sum -b language.js | grep -o '^[0-9a-f]\+' | xxd -r -p | base64`
           STYLECSS=`echo -n "sha256-" && sha256sum -b style.css | grep -o '^[0-9a-f]\+' | xxd -r -p | base64`
           cat dev.html | sed "s|src=\"script.js\"|src=\"script.js\" integrity=\"$SCRIPTJS\"| ; s|src=\"language.js\"|src=\"language.js\" integrity=\"$LANGJS\"| ; s|href=\"style.css\"|href=\"style.css\" integrity=\"$STYLECSS\"|" - > index.html
-      - id: sri4
-        name: 'Store artifact'
-        uses: actions/upload-artifact@v4
-        with:
-          name: index-html
-          path: index.html
+      - name: 'Create TAR.XZ'
+        run: tar -cJvf mahjongg-${{ inputs.version }}.tar.xz background.webp index.html language.js LICENSE script.js style.css
+      - name: 'Create ZIP'
+        run: zip -j mahjongg-${{ inputs.version }}.zip background.webp index.html language.js LICENSE script.js style.css
+      - id: create-release-step
+        name: 'Create release'
+        run: |
+          rlsupurl = $(gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/$OWNER/$REPO/releases -f "tag_name=$RELVER" -f "target_commitish=master" -f "name=$RELVER" -f "body=Automatic release $RELVER" -F "draft=false" -F "prerelease=false" -F "generate_release_notes=true" | jq .upload_url | sed 's/{?name,label}//' -)
+          echo 'RLS_UPLOAD_URL_TARXZ='$rlsupurl'?name=mahjongg-'$RELVER'.tar.xz' >> $GITHUB_ENV
+          echo 'RLS_UPLOAD_URL_ZIP='$rlsupurl'?name=mahjongg-'$RELVER'.zip' >> $GITHUB_ENV
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
+          RELVER: ${{ inputs.version }}
+      - name: 'Upload release asset TARXZ'
+        run: |
+          gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" $RLS_UPLOAD_URL_TARXZ -f "@mahjongg-$RELVER.tar.xz"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
+          RELVER: ${{ inputs.version }}
