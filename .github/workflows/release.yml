@@ -10,8 +10,6 @@ jobs:
   assets:
     name: 'Create Release Assets'
     runs-on: ubuntu-latest
-    outputs:
-      archive-tar: ${{ steps.create-tarxz
     steps:
       - name: 'Install Tools'
         run: |
