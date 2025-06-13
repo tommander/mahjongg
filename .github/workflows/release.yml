@@ -76,7 +76,7 @@ jobs:
           RELVER: ${{ inputs.version }}
       - name: 'Upload release asset ZIP'
         run: |
-          gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" $RLS_UPLOAD_URL_TARXZ -f "@mahjongg-$RELVER.zip"
+          gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" $RLS_UPLOAD_URL_ZIP -f "@mahjongg-$RELVER.zip"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OWNER: ${{ github.repository_owner }}
