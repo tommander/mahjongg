@@ -3,7 +3,7 @@
 Here you can find some additional information that should help you with onboarding to this
 rather small project.
 
-The top-level info is that there is the main HTML file `index.html` that uses `style.css` for style
+The top-level info is that there is the main HTML file `dev.html` that uses `style.css` for style
 definitions and `script.js` for game logic and features and `language.js` for translatable texts and
 related functionality.
 
@@ -128,7 +128,7 @@ the game board will have.
 
 ## HTML file
 
-The `index.html` itself just contains the structure and by itself is not really interesting. All
+The `dev.html` itself just contains the structure and by itself is not really interesting. All
 "user-facing" texts there are in Czech - I explained this in the section "Translations".
 
 ## Main design
@@ -212,14 +212,16 @@ Czech.
 3. Create the language switcher content.
 4. Replace all texts in the DOM with translated texts.
 
-## SRI script
+## Releases
 
-A mysterious `sri.sh` file can be found in the project. SRI stands for "Subresource Integrity" and
-this script helps (on Linux systems at least) to generate the correct integrity strings that can be
-added to the `link` and `script` elements to make sure the downloaded subresources are not modified.
+Releases are done via a GitHub Workflow that is manually triggered and takes semver string as a
+parameter. The steps are:
 
-Please mind this when you do some changes. You might want to remove the `integrity` attributes maybe
-and add them back when you are done. At least that's what I do.
+1. Checkout master branch
+2. Create `index.html` from `dev.html` by adding "integrity" attribute to "script" and "link" tags
+3. Create `.tar.xz` and `.zip` archives with files "background.webp", "index.html", "language.js",
+"LICENSE", "script.js" and "style.css".
+4. Create a new tag and release with generated release notes and the two archives as assets
 
 ## Fun
 
