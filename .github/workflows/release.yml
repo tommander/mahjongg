@@ -10,6 +10,9 @@ jobs:
   archives:
     name: 'SRI and Archives'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
     steps:
       - name: 'Install Tools'
         run: |
