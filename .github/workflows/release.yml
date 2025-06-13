@@ -14,10 +14,6 @@ jobs:
       contents: write
       actions: write
     steps:
-      - name: 'Install Tools'
-        run: |
-          sudo apt update
-          sudo apt install coreutils xxd grep sed zip jq
       - name: 'Checkout'
         uses: actions/checkout@master
       - name: 'Create index.html'
