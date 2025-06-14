@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			hdgwin: 'You won!',
 			hdglose: 'You lost!',
 			txtlose: 'I should have dealt the cards better.',
-			hdghelp: 'Help',
 			txthelp: 'Your goal is to collect all 144 tiles. You can pick tiles by pairs that are “open” (at least one long edge is unoccupied and there is no adjacent tile) and have either the same symbol or are both either a Season or a Flower. Note that dealing is random; your particular game might not have a way to be won!',
 			txtcopy: '%1s by %2s is marked %3s',
 			cards: {
@@ -75,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			hdgwin: 'Vyhráli jste!',
 			hdglose: 'Prohráli jste.',
 			txtlose: 'Asi jsem to špatně rozdal.',
-			hdghelp: 'Nápověda',
 			txthelp: 'Vaším cílem je posbírat všech 144 kostek. Sbírat můžete kostky se stejnými symboly, které nemají jinou kostku nad sebou či z obou delších stran. Kostky typu Období a Květina mohou být v páru v odlišných barvách. Ale pozor - hra nemusí být nutně rozdána tak, že určitě lze vyhrát!',
 			txtcopy: '%1s autora %2s je označen jako %3s',
 			cards: {
@@ -216,12 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const elLoseText = document.getElementById('loseText');
 	if (elLoseText instanceof HTMLElement) {
 		elLoseText.innerText = languages[lang].txtlose;
-	}
-
-	// Heading (help dialog).
-	const elHelpHeading = document.getElementById('helpHeading');
-	if (elHelpHeading instanceof HTMLElement) {
-		elHelpHeading.innerText = languages[lang].hdghelp;
 	}
 
 	// Text (help dialog).
