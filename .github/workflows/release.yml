@@ -7,27 +7,25 @@ on:
         required: true
         type: string
 jobs:
-  assets:
-    name: 'Create Release Assets'
+  create-release:
+    name: 'Create Release'
     runs-on: ubuntu-latest
     permissions:
       contents: write
       actions: write
     steps:
-      - name: 'Checkout'
+      - name: 'Checkout "master"'
         uses: actions/checkout@master
       - name: 'Create index.html'
         run: |
           SCRIPTJS=`echo -n "sha256-" && sha256sum -b script.js | grep -o '^[0-9a-f]\+' | xxd -r -p | base64`
           LANGJS=`echo -n "sha256-" && sha256sum -b language.js | grep -o '^[0-9a-f]\+' | xxd -r -p | base64`
           STYLECSS=`echo -n "sha256-" && sha256sum -b style.css | grep -o '^[0-9a-f]\+' | xxd -r -p | base64`
-          cat dev.html | sed "s|src=\"script.js\"|src=\"script.js\" integrity=\"$SCRIPTJS\"| ; s|src=\"language.js\"|src=\"language.js\" integrity=\"$LANGJS\"| ; s|href=\"style.css\"|href=\"style.css\" integrity=\"$STYLECSS\"|" - > index.html
-      - id: create-tarxz
-        name: 'Create TAR.XZ'
-        run: tar -cJvf mahjongg-${{ inputs.version }}.tar.xz background.webp index.html language.js LICENSE script.js style.css
-      - id: create-zip
-        name: 'Create ZIP'
-        run: zip -j mahjongg-${{ inputs.version }}.zip background.webp index.html language.js LICENSE script.js style.css
+          cat dev.html | sed "s|0.0.0|${{ inputs.version }}| ; s|src=\"script.js\"|src=\"script.js\" integrity=\"$SCRIPTJS\"| ; s|src=\"language.js\"|src=\"language.js\" integrity=\"$LANGJS\"| ; s|href=\"style.css\"|href=\"style.css\" integrity=\"$STYLECSS\"|" - > index.html
+      - name: 'Create archives'
+        run: |
+          tar -cJvf mahjongg-${{ inputs.version }}.tar.xz background.webp index.html language.js LICENSE script.js style.css
+          zip -j mahjongg-${{ inputs.version }}.zip background.webp index.html language.js LICENSE script.js style.css
       - name: 'Create release'
         run: |
           gh release create ${{ inputs.version }} -t ${{ inputs.version }} --generate-notes --notes "Automatic release" --target master mahjongg-${{ inputs.version }}.tar.xz mahjongg-${{ inputs.version }}.zip
