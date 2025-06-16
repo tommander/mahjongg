@@ -568,6 +568,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			return;
 		}
 
+		let dealString = `[${shape}]`;
+
 		for (const tileShape of shapeDef) {
 			const elTile = document.createElement('div');
 			elTile.classList.add('tile');
@@ -590,6 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			elTile.addEventListener('mouseleave', onTileMouseLeave);
 			const randomType = Math.floor(Math.random() * tileTypes.length);
 			elTile.innerText = tileTypes[randomType];
+			dealString += elTile.innerText;
 			tileTypes.splice(randomType, 1);
 			if (characters.indexOf(elTile.innerText) > -1) {
 				elTile.dataset.t = 'character';
@@ -616,6 +619,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		markFreeSidesForAll();
+
+		console.log('Deal string:', dealString);
 	}
 
 	// Here is the end of definitions and start of the actual program flow. Finally :)
