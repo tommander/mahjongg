@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			btnnewgame: 'New game',
 			btnhelp: 'Help',
 			btnclose: 'Close',
+			btnhighlight: 'Highlight',
 			hdgwin: 'You won!',
 			hdglose: 'You lost!',
 			txtlose: 'I should have dealt the cards better.',
@@ -71,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			btnnewgame: 'Nová hra',
 			btnhelp: 'Nápověda',
 			btnclose: 'Zavřít',
+			btnhighlight: 'Zvýraznění',
 			hdgwin: 'Vyhráli jste!',
 			hdglose: 'Prohráli jste.',
 			txtlose: 'Asi jsem to špatně rozdal.',
@@ -196,6 +198,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	const elsCloseButton = document.getElementsByClassName('closeButton');
 	for (const elCloseButton of elsCloseButton) {
 		elCloseButton.innerText = languages[lang].btnclose;
+	}
+
+	// Heading (win dialog).
+	const elHighlightButton = document.getElementById('beginnerButton');
+	if (elHighlightButton instanceof HTMLElement) {
+		elHighlightButton.innerText = languages[lang].btnhighlight;
 	}
 
 	// Heading (win dialog).
