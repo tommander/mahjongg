@@ -80,6 +80,21 @@ button {
 	border-right-color: #000;
 	border-right-width: 2px;
 }
+.tile.z1 {
+	background-color: #bbb;
+}
+.tile.z2 {
+	background-color: #ccc;
+}
+.tile.z3 {
+	background-color: #ddd;
+}
+.tile.z4 {
+	background-color: #eee;
+}
+.tile.z5 {
+	background-color: #fff;
+}
 .tile.notBlocked {
 	background-color: #9f9;
 }

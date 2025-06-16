@@ -583,8 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			elTile.dataset.x = tileShape.x;
 			elTile.dataset.y = tileShape.y;
 			elTile.dataset.z = tileShape.z;
-			const colorPart = (255 - ((parseInt(sessionStorage.getItem('shapez')) - tileShape.z) * 17)).toString(16);
-			elTile.style.backgroundColor = `#${colorPart}${colorPart}${colorPart}`;
+			elTile.classList.add(`z${tileShape.z}`);
 			elTile.addEventListener('click', onTileClick);
 			elTile.addEventListener('keyup', onTileKeyUp);
 			elTile.addEventListener('mouseenter', onTileMouseEnter);
