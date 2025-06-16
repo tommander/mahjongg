@@ -80,6 +80,9 @@ button {
 	border-right-color: #000;
 	border-right-width: 2px;
 }
+.tile.notBlocked {
+	background-color: #9f9;
+}
 .tile:hover {
 	border: 2px solid #f0f;
 	box-shadow: 1px 1px #f0f, 2px 2px #f0f, 3px 3px #f0f, 4px 4px #f0f;

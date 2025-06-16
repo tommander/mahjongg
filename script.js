@@ -224,6 +224,25 @@ document.addEventListener('DOMContentLoaded', () => {
 		);
 	}
 
+	const isBeginner = () => {
+		return (localStorage.getItem('beginner') === 'true');
+	}
+	const enableBeginner = () => {
+		localStorage.setItem('beginner', 'true');
+		markFreeSidesForAll();
+	}
+	const disableBeginner = () => {
+		localStorage.setItem('beginner', 'false');
+		markFreeSidesForAll();
+	}
+	const toggleBeginner = () => {
+		if (isBeginner()) {
+			disableBeginner();
+		} else {
+			enableBeginner();
+		}
+	}
+
 	const markFreeSides = (tile) => {
 		if (!isTile(tile)) {
 			return;
@@ -240,6 +259,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 		if (tile.classList.contains('freeRight')) {
 			tile.classList.remove('freeRight');
+		}
+		if (tile.classList.contains('notBlocked')) {
+			tile.classList.remove('notBlocked');
 		}
 
 		const myX = parseInt(tile.style.gridColumn);
@@ -270,6 +292,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 		if (!document.querySelector(selectorB)) {
 			tile.classList.add('freeBottom');
+		}
+		if (isBeginner() && !isBlocked(tile)) {
+			tile.classList.add('notBlocked');
 		}
 	}
 
@@ -415,6 +440,13 @@ document.addEventListener('DOMContentLoaded', () => {
 				if (dlgHelp instanceof HTMLDialogElement) {
 					dlgHelp.showModal();
 				}
+			});
+		}
+
+		const elBeginnerButton = document.getElementById('beginnerButton');
+		if (elBeginnerButton instanceof EventTarget) {
+			elBeginnerButton.addEventListener('click', () => {
+				toggleBeginner();
 			});
 		}
 	}
