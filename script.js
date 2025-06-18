@@ -568,7 +568,24 @@ document.addEventListener('DOMContentLoaded', () => {
 			return;
 		}
 
-		let dealString = `[${shape}]`;
+		const shuffle = (something) => {
+			let currentIndex = something.length;
+			let tmp = null;
+			while (currentIndex != 0) {
+				let randomIndex = Math.floor(Math.random() * currentIndex);
+				currentIndex--;
+				tmp = something[currentIndex];
+				something[currentIndex] = something[randomIndex];
+				something[randomIndex] = tmp;
+			}
+		}
+
+		const dealStringParam = new URL(location.href).searchParams.get('deal');
+		let tileTypesLocal = tileTypes;
+		shuffle(tileTypesLocal);
+		let dealStringRandom = tileTypesLocal.toString().replaceAll(',','');
+		let dealString = dealStringParam ?? dealStringRandom;
+		console.log('Deal string:', dealString);
 
 		for (const tileShape of shapeDef) {
 			const elTile = document.createElement('div');
@@ -590,10 +607,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			elTile.addEventListener('keyup', onTileKeyUp);
 			elTile.addEventListener('mouseenter', onTileMouseEnter);
 			elTile.addEventListener('mouseleave', onTileMouseLeave);
-			const randomType = Math.floor(Math.random() * tileTypes.length);
-			elTile.innerText = tileTypes[randomType];
-			dealString += elTile.innerText;
-			tileTypes.splice(randomType, 1);
+			elTile.innerText = [...dealString][0];
+			if (elTile.innerText === '🀄') {
+				elTile.innerText += [...dealString][1];
+				dealString = dealString.slice(1);
+			}
+			dealString = dealString.slice(2);
 			if (characters.indexOf(elTile.innerText) > -1) {
 				elTile.dataset.t = 'character';
 			}
@@ -620,7 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		markFreeSidesForAll();
 
-		console.log('Deal string:', dealString);
+		
 	}
 
 	// Here is the end of definitions and start of the actual program flow. Finally :)
