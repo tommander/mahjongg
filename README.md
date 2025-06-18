@@ -8,7 +8,7 @@ Main advantages:
 - Should work on most devices and browsers (auto-resize)
    - It is recommended to play this game on mobile devices in landscape
 - Fast even on slower devices
-- Only around 62 KiB in total
+- Only around 84 KiB in total
 - No personal data collection, analytics, cookies etc.
 - No external dependencies or assets (e.g. frameworks, images, composer/npm/yarn packages)
 - No vibe-coded / "AI"-generated part

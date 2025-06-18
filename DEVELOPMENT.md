@@ -43,63 +43,66 @@ recognised by the app once user switches to it.
 
 ```js
 'en-US': {
-	name: 'English',
-	language: 'Language',
-	txtpoints: 'Points',
-	txttime: 'Elapsed time',
-	btnnewgame: 'New game',
-	btnhelp: 'Help',
-	btnclose: 'Close',
-	hdgwin: 'You won!',
-	hdglose: 'You lost!',
-	txtlose: 'I should have dealt the cards better.',
-	hdghelp: 'Help',
-	txthelp: 'Your goal is to collect all 144 tiles. You can pick tiles by pairs that are “open” (at least one long edge is unoccupied and there is no adjacent tile) and have either the same symbol or are both either a Season or a Flower. Note that dealing is random; your particular game might not have a way to be won!',
-	txtcopy: '%1s by %2s is marked %3s',
-	cards: {
-		'🀐': 'Sparrow',
-		'🀑': 'Two of Bamboos',
-		'🀒': 'Three of Bamboos',
-		'🀓': 'Four of Bamboos',
-		'🀔': 'Five of Bamboos',
-		'🀕': 'Six of Bamboos',
-		'🀖': 'Seven of Bamboos',
-		'🀗': 'Eight of Bamboos',
-		'🀘': 'Nine of Bamboos',
-		'🀇': 'One of Characters',
-		'🀈': 'Two of Characters',
-		'🀉': 'Three of Characters',
-		'🀊': 'Four of Characters',
-		'🀋': 'Five of Characters',
-		'🀌': 'Six of Characters',
-		'🀍': 'Seven of Characters',
-		'🀎': 'Eight of Characters',
-		'🀏': 'Nine of Characters',
-		'🀙': 'Jedna of Circles',
-		'🀚': 'Two of Circles',
-		'🀛': 'Three of Circles',
-		'🀜': 'Four of Circles',
-		'🀝': 'Five of Circles',
-		'🀞': 'Six of Circles',
-		'🀟': 'Seven of Circles',
-		'🀠': 'Eight of Circles',
-		'🀡': 'Nine of Circles',
-		'🀆': 'White Dragon',
-		'🀅': 'Green Dragon',
-		'🀄︎': 'Red Dragon',
-		'🀀': 'East Wind',
-		'🀃': 'North Wind',
-		'🀁': 'South Wind',
-		'🀂': 'West Wind',
-		'🀢': 'Plum',
-		'🀣': 'Orchid',
-		'🀤': 'Bamboo',
-		'🀥': 'Chrysanthemum',
-		'🀩': 'Winter',
-		'🀦': 'Spring',
-		'🀨': 'Autumn',
-		'🀧': 'Summer',
-	},
+    name: 'English',
+    language: 'Language',
+    txtpoints: 'Points',
+    txttime: 'Elapsed time',
+    btnnewgame: 'New game',
+    btnhelp: 'Help',
+    btnclose: 'Close',
+    btnhighlight: 'Highlight',
+    btnundo: 'Undo',
+    btnredo: 'Redo',
+    hdgwin: 'You won!',
+    hdglose: 'You lost!',
+    txtlose: 'I should have dealt the cards better.',
+    hdghelp: 'Help',
+    txthelp: 'Your goal is to collect all 144 tiles. You can pick tiles by pairs that are “open” (at least one long edge is unoccupied and there is no adjacent tile) and have either the same symbol or are both either a Season or a Flower. Note that dealing is random; your particular game might not have a way to be won!',
+    txtcopy: '%1s by %2s is marked %3s',
+    cards: {
+        '🀐': 'Sparrow',
+        '🀑': 'Two of Bamboos',
+        '🀒': 'Three of Bamboos',
+        '🀓': 'Four of Bamboos',
+        '🀔': 'Five of Bamboos',
+        '🀕': 'Six of Bamboos',
+        '🀖': 'Seven of Bamboos',
+        '🀗': 'Eight of Bamboos',
+        '🀘': 'Nine of Bamboos',
+        '🀇': 'One of Characters',
+        '🀈': 'Two of Characters',
+        '🀉': 'Three of Characters',
+        '🀊': 'Four of Characters',
+        '🀋': 'Five of Characters',
+        '🀌': 'Six of Characters',
+        '🀍': 'Seven of Characters',
+        '🀎': 'Eight of Characters',
+        '🀏': 'Nine of Characters',
+        '🀙': 'Jedna of Circles',
+        '🀚': 'Two of Circles',
+        '🀛': 'Three of Circles',
+        '🀜': 'Four of Circles',
+        '🀝': 'Five of Circles',
+        '🀞': 'Six of Circles',
+        '🀟': 'Seven of Circles',
+        '🀠': 'Eight of Circles',
+        '🀡': 'Nine of Circles',
+        '🀆': 'White Dragon',
+        '🀅': 'Green Dragon',
+        '🀄︎': 'Red Dragon',
+        '🀀': 'East Wind',
+        '🀃': 'North Wind',
+        '🀁': 'South Wind',
+        '🀂': 'West Wind',
+        '🀢': 'Plum',
+        '🀣': 'Orchid',
+        '🀤': 'Bamboo',
+        '🀥': 'Chrysanthemum',
+        '🀩': 'Winter',
+        '🀦': 'Spring',
+        '🀨': 'Autumn',
+        '🀧': 'Summer',
+    },
 },
 ```
 
@@ -123,7 +126,7 @@ condition e.g. under the "turtle condition". You need to define:
 - `shapeDef` content - it's an array of objects, each object being a 3D position of a tile. Start
 from the left-top at the lowest level. First define the first row, then go vertically to the last
 row. Then you can jump to the next level (pun?).
-- `window.mahjongg.shapeDim` - there you define, how many cells (`w` for width and `h` for height)
+- `sessionStorage.shape*` - there you define, how many cells (`w` for width and `h` for height)
 the game board will have.
 
 ## HTML file
@@ -135,9 +138,15 @@ The `dev.html` itself just contains the structure and by itself is not really in
 
 The screen has three main parts - top panel, game board and current tile.
 
-*Top panel* is a single-row panel that shows player's points and elapsed time.
-It also contains two buttons for basic navigation - "New Game" that reloads the page and effectively
-starts a new game, and "Help" for some basic game rules and license information.
+*Top panel* is a single-row panel that shows player's points and elapsed time. It also contains
+several buttons for game navigation and features:
+
+- "New Game" that reloads the page and effectively starts a new game,
+- "Help" for some basic game rules and license information,
+- "Highlight" to highlight open tiles,
+- "Undo" to go one step back in the tile-matching history, and
+- "Redo" to go one step forward in the tile-matching history.
+
 The last part is a language switcher in a form of a select (combobox).
 
 *Game board* takes up the rest of the screen and contains the tiles that the player plays with.
@@ -172,33 +181,27 @@ I tried to keep styling away from both the main HTML file and the JS scripts, bu
 exceptions in [script.js](script.js):
 
 - Game board
-   - Grid template columns/rows (because it depends on the deal shape we choose in the script)
-   - Font size (because it's based on the dynamically computed tile size)
+    - Grid template columns/rows (because it depends on the deal shape we choose in the script)
+    - Font size (because it's based on the dynamically computed tile size)
 - Tile
-   - Position in the grid (because tiles are generated dynamically since we can change deal shapes)
-   - Z-index (because it depends on the definition of the deal shape)
-   - Relative position (due to simulation of tile stacking based on their z-index)
-   - Tile colour (top level tiles are white, each level down from there has a slightly darker one.
-This helps slightly to tell tiles on different levels apart)
+    - Position in the grid (because tiles are generated dynamically since we can change deal shapes)
+    - Z-index (because it depends on the definition of the deal shape)
+    - Relative position (due to simulation of tile stacking based on their z-index)
 
 ## Scripts
 
 Both of the JavaScript files contain a code that executes when "DOMContentLoaded" event fires.
 
-The `script.js` creates `window.mahjongg` object to keep some information for the whole duration of
-the game and looks like this:
+The `script.js` creates sessionStorage items to keep some information for the whole duration of the
+game. These items are:
 
-```js
-window.mahjongg = {
-	start: new Date().valueOf(), //timestamp when the page was loaded (start of the game)
-	points: 0, //player's collected points from matching tiles
-    shapeDim: { //some info about the shape's grid dimension
-        w: 0, //number of cells horizonally
-        h: 0, //number of cells vertically
-        maxz: 0, //number of stacked cells
-    },
-};
-```
+- `start` ... timestamp when the page was loaded (start of the game)
+- `points` ... player's collected points from matching tiles
+- `shapew` ... number of cells in the shape's grid horizontally
+- `shapeh` ... number of cells in the shape's grid vertically
+- `shapez` ... number of stacked cells in the shape
+- `history` ... list of tile-matching steps
+- `historyPointer` ... pointing to the latest tile-matching step
 
 The `script.js` is basically a collection of functions saved in constants. The execution of the game
 is at the end of the script, when the `drawGame` function is called and `resize` event handler is
