@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		sessionStorage.setItem('shapew', 0);
 		sessionStorage.setItem('shapeh', 0);
 		sessionStorage.setItem('shapez', 0);
-
+		sessionStorage.setItem('history', '[]');
+		sessionStorage.setItem('historyPointer', -1);
 	};
 
 	/**
@@ -311,6 +312,145 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	/**
+	 * Turn a tile DOM element into an object to save it in the steps history.
+	 *
+	 * @param {*} tile Tile element
+	 * @returns {Object.<string, *>}
+	 */
+	const historyItem = (tile) => {
+		if (!(tile instanceof HTMLElement)) {
+			return {};
+		}
+		const elPrev = tile.previousElementSibling;
+		return {
+			classes: tile.classList.value,
+			style: tile.style.cssText,
+			x: tile.dataset.x,
+			y: tile.dataset.y,
+			z: tile.dataset.z,
+			t: tile.dataset.t,
+			px: ((elPrev instanceof HTMLElement) ? elPrev.dataset.x : -1),
+			py: ((elPrev instanceof HTMLElement) ? elPrev.dataset.y : -1),
+			pz: ((elPrev instanceof HTMLElement) ? elPrev.dataset.z : -1),
+			text: tile.innerText
+		};
+	};
+
+	/**
+	 * Turn an item from steps history into a DOM element and insert it back to its original
+	 * position.
+	 *
+	 * @param {*} item Item from steps history (object returned by historyItem function)
+	 * @returns {void}
+	 */
+	const unhistoryItem = (item) => {
+		const elTile = document.createElement('div');
+		elTile.classList.value = item.classes;
+		elTile.style.cssText = item.style;
+		elTile.dataset.x = item.x;
+		elTile.dataset.y = item.y;
+		elTile.dataset.z = item.z;
+		elTile.dataset.t = item.t;
+		elTile.innerText = item.text;
+		elTile.role = 'button';
+		elTile.tabIndex = 0;
+		elTile.addEventListener('click', onTileClick);
+		elTile.addEventListener('keyup', onTileKeyUp);
+		elTile.addEventListener('mouseenter', onTileMouseEnter);
+		elTile.addEventListener('mouseleave', onTileMouseLeave);
+		const elPrev = document.querySelector(`.tile[data-x="${item.px}"][data-y="${item.py}"][data-z="${item.pz}"]`);
+		if (!(elPrev instanceof HTMLElement)) {
+			return;
+		}
+		elPrev.insertAdjacentElement('afterend', elTile);
+	};
+
+	// Get array at pointer
+	// Dec pointer
+	// Add elems back to DOM
+	/**
+	 * Undo one step in history.
+	 * 
+	 * This is done by turning the two items currently pointed at into DOM elements and decreasing
+	 * the pointer.
+	 * 
+	 * @returns {void}
+	 */
+	const historyUndo = () => {
+		let tempHistory = JSON.parse(sessionStorage.getItem('history'));
+		let tempPointer = parseInt(sessionStorage.getItem('historyPointer'));
+
+		if (tempPointer < 0 || tempPointer >= tempHistory.length) {
+			return;
+		}
+		let historyArr = tempHistory[tempPointer];
+		tempPointer -= 1;
+		unhistoryItem(historyArr[0]);
+		unhistoryItem(historyArr[1]);
+		markFreeSidesForAll();
+		sessionStorage.setItem('history', JSON.stringify(tempHistory));
+		sessionStorage.setItem('historyPointer', tempPointer);
+
+	};
+
+	// Inc pointer
+	// Get array at pointer
+	// Remove elems from DOM
+	/**
+	 * Redo one step in history.
+	 * 
+	 * This is done by increasing pointer and removing the two DOM elements newly pointed at.
+	 * 
+	 * @returns {void}
+	 */
+	const historyRedo = () => {
+		let tempHistory = JSON.parse(sessionStorage.getItem('history'));
+		let tempPointer = parseInt(sessionStorage.getItem('historyPointer'));
+
+		if (tempPointer < -1 || tempPointer >= (tempHistory.length - 1)) {
+			return;
+		}
+		tempPointer += 1;
+		const elTile1 = document.querySelector(`.tile[data-x="${tempHistory[tempPointer][0].x}"][data-y="${tempHistory[tempPointer][0].y}"][data-z="${tempHistory[tempPointer][0].z}"]`);
+		const elTile2 = document.querySelector(`.tile[data-x="${tempHistory[tempPointer][1].x}"][data-y="${tempHistory[tempPointer][1].y}"][data-z="${tempHistory[tempPointer][1].z}"]`);
+		elTile1.remove();
+		elTile2.remove();
+		markFreeSidesForAll();
+		sessionStorage.setItem('history', JSON.stringify(tempHistory));
+		sessionStorage.setItem('historyPointer', tempPointer);
+	};
+
+	/*           0         1         2         3         4
+	  history: [ [{}, {}], [{}, {}], [{}, {}], [{}, {}], [{}, {}] ]
+	  pointer:                                           4
+	  historyLen = 5
+	*/
+
+	/**
+	 * Add a step to history.
+	 * 
+	 * The two items are turned into simple objects and added as a two-item array to the history,
+	 * which is an array, too. If there are any steps after the step currently pointed at, they are
+	 * removed. This can happen if the player does an undo and then makes a new step, which
+	 * practically invalidates any other step afterwards in the history, hence this step.
+	 * 
+	 * @param {*} item1 First selected tile element
+	 * @param {*} item2 Second selected tile element
+	 * @returns {void}
+	 */
+	const historyAdd = (item1, item2) => {
+		let tempHistory = JSON.parse(sessionStorage.getItem('history'));
+		let tempPointer = parseInt(sessionStorage.getItem('historyPointer'));
+		if (tempPointer < (tempHistory.length - 1)) {
+			tempHistory.splice(tempPointer + 1);
+		}
+		tempHistory.push([historyItem(item1), historyItem(item2)]);
+		tempPointer = (tempHistory.length - 1);
+		sessionStorage.setItem('history', JSON.stringify(tempHistory));
+		sessionStorage.setItem('historyPointer', tempPointer);
+	};
+
+	/**
 	 * Handler for a tile's "click" event.
 	 * 
 	 * This toggles the selection of the tile, if it's not blocked and it's the first selected tile.
@@ -347,6 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (elPoints instanceof HTMLElement) {
 				elPoints.innerText = sessionStorage.getItem('points');
 			}
+			historyAdd(listSel[0], listSel[1]);
 			listSel[0].remove();
 			listSel[1].remove();
 			markFreeSidesForAll();
@@ -448,6 +589,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			elBeginnerButton.addEventListener('click', () => {
 				toggleBeginner();
 			});
+		}
+
+		const elUndoButton = document.getElementById('undoButton');
+		if (elUndoButton instanceof EventTarget) {
+			elUndoButton.addEventListener('click', historyUndo);
+		}
+
+		const elRedoButton = document.getElementById('redoButton');
+		if (elRedoButton instanceof EventTarget) {
+			elRedoButton.addEventListener('click', historyRedo);
 		}
 	}
 
@@ -638,8 +789,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		markFreeSidesForAll();
-
-		
 	}
 
 	// Here is the end of definitions and start of the actual program flow. Finally :)
