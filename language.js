@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			btnhelp: 'Help',
 			btnclose: 'Close',
 			btnhighlight: 'Highlight',
+			btnundo: 'Undo',
+			btnredo: 'Redo',
 			hdgwin: 'You won!',
 			hdglose: 'You lost!',
 			txtlose: 'I should have dealt the cards better.',
@@ -73,6 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			btnhelp: 'Nápověda',
 			btnclose: 'Zavřít',
 			btnhighlight: 'Zvýraznění',
+			btnundo: 'Zpět',
+			btnredo: 'Vpřed',
 			hdgwin: 'Vyhráli jste!',
 			hdglose: 'Prohráli jste.',
 			txtlose: 'Asi jsem to špatně rozdal.',
@@ -194,16 +198,28 @@ document.addEventListener('DOMContentLoaded', () => {
 		elHelpButton.innerText = languages[lang].btnhelp;
 	}
 
+	// Highlight button (top panel)
+	const elHighlightButton = document.getElementById('beginnerButton');
+	if (elHighlightButton instanceof HTMLElement) {
+		elHighlightButton.innerText = languages[lang].btnhighlight;
+	}
+
+	// Highlight button (top panel)
+	const elUndoButton = document.getElementById('undoButton');
+	if (elUndoButton instanceof HTMLElement) {
+		elUndoButton.innerText = languages[lang].btnundo;
+	}
+
+	// Highlight button (top panel)
+	const elRedoButton = document.getElementById('redoButton');
+	if (elRedoButton instanceof HTMLElement) {
+		elRedoButton.innerText = languages[lang].btnredo;
+	}
+
 	// Close button (all dialogs).
 	const elsCloseButton = document.getElementsByClassName('closeButton');
 	for (const elCloseButton of elsCloseButton) {
 		elCloseButton.innerText = languages[lang].btnclose;
-	}
-
-	// Heading (win dialog).
-	const elHighlightButton = document.getElementById('beginnerButton');
-	if (elHighlightButton instanceof HTMLElement) {
-		elHighlightButton.innerText = languages[lang].btnhighlight;
 	}
 
 	// Heading (win dialog).
