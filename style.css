@@ -95,8 +95,20 @@ button {
 .tile.z5 {
 	background-color: #fff;
 }
-.tile.notBlocked {
+.tile.z1.notBlocked {
+	background-color: #7f7;
+}
+.tile.z2.notBlocked {
+	background-color: #8f8;
+}
+.tile.z3.notBlocked {
 	background-color: #9f9;
+}
+.tile.z4.notBlocked {
+	background-color: #afa;
+}
+.tile.z5.notBlocked {
+	background-color: #bfb;
 }
 .tile:hover {
 	border: 2px solid #f0f;
