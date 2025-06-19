@@ -210,8 +210,8 @@ defined with some timeout for performance reasons.
 The `language.js` goes like this:
 
 1. Define the constant `languages` with translated texts for each language.
-2. Check the URL query variable "lang". If it exists and it's a known language, use it, otherwise use
-Czech.
+2. Check the URL query variable "lang". If it exists and it's a known language, use it, otherwise
+use Czech.
 3. Create the language switcher content.
 4. Replace all texts in the DOM with translated texts.
 

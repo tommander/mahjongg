@@ -20,18 +20,35 @@ Main advantages:
 1. Clone this repo somewhere inside your webserver root.
 2. That's it.
 
-Unfortunately, you cannot play the game by just opening the HTML file in a browser, since modern browsers have [CSP rules](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) for `file` protocol that block CSS and/or JS files ("inlining" styles/scripts won't work as well).
+Unfortunately, you cannot play the game by just opening the HTML file in a browser, since modern
+browsers have [CSP rules](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) for `file`
+protocol that block CSS and/or JS files ("inlining" styles/scripts won't work as well).
 
 There are some simple web server solutions out there that work out-of-the-box and can be used for
-local playing.
+local playing. One for example is [lighttpd](https://redmine.lighttpd.net/projects/lighttpd), for
+which you can use this minimal config and then just spawn a local web server for it via
+`lighttpd -D -f lighttpd.conf`.
 
-If you want to just try playing the current version, go to [https://tommander.cz/mahjongg/](https://tommander.cz/mahjongg/).
+```
+server.document-root = "/path/to/mahjongg/"
+server.port = 80
+index-file.names = ( "dev.html" )
+mimetype.assign = (
+  ".html" => "text/html",
+  ".js" => "application/x-javascript",
+  ".css" => "text/css"
+)
+```
+
+If you want to just try playing the current version, go to
+[https://tommander.cz/mahjongg/](https://tommander.cz/mahjongg/).
 
 ## Game Rules
 
 You have 144 tiles that are placed in a predefined "turtle" shape.
 
-Your goal is to pick pairs of tiles with an identical symbol (or any two Flower/Season) until there is no block left on the board.
+Your goal is to pick pairs of tiles with an identical symbol (or any two Flower/Season) until there
+is no block left on the board.
 
 You can only pick a block that:
 
@@ -78,6 +95,9 @@ I'll be very thankful if you:
 
 ## License
 
-[Mahjongg Solitaire](https://github.com/tommander/mahjongg) by [Tomáš Rajnoha](https://tommander.cz) is marked [CC0 1.0](LICENSE).
+[Mahjongg Solitaire](https://github.com/tommander/mahjongg) by [Tomáš Rajnoha](https://tommander.cz)
+is marked [CC0 1.0](LICENSE).
 
-[Background photo](https://get.pxhere.com/photo/architecture-bridge-river-jungle-garden-waterway-rainforest-china-rural-area-arch-bridge-leshan-1166576.jpg) from [Pxhere](https://pxhere.com/ko/photo/1166576) is also marked [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
+[Background photo](https://get.pxhere.com/photo/architecture-bridge-river-jungle-garden-waterway-rainforest-china-rural-area-arch-bridge-leshan-1166576.jpg)
+from [Pxhere](https://pxhere.com/ko/photo/1166576) is also marked
+[CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
