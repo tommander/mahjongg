@@ -757,11 +757,25 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 
-		const dealStringParam = new URL(location.href).searchParams.get('deal');
-		let tileTypesLocal = tileTypes;
-		shuffle(tileTypesLocal);
-		let dealStringRandom = tileTypesLocal.toString().replaceAll(',','');
-		let dealString = dealStringParam ?? dealStringRandom;
+		let dealStringParam = new URL(location.href).searchParams.get('deal');
+		if ((typeof dealStringParam === 'string' || (dealStringParam instanceof String)) &&
+		    dealStringParam.length === 292
+		) {
+			for (const c of dealStringParam) {
+				if (c.codePointAt(0) !== 65038 && c !== '🀄' && tileTypes.indexOf(c) < 0) {
+					dealStringParam = null;
+					break;
+				}
+			}
+		} else {
+			dealStringParam = null;
+		}
+		let dealString = dealStringParam;
+		if (dealString === null) {
+			let tileTypesLocal = tileTypes;
+			shuffle(tileTypesLocal);
+			dealString = tileTypesLocal.toString().replaceAll(',','');
+		}
 		console.log('Deal string:', dealString);
 
 		for (const tileShape of shapeDef) {
