@@ -186,34 +186,40 @@ document.addEventListener('DOMContentLoaded', () => {
 		elTime.ariaLabel = languages[lang].txttime;
 	}
 
-	// New game button (top panel, all dialogs).
-	const elsNewGame = document.getElementsByClassName('newGame');
-	for (const elNewGame of elsNewGame) {
-		elNewGame.innerText = languages[lang].btnnewgame;
+	// New game button (top panel).
+	const elNewGameVH = document.querySelector('.newGame .visually-hidden');
+	if (elNewGameVH instanceof HTMLElement) {
+		elNewGameVH.innerText = languages[lang].btnnewgame;
 	}
 
 	// Help button (top panel).
-	const elHelpButton = document.getElementById('helpButton');
+	const elHelpButton = document.querySelector('#helpButton .visually-hidden');
 	if (elHelpButton instanceof HTMLElement) {
 		elHelpButton.innerText = languages[lang].btnhelp;
 	}
 
 	// Highlight button (top panel)
-	const elHighlightButton = document.getElementById('beginnerButton');
+	const elHighlightButton = document.querySelector('#beginnerButton .visually-hidden');
 	if (elHighlightButton instanceof HTMLElement) {
 		elHighlightButton.innerText = languages[lang].btnhighlight;
 	}
 
 	// Highlight button (top panel)
-	const elUndoButton = document.getElementById('undoButton');
+	const elUndoButton = document.querySelector('#undoButton .visually-hidden');
 	if (elUndoButton instanceof HTMLElement) {
 		elUndoButton.innerText = languages[lang].btnundo;
 	}
 
 	// Highlight button (top panel)
-	const elRedoButton = document.getElementById('redoButton');
+	const elRedoButton = document.querySelector('#redoButton .visually-hidden');
 	if (elRedoButton instanceof HTMLElement) {
 		elRedoButton.innerText = languages[lang].btnredo;
+	}
+
+	// New game button (all dialogs).
+	const elsNewGame = document.querySelectorAll('.newGame:not(:has(span))');
+	for (const elNewGame of elsNewGame) {
+		elNewGame.innerText = languages[lang].btnnewgame;
 	}
 
 	// Close button (all dialogs).

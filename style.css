@@ -21,6 +21,31 @@ body {
 
 button {
 	padding: 0.25rem 0.5rem;
+	position: relative;
+}
+
+button:not(:focus):not(:hover):not(:active) .visually-hidden {
+	clip: rect(0 0 0 0); 
+	clip-path: inset(100%); 
+	height: 1px; 
+	overflow: hidden; 
+	position: absolute; 
+	white-space: nowrap; 
+	width: 1px; 
+}
+button:hover .visually-hidden {
+	display: block;
+	border: 1px solid #000;
+	background-color: #fff;
+	position: absolute;
+	left: 0px;
+	top: 100%;
+	z-index: 999;
+	white-space: nowrap;
+	font-size: 125%;
+	padding: 0.25rem 0.5rem;
+	margin-left: -2px;
+	margin-top: 1px;
 }
 
 /* Board */
