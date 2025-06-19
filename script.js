@@ -477,6 +477,26 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 	/**
+	 * Reshuffles existing tiles (i.e. randomly redistribute their symbols).
+	 * 
+	 * @returns {void}
+	 */
+	const reshuffle = () => {
+		const elsTile = document.getElementsByClassName('tile');
+		let currentIndex = elsTile.length;
+		while (currentIndex != 0) {
+			const randomIndex = Math.floor(Math.random() * currentIndex);
+			currentIndex--;
+			const tmpText = elsTile[currentIndex].innerText;
+			const tmpType = elsTile[currentIndex].dataset.t;
+			elsTile[currentIndex].innerText = elsTile[randomIndex].innerText;
+			elsTile[currentIndex].dataset.t = elsTile[randomIndex].dataset.t;
+			elsTile[randomIndex].innerText = tmpText;
+			elsTile[randomIndex].dataset.t = tmpType;
+		}
+	}
+
+	/**
 	 * Handler for a tile's "click" event.
 	 * 
 	 * This toggles the selection of the tile, if it's not blocked and it's the first selected tile.
@@ -615,6 +635,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			elBeginnerButton.addEventListener('click', () => {
 				toggleBeginner();
 			});
+		}
+
+		const elReshuffleButton = document.getElementById('reshuffleButton');
+		if (elReshuffleButton instanceof EventTarget) {
+			elReshuffleButton.addEventListener('click', reshuffle);
 		}
 
 		const elUndoButton = document.getElementById('undoButton');

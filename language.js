@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			btnhelp: 'Help',
 			btnclose: 'Close',
 			btnhighlight: 'Highlight',
+			btnreshuffle: 'Reshuffle',
 			btnundo: 'Undo',
 			btnredo: 'Redo',
 			hdgwin: 'You won!',
@@ -75,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			btnhelp: 'Nápověda',
 			btnclose: 'Zavřít',
 			btnhighlight: 'Zvýraznění',
+			btnreshuffle: 'Zamíchat',
 			btnundo: 'Zpět',
 			btnredo: 'Vpřed',
 			hdgwin: 'Vyhráli jste!',
@@ -202,6 +204,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	const elHighlightButton = document.querySelector('#beginnerButton .visually-hidden');
 	if (elHighlightButton instanceof HTMLElement) {
 		elHighlightButton.innerText = languages[lang].btnhighlight;
+	}
+
+	// Highlight button (top panel)
+	const elReshuffleButton = document.querySelector('#reshuffleButton .visually-hidden');
+	if (elReshuffleButton instanceof HTMLElement) {
+		elReshuffleButton.innerText = languages[lang].btnreshuffle;
 	}
 
 	// Highlight button (top panel)
