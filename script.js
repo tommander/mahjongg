@@ -667,7 +667,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const screenWidth = visualViewport.width;
 		const screenHeight = (visualViewport.height - elPanel.clientHeight); 
 
-		const shapeRatio = (parseInt(sessionStorage.getItem('shapew')) / parseInt(sessionStorage.getItem('shapeh')));
+		const shapeRatio = (parseInt(sessionStorage.getItem('shapew')) / parseInt(sessionStorage.getItem('shapeh'))) * (6.9/9);
 		const screenRatio = (screenWidth / screenHeight);
 
 		let tileH = 0;
