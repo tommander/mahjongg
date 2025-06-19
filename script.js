@@ -109,6 +109,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 	/**
+	 * Contains references to open tiles grouped by their symbols. Used by tile highlighting.
+	 * 
+	 * @var {Object.<string,Array.<HTMLElement>>}
+	 */
+	let markPairs = {};
+
+	/**
 	 * Checks whether the player still has some tiles to match. If not, it does not let them suffer
 	 * anymore and closes the game right away, showing the "You lost" dialog.
 	 * 
@@ -295,7 +302,17 @@ document.addEventListener('DOMContentLoaded', () => {
 			tile.classList.add('freeBottom');
 		}
 		if (isBeginner() && !isBlocked(tile)) {
-			tile.classList.add('notBlocked');
+			let markSymbol = tile.innerText;
+			if (flowers.indexOf(markSymbol) > -1) {
+				markSymbol = 'f';
+			}
+			if (seasons.indexOf(markSymbol) > -1) {
+				markSymbol = 's';
+			}
+			if (markPairs[markSymbol] === undefined) {
+				markPairs[markSymbol] = [];
+			}
+			markPairs[markSymbol].push(tile);
 		}
 	}
 
@@ -305,9 +322,18 @@ document.addEventListener('DOMContentLoaded', () => {
 	 * @return {void}
 	 */
 	const markFreeSidesForAll = () => {
+		markPairs = {};
 		const elsTile = document.getElementsByClassName('tile');
 		for (const elTile of elsTile) {
 			markFreeSides(elTile);
+		}
+		for (const markPair of Object.getOwnPropertyNames(markPairs)) {
+			if (markPairs[markPair].length < 2) {
+				continue;
+			}
+			for (const markTile of markPairs[markPair]) {
+				markTile.classList.add('notBlocked');
+			}
 		}
 	}
 
