@@ -35,7 +35,7 @@ button:not(:focus):not(:hover):not(:active) .visually-hidden {
 }
 button:hover .visually-hidden {
 	display: block;
-	border: 1px solid #000;
+	border: 0.1vw solid #000;
 	background-color: #fff;
 	position: absolute;
 	left: 0px;
@@ -44,8 +44,8 @@ button:hover .visually-hidden {
 	white-space: nowrap;
 	font-size: 125%;
 	padding: 0.25rem 0.5rem;
-	margin-left: -2px;
-	margin-top: 1px;
+	margin-left: -0.15vw;
+	margin-top: 0.1vw;
 }
 
 /* Board */
@@ -62,9 +62,9 @@ button:hover .visually-hidden {
 
 .tile {
 	position: relative;
-	border: 1px solid #aaa;
-	border-radius: 5px;
-	box-shadow: 1px 1px #777, 2px 2px #777, 3px 3px #777, 4px 4px #000;
+	border: 0.1vw solid #aaa;
+	border-radius: 8%;
+	box-shadow: 0.1vw 0.1vw #777, 0.15vw 0.15vw #777, 0.2vw 0.2vw #777, 0.25vw 0.25vw #000;
 	background-color: white;
 	display: flex;
 	justify-content: center;
@@ -92,19 +92,19 @@ button:hover .visually-hidden {
 }
 .tile.freeTop {
 	border-top-color: #000;
-	border-top-width: 2px;
+	border-top-width: 0.15vw;
 }
 .tile.freeBottom {
 	border-bottom-color: #000;
-	border-bottom-width: 2px;
+	border-bottom-width: 0.15vw;
 }
 .tile.freeLeft {
 	border-left-color: #000;
-	border-left-width: 2px;
+	border-left-width: 0.15vw;
 }
 .tile.freeRight {
 	border-right-color: #000;
-	border-right-width: 2px;
+	border-right-width: 0.15vw;
 }
 .tile.z1 {
 	background-color: #bbb;
@@ -137,12 +137,12 @@ button:hover .visually-hidden {
 	background-color: #bfb;
 }
 .tile:hover {
-	border: 2px solid #f0f;
-	box-shadow: 1px 1px #f0f, 2px 2px #f0f, 3px 3px #f0f, 4px 4px #f0f;
+	border: 0.15vw solid #f0f;
+	box-shadow: 0.1vw 0.1vw #f0f, 0.15vw 0.15vw #f0f, 0.2vw 0.2vw #f0f, 0.25vw 0.25vw #f0f;
 }
 .tile[data-s="selected"] {
-	border: 2px solid #f00;
-	box-shadow: 1px 1px #f00, 2px 2px #f00, 3px 3px #f00, 4px 4px #f00;
+	border: 0.15vw solid #f00;
+	box-shadow: 0.1vw 0.1vw #f00, 0.15vw 0.15vw #f00, 0.2vw 0.2vw #f00, 0.25vw 0.25vw #f00;
 }
 
 /* Top Panel */
@@ -151,6 +151,7 @@ button:hover .visually-hidden {
 	background-color: rgba(255,255,255,0.75);
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	column-gap: 1rem;
 	padding: 0.25rem 0.5rem;
 	font-size: 125%;
@@ -159,7 +160,10 @@ button:hover .visually-hidden {
 	text-decoration: none;
 }
 #language-switcher {
-	padding: 0 0.25rem;
+	padding: 0.2rem 0.4rem;
+}
+#points, #time {
+	white-space: nowrap;
 }
 #points::before {
 	content: "🏆";
@@ -177,7 +181,7 @@ button:hover .visually-hidden {
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	border: 1px solid black;
+	border: 0.1vw solid black;
 	border-radius: 10%;
 	background-color: #fff;
 	display: flex;
@@ -209,15 +213,9 @@ button:hover .visually-hidden {
 	margin: auto;
 	background-color: #fff;
 	padding: 1rem 2rem;
-	border: 2px solid black;
+	border: 0.15vw solid black;
 	border-radius: 1rem;
 	max-width: 50%;
-}
-@media (max-width: 1094px) {
-	.gamedlg {
-		max-width: 90%;
-		padding: 0.5rem 1rem;
-	}
 }
 .dlgmessage {
 	display: flex;
@@ -232,15 +230,52 @@ button:hover .visually-hidden {
 	column-gap: 1rem;
 	margin-top: 1rem;
 }
-@media (max-width: 1094px) {
-	.dlgbuttons {
-		margin-top: 0.5rem;
-	}
-}
 .dlgheading {
 	font-size: 125%;
 	font-weight: bold;
 }
 .dlgsmiley {
 	font-size: 300%;
+}
+
+/* Small screens */
+
+@media (max-width: 768px) or (max-height: 400px) {
+	button {
+		padding: 0.125rem 0.25rem;
+	}
+	button:hover .visually-hidden {
+		padding: 0.125rem 0.25rem;
+	}
+	.gamedlg {
+		max-width: 90%;
+		padding: 0.5rem 1rem;
+	}
+	.dlgbuttons {
+		margin-top: 0.5rem;
+	}
+	#language-switcher {
+		padding: 0 0.25rem;
+	}
+	#current {
+		padding: 0.125rem 0.25rem;
+		border-radius: 5%;
+	}
+	#currentimg {
+		font-size: 200%;
+	}
+	.dlgheading {
+		font-size: 100%;
+		font-weight: bold;
+	}
+	.dlgsmiley {
+		font-size: 200%;
+	}
+	.panel {
+		font-size: 100%;
+		padding: 0.125rem 0.25rem;
+	}
+	button:hover .visually-hidden {
+		font-size: 100%;
+	}
 }
