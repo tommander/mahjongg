@@ -22,6 +22,7 @@ body {
 button {
 	padding: 0.25rem 0.5rem;
 	position: relative;
+	font-size: 90%;
 }
 
 button:not(:focus):not(:hover):not(:active) .visually-hidden {
@@ -42,7 +43,6 @@ button:hover .visually-hidden {
 	top: 100%;
 	z-index: 999;
 	white-space: nowrap;
-	font-size: 125%;
 	padding: 0.25rem 0.5rem;
 	margin-left: -0.15vw;
 	margin-top: 0.1vw;
@@ -274,8 +274,5 @@ button:hover .visually-hidden {
 	.panel {
 		font-size: 100%;
 		padding: 0.125rem 0.25rem;
-	}
-	button:hover .visually-hidden {
-		font-size: 100%;
 	}
 }
