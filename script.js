@@ -109,6 +109,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 	/**
+	 * Contains references to open tiles grouped by their symbols. Used by tile highlighting.
+	 * 
+	 * @var {Object.<string,Array.<HTMLElement>>}
+	 */
+	let markPairs = {};
+
+	/**
 	 * Checks whether the player still has some tiles to match. If not, it does not let them suffer
 	 * anymore and closes the game right away, showing the "You lost" dialog.
 	 * 
@@ -295,7 +302,17 @@ document.addEventListener('DOMContentLoaded', () => {
 			tile.classList.add('freeBottom');
 		}
 		if (isBeginner() && !isBlocked(tile)) {
-			tile.classList.add('notBlocked');
+			let markSymbol = tile.innerText;
+			if (flowers.indexOf(markSymbol) > -1) {
+				markSymbol = 'f';
+			}
+			if (seasons.indexOf(markSymbol) > -1) {
+				markSymbol = 's';
+			}
+			if (markPairs[markSymbol] === undefined) {
+				markPairs[markSymbol] = [];
+			}
+			markPairs[markSymbol].push(tile);
 		}
 	}
 
@@ -305,9 +322,18 @@ document.addEventListener('DOMContentLoaded', () => {
 	 * @return {void}
 	 */
 	const markFreeSidesForAll = () => {
+		markPairs = {};
 		const elsTile = document.getElementsByClassName('tile');
 		for (const elTile of elsTile) {
 			markFreeSides(elTile);
+		}
+		for (const markPair of Object.getOwnPropertyNames(markPairs)) {
+			if (markPairs[markPair].length < 2) {
+				continue;
+			}
+			for (const markTile of markPairs[markPair]) {
+				markTile.classList.add('notBlocked');
+			}
 		}
 	}
 
@@ -451,6 +477,26 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 	/**
+	 * Reshuffles existing tiles (i.e. randomly redistribute their symbols).
+	 * 
+	 * @returns {void}
+	 */
+	const reshuffle = () => {
+		const elsTile = document.getElementsByClassName('tile');
+		let currentIndex = elsTile.length;
+		while (currentIndex != 0) {
+			const randomIndex = Math.floor(Math.random() * currentIndex);
+			currentIndex--;
+			const tmpText = elsTile[currentIndex].innerText;
+			const tmpType = elsTile[currentIndex].dataset.t;
+			elsTile[currentIndex].innerText = elsTile[randomIndex].innerText;
+			elsTile[currentIndex].dataset.t = elsTile[randomIndex].dataset.t;
+			elsTile[randomIndex].innerText = tmpText;
+			elsTile[randomIndex].dataset.t = tmpType;
+		}
+	}
+
+	/**
 	 * Handler for a tile's "click" event.
 	 * 
 	 * This toggles the selection of the tile, if it's not blocked and it's the first selected tile.
@@ -591,6 +637,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 		}
 
+		const elReshuffleButton = document.getElementById('reshuffleButton');
+		if (elReshuffleButton instanceof EventTarget) {
+			elReshuffleButton.addEventListener('click', reshuffle);
+		}
+
 		const elUndoButton = document.getElementById('undoButton');
 		if (elUndoButton instanceof EventTarget) {
 			elUndoButton.addEventListener('click', historyUndo);
@@ -641,7 +692,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const screenWidth = visualViewport.width;
 		const screenHeight = (visualViewport.height - elPanel.clientHeight); 
 
-		const shapeRatio = (parseInt(sessionStorage.getItem('shapew')) / parseInt(sessionStorage.getItem('shapeh')));
+		const shapeRatio = (parseInt(sessionStorage.getItem('shapew')) / parseInt(sessionStorage.getItem('shapeh'))) * (6.9/9);
 		const screenRatio = (screenWidth / screenHeight);
 
 		let tileH = 0;
@@ -731,11 +782,25 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 
-		const dealStringParam = new URL(location.href).searchParams.get('deal');
-		let tileTypesLocal = tileTypes;
-		shuffle(tileTypesLocal);
-		let dealStringRandom = tileTypesLocal.toString().replaceAll(',','');
-		let dealString = dealStringParam ?? dealStringRandom;
+		let dealStringParam = new URL(location.href).searchParams.get('deal');
+		if ((typeof dealStringParam === 'string' || (dealStringParam instanceof String)) &&
+		    dealStringParam.length === 292
+		) {
+			for (const c of dealStringParam) {
+				if (c.codePointAt(0) !== 65038 && c !== '🀄' && tileTypes.indexOf(c) < 0) {
+					dealStringParam = null;
+					break;
+				}
+			}
+		} else {
+			dealStringParam = null;
+		}
+		let dealString = dealStringParam;
+		if (dealString === null) {
+			let tileTypesLocal = tileTypes;
+			shuffle(tileTypesLocal);
+			dealString = tileTypesLocal.toString().replaceAll(',','');
+		}
 		console.log('Deal string:', dealString);
 
 		for (const tileShape of shapeDef) {
