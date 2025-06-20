@@ -785,19 +785,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		let dealString = customDealString;
 		if (dealString === null) {
 			let dealStringParam = new URL(location.href).searchParams.get('deal');
-			if ((typeof dealStringParam === 'string' || (dealStringParam instanceof String)) &&
-				dealStringParam.length === 292
+			if (
+				(typeof dealStringParam === 'string' || (dealStringParam instanceof String)) &&
+				dealStringParam.match(/^[🀇🀈🀉🀊🀋🀌🀍🀎🀏🀙🀚🀛🀜🀝🀞🀟🀠🀡🀐🀑🀒🀓🀔🀕🀖🀗🀘🀆🀅🀄︎🀀🀃🀁🀂🀢🀣🀤🀥🀩🀦🀨🀧]{292}$/)
 			) {
-				for (const c of dealStringParam) {
-					if (c.codePointAt(0) !== 65038 && c !== '🀄' && tileTypes.indexOf(c) < 0) {
-						dealStringParam = null;
-						break;
-					}
-				}
-			} else {
-				dealStringParam = null;
+				dealString = dealStringParam;
 			}
-			dealString = dealStringParam;
 		}
 		if (dealString === null) {
 			let tileTypesLocal = tileTypes;
