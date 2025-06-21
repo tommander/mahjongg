@@ -529,9 +529,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			(seasons.indexOf(listSel[0].innerText) > -1 && seasons.indexOf(listSel[1].innerText) > -1)
 		) {
 			sessionStorage.setItem('points', parseInt(sessionStorage.getItem('points')) + (pointsMap[listSel[0].innerText] + pointsMap[listSel[1].innerText]));
-			const elPoints = document.getElementById('points');
-			if (elPoints instanceof HTMLElement) {
-				elPoints.innerText = sessionStorage.getItem('points');
+			const elPointsValue = document.getElementById('pointsValue');
+			if (elPointsValue instanceof HTMLElement) {
+				elPointsValue.innerText = sessionStorage.getItem('points');
 			}
 			historyAdd(listSel[0], listSel[1]);
 			listSel[0].remove();
@@ -659,15 +659,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	 * @returns {void}
 	 */
 	const timeProc = () => {
-		const elTime = document.getElementById('time');
-		if (!(elTime instanceof HTMLElement)) {
+		const elTimeValue = document.getElementById('timeValue');
+		if (!(elTimeValue instanceof HTMLElement)) {
 			return;
 		}
 		const diff = Math.floor((new Date().valueOf() - parseInt(sessionStorage.getItem('start'))) / 1000);
 		const diffM = Math.floor(diff / 60);
 		const diffS = diff % 60;
 		const diffS0 = diffS < 10 ? '0' : '';
-		elTime.innerText = `${diffM}:${diffS0}${diffS}`;
+		elTimeValue.innerText = `${diffM}:${diffS0}${diffS}`;
 	};
 
 	/**

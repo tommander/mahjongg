@@ -2,13 +2,15 @@
 
 /* Basic */
 
-:root {
-	font-family: sans-serif;
-}
-
 *, ::before, ::after {
 	margin: 0;
 	padding: 0;
+	font-family: sans-serif;
+	font-size: 100%;
+}
+
+button {
+	font-size: 90%;
 }
 
 body {
@@ -22,10 +24,9 @@ body {
 button {
 	padding: 0.25rem 0.5rem;
 	position: relative;
-	font-size: 90%;
 }
 
-button:not(:focus):not(:hover):not(:active) .visually-hidden {
+:not(:focus):not(:hover):not(details) > .visually-hidden {
 	clip: rect(0 0 0 0); 
 	clip-path: inset(100%); 
 	height: 1px; 
@@ -34,7 +35,9 @@ button:not(:focus):not(:hover):not(:active) .visually-hidden {
 	white-space: nowrap; 
 	width: 1px; 
 }
-button:hover .visually-hidden {
+:hover > .visually-hidden,
+:focus > .visually-hidden,
+#timeLabel {
 	display: block;
 	border: 0.1vw solid #000;
 	background-color: #fff;
@@ -46,6 +49,11 @@ button:hover .visually-hidden {
 	padding: 0.25rem 0.5rem;
 	margin-left: -0.15vw;
 	margin-top: 0.1vw;
+}
+#time {
+	position: relative;
+	user-select: none;
+	cursor: pointer;
 }
 
 /* Board */
@@ -154,13 +162,9 @@ button:hover .visually-hidden {
 	align-items: center;
 	column-gap: 1rem;
 	padding: 0.25rem 0.5rem;
-	font-size: 125%;
 }
 .panel a {
 	text-decoration: none;
-}
-#language-switcher {
-	padding: 0.2rem 0.4rem;
 }
 #points, #time {
 	white-space: nowrap;
@@ -170,9 +174,12 @@ button:hover .visually-hidden {
 	margin-right: 0.25rem;
 }
 
-#time::before {
+#time summary::marker {
 	content: "⏳";
 	margin-right: 0.25rem;
+}
+#time[open] summary::marker {
+	content: "⌛";
 }
 
 /* Current Tile (Bottom-Right) Panel */
@@ -254,9 +261,6 @@ button:hover .visually-hidden {
 	.dlgbuttons {
 		margin-top: 0.5rem;
 	}
-	#language-switcher {
-		padding: 0 0.25rem;
-	}
 	#current {
 		padding: 0.125rem 0.25rem;
 		border-radius: 5%;
@@ -272,7 +276,6 @@ button:hover .visually-hidden {
 		font-size: 200%;
 	}
 	.panel {
-		font-size: 100%;
 		padding: 0.125rem 0.25rem;
 	}
 }

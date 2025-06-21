@@ -5,70 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	 * @constant {Object.<string, Object.<string, (string|Object.<string,string>)>>}
 	 */
 	const languages = {
-		'en-US': {
-			name: 'English',
-			language: 'Language',
-			txtpoints: 'Points',
-			txttime: 'Elapsed time',
-			btnnewgame: 'New game',
-			btnhelp: 'Help',
-			btnclose: 'Close',
-			btnhighlight: 'Highlight',
-			btnreshuffle: 'Reshuffle',
-			btnundo: 'Undo',
-			btnredo: 'Redo',
-			hdgwin: 'You won!',
-			hdglose: 'You lost!',
-			txtlose: 'I should have dealt the cards better.',
-			txthelp: 'Your goal is to collect all 144 tiles. You can pick tiles by pairs that are “open” (at least one long edge is unoccupied and there is no adjacent tile) and have either the same symbol or are both either a Season or a Flower. Note that dealing is random; your particular game might not have a way to be won!',
-			txtcopy: '%1s by %2s is marked %3s',
-			cards: {
-				'🀐': 'Sparrow',
-				'🀑': 'Two of Bamboos',
-				'🀒': 'Three of Bamboos',
-		 		'🀓': 'Four of Bamboos',
-				'🀔': 'Five of Bamboos',
-				'🀕': 'Six of Bamboos',
-		 		'🀖': 'Seven of Bamboos',
-				'🀗': 'Eight of Bamboos',
-				'🀘': 'Nine of Bamboos',
-	 			'🀇': 'One of Characters',
-				'🀈': 'Two of Characters',
-				'🀉': 'Three of Characters',
-	 			'🀊': 'Four of Characters',
-				'🀋': 'Five of Characters',
-				'🀌': 'Six of Characters',
-		 		'🀍': 'Seven of Characters',
-				'🀎': 'Eight of Characters',
-				'🀏': 'Nine of Characters',
-				'🀙': 'Jedna of Circles',
-				'🀚': 'Two of Circles',
-				'🀛': 'Three of Circles',
-				'🀜': 'Four of Circles',
-				'🀝': 'Five of Circles',
-				'🀞': 'Six of Circles',
-				'🀟': 'Seven of Circles',
-				'🀠': 'Eight of Circles',
-				'🀡': 'Nine of Circles',
-				'🀆': 'White Dragon',
-				'🀅': 'Green Dragon',
-				'🀄︎': 'Red Dragon',
-				'🀀': 'East Wind',
-				'🀃': 'North Wind',
-				'🀁': 'South Wind',
-				'🀂': 'West Wind',
-				'🀢': 'Plum',
-				'🀣': 'Orchid',
-				'🀤': 'Bamboo',
-				'🀥': 'Chrysanthemum',
-				'🀩': 'Winter',
-				'🀦': 'Spring',
-				'🀨': 'Autumn',
-				'🀧': 'Summer',
-			},
-		},
 		'cs-CZ': {
 			name: 'Čeština',
+			flag: '🇨🇿',
 			language: 'Jazyk',
 			txtpoints: 'Body',
 			txttime: 'Uběhlý čas',
@@ -129,52 +68,119 @@ document.addEventListener('DOMContentLoaded', () => {
 				'🀧': 'Léto',
 			},
 		},
-	};
-
-	/**
-	 * Handler for language switcher's "change" event.
-	 *
-	 * @param {Event} evt 
-	 */
-	const switchLanguage = (evt) => {
-		if ((evt.target instanceof HTMLSelectElement) && evt.target.value in languages) {
-			const newUrl = new URL(location.href);
-			newUrl.searchParams.set('lang', evt.target.value);
-			location.href = newUrl;
-		}
+		'en-US': {
+			name: 'English',
+			flag: '🇺🇸',
+			language: 'Language',
+			txtpoints: 'Points',
+			txttime: 'Elapsed time',
+			btnnewgame: 'New game',
+			btnhelp: 'Help',
+			btnclose: 'Close',
+			btnhighlight: 'Highlight',
+			btnreshuffle: 'Reshuffle',
+			btnundo: 'Undo',
+			btnredo: 'Redo',
+			hdgwin: 'You won!',
+			hdglose: 'You lost!',
+			txtlose: 'I should have dealt the cards better.',
+			txthelp: 'Your goal is to collect all 144 tiles. You can pick tiles by pairs that are “open” (at least one long edge is unoccupied and there is no adjacent tile) and have either the same symbol or are both either a Season or a Flower. Note that dealing is random; your particular game might not have a way to be won!',
+			txtcopy: '%1s by %2s is marked %3s',
+			cards: {
+				'🀐': 'Sparrow',
+				'🀑': 'Two of Bamboos',
+				'🀒': 'Three of Bamboos',
+		 		'🀓': 'Four of Bamboos',
+				'🀔': 'Five of Bamboos',
+				'🀕': 'Six of Bamboos',
+		 		'🀖': 'Seven of Bamboos',
+				'🀗': 'Eight of Bamboos',
+				'🀘': 'Nine of Bamboos',
+	 			'🀇': 'One of Characters',
+				'🀈': 'Two of Characters',
+				'🀉': 'Three of Characters',
+	 			'🀊': 'Four of Characters',
+				'🀋': 'Five of Characters',
+				'🀌': 'Six of Characters',
+		 		'🀍': 'Seven of Characters',
+				'🀎': 'Eight of Characters',
+				'🀏': 'Nine of Characters',
+				'🀙': 'Jedna of Circles',
+				'🀚': 'Two of Circles',
+				'🀛': 'Three of Circles',
+				'🀜': 'Four of Circles',
+				'🀝': 'Five of Circles',
+				'🀞': 'Six of Circles',
+				'🀟': 'Seven of Circles',
+				'🀠': 'Eight of Circles',
+				'🀡': 'Nine of Circles',
+				'🀆': 'White Dragon',
+				'🀅': 'Green Dragon',
+				'🀄︎': 'Red Dragon',
+				'🀀': 'East Wind',
+				'🀃': 'North Wind',
+				'🀁': 'South Wind',
+				'🀂': 'West Wind',
+				'🀢': 'Plum',
+				'🀣': 'Orchid',
+				'🀤': 'Bamboo',
+				'🀥': 'Chrysanthemum',
+				'🀩': 'Winter',
+				'🀦': 'Spring',
+				'🀨': 'Autumn',
+				'🀧': 'Summer',
+			},
+		},
 	};
 
 	// Set the current language ("cs-CZ" by default).
 	let lang = 'cs-CZ';
-	const sp = new URL(location.href).searchParams;
-	const urllang = sp.get('lang');
+	const urllang = new URL(location.href).searchParams.get('lang');
 	if (urllang in languages) {
 		lang = urllang;
 	}
 
-	// Build language switcher contents.
-	const elLanguageSwitcher = document.getElementById('language-switcher');
-	if (elLanguageSwitcher instanceof HTMLSelectElement) {
-		elLanguageSwitcher.addEventListener('change', switchLanguage);
-		for (const languageCode in languages) {
-			const elLanguage = document.createElement('option');
-			elLanguage.value = languageCode;
-			elLanguage.innerText = languages[languageCode].name;
-			elLanguage.selected = (languageCode === lang);
-			elLanguageSwitcher.insertAdjacentElement('beforeend', elLanguage);
+	const onLanguageSwitch = (evt) => {
+		if (!(evt.target instanceof HTMLButtonElement)) {
+			return;
 		}
+		const newUrl = new URL(location.href);
+		newUrl.searchParams.set('lang', evt.target.dataset.lang);
+		location.href = newUrl;
+	}
+
+	const onLanguageSwitcherKeyUp = (evt) => {
+		if (evt.key !== 'Enter' && evt.key !== ' ') {
+			return;
+		}
+		evt.preventDefault();
+		onLanguageSwitch(evt);
+	};
+
+
+	const elTopPanel = document.getElementById('toppanel');
+	// Build language switcher contents.
+	for (const languageCode in languages) {
+		const elLanguage = document.createElement('button');
+		elLanguage.type = 'button';
+		elLanguage.dataset.lang = languageCode;
+		elLanguage.addEventListener('click', onLanguageSwitch);
+		elLanguage.addEventListener('keyup', onLanguageSwitcherKeyUp);
+		const elLanguageFlag = document.createElement('span');
+		elLanguageFlag.ariaHidden = true;
+		elLanguageFlag.innerText = languages[languageCode].flag;
+		const elLanguageName = document.createElement('span');
+		elLanguageName.classList.add('visually-hidden');
+		elLanguageName.innerText = languages[languageCode].name;
+		elLanguage.insertAdjacentElement('beforeend', elLanguageFlag);
+		elLanguage.insertAdjacentElement('beforeend', elLanguageName);
+		elTopPanel.insertAdjacentElement('beforeend', elLanguage);
 	}
 
 	// From here on until the end: setting translatable texts.
 
 	// <html> element language.
 	document.documentElement.lang = lang;
-
-	// Language switcher label (top panel).
-	const elLanguageSwitcherLabel = document.getElementById('language-switcher-label');
-	if (elLanguageSwitcherLabel instanceof HTMLElement) {
-		elLanguageSwitcherLabel.innerText = `${languages[lang].language}:`;
-	}
 
 	// Points label (top panel).
 	const elPoints = document.getElementById('points');
@@ -183,9 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	// Elapsed time label (top panel).
-	const elTime = document.getElementById('time');
+	const elTime = document.getElementById('timeLabel');
 	if (elTime instanceof HTMLElement) {
-		elTime.ariaLabel = languages[lang].txttime;
+		elTime.innerText = languages[lang].txttime;
 	}
 
 	// New game button (top panel).
