@@ -166,12 +166,8 @@ button {
 .panel a {
 	text-decoration: none;
 }
-#points, #time {
+#time {
 	white-space: nowrap;
-}
-#points::before {
-	content: "🏆";
-	margin-right: 0.25rem;
 }
 
 #time summary::marker {

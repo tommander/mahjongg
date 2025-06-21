@@ -141,11 +141,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	const onLanguageSwitch = (evt) => {
-		if (!(evt.target instanceof HTMLButtonElement)) {
-			return;
+		let theTarget = evt.target;
+		if (!(theTarget instanceof HTMLButtonElement)) {
+			if ((theTarget instanceof Node) && (theTarget.parentElement instanceof HTMLButtonElement)) {
+				theTarget = theTarget.parentElement;
+			} else {
+				return;
+			}
 		}
 		const newUrl = new URL(location.href);
-		newUrl.searchParams.set('lang', evt.target.dataset.lang);
+		newUrl.searchParams.set('lang', theTarget.dataset.lang);
 		location.href = newUrl;
 	}
 
@@ -164,8 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		const elLanguage = document.createElement('button');
 		elLanguage.type = 'button';
 		elLanguage.dataset.lang = languageCode;
-		elLanguage.addEventListener('click', onLanguageSwitch);
-		elLanguage.addEventListener('keyup', onLanguageSwitcherKeyUp);
 		const elLanguageFlag = document.createElement('span');
 		elLanguageFlag.ariaHidden = true;
 		elLanguageFlag.innerText = languages[languageCode].flag;
@@ -174,6 +177,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		elLanguageName.innerText = languages[languageCode].name;
 		elLanguage.insertAdjacentElement('beforeend', elLanguageFlag);
 		elLanguage.insertAdjacentElement('beforeend', elLanguageName);
+		elLanguage.addEventListener('click', onLanguageSwitch);
+		elLanguage.addEventListener('keyup', onLanguageSwitcherKeyUp);
 		elTopPanel.insertAdjacentElement('beforeend', elLanguage);
 	}
 

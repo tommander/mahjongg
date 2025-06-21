@@ -4,12 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	 * 
 	 * @type {object}
 	 * @property {Date} start - Start timestamp of the game
-	 * @property {number} points - Player's collected points
 	 * @property {object} shapeDim - Width, height and maximum z-index of the current deal shape
 	 */
 	const initSession = () => {
 		sessionStorage.setItem('start', new Date().valueOf());
-		sessionStorage.setItem('points', 0);
 		sessionStorage.setItem('shapew', 0);
 		sessionStorage.setItem('shapeh', 0);
 		sessionStorage.setItem('shapez', 0);
@@ -92,21 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	 * @constant {string[]}
 	 */
 	const seasons = ['🀩', '🀦', '🀨', '🀧'];
-
-	/**
-	 * Mapping of each Mahjongg tile to its points.
-	 * 
-	 * @constant {Object.<string,number>}
-	 */
-	const pointsMap = {
-		'🀇': 2, '🀈': 2, '🀉': 2, '🀊': 2, '🀋': 2, '🀌': 2, '🀍': 2, '🀎': 2, '🀏': 2,
-		'🀙': 4, '🀚': 4, '🀛': 4, '🀜': 4, '🀝': 4, '🀞': 4, '🀟': 4, '🀠': 4, '🀡': 4,
-		'🀐': 6, '🀑': 6, '🀒': 6, '🀓': 6, '🀔': 6, '🀕': 6, '🀖': 6, '🀗': 6, '🀘': 6,
-		'🀀': 8, '🀃': 8, '🀁': 8, '🀂': 8,
-		'🀆': 10, '🀅': 10, '🀄︎': 10,
-		'🀢': 12, '🀣': 12, '🀤': 12, '🀥': 12,
-		'🀩': 14, '🀦': 14, '🀨': 14, '🀧': 14,
-	};
 
 	/**
 	 * Contains references to open tiles grouped by their symbols. Used by tile highlighting.
@@ -528,11 +511,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			(flowers.indexOf(listSel[0].innerText) > -1 && flowers.indexOf(listSel[1].innerText) > -1) ||
 			(seasons.indexOf(listSel[0].innerText) > -1 && seasons.indexOf(listSel[1].innerText) > -1)
 		) {
-			sessionStorage.setItem('points', parseInt(sessionStorage.getItem('points')) + (pointsMap[listSel[0].innerText] + pointsMap[listSel[1].innerText]));
-			const elPointsValue = document.getElementById('pointsValue');
-			if (elPointsValue instanceof HTMLElement) {
-				elPointsValue.innerText = sessionStorage.getItem('points');
-			}
 			historyAdd(listSel[0], listSel[1]);
 			listSel[0].remove();
 			listSel[1].remove();
