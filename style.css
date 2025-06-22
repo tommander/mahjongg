@@ -215,8 +215,7 @@ button {
 .gamedlg {
 	margin: auto;
 	background-color: #fff;
-	padding: 1rem 2rem;
-	border: 0.15vw solid black;
+	border: 0.15vw solid #024;
 	border-radius: 1rem;
 	max-width: 50%;
 }
@@ -224,21 +223,43 @@ button {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	row-gap: 0.5rem;
+	/*row-gap: 0.5rem;*/
+}
+.dlgmessage > div {
+	margin-left: 2rem;
+	margin-right: 2rem;
+}
+.dlgsmiley {
+	font-size: 300%;
+	width: 100%;
+	background: linear-gradient(to top, #049 0%, #06b 100%);
+	text-align: center;
+	padding-top: 0.5rem;
+	color: #fff;
+}
+.dlgheading {
+	font-size: 125%;
+	font-weight: bold;
+	width: 100%;
+	background-color: #049;
+	text-align: center;
+	padding-bottom: 0.5rem;
+	margin-bottom: 2rem;
+	border-bottom: 1px solid #000;
+	color: #fff;
 }
 .dlgbuttons {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	column-gap: 1rem;
-	margin-top: 1rem;
-}
-.dlgheading {
-	font-size: 125%;
-	font-weight: bold;
-}
-.dlgsmiley {
-	font-size: 300%;
+	border-top: 1px solid #000;
+	margin-top: 2rem;
+	padding-bottom: 0.5rem;
+	padding-top: 0.5rem;
+	padding-left: 2rem;
+	padding-right: 2rem;
+	background: linear-gradient(to bottom, #049 0%, #06b 100%);
 }
 
 /* Small screens */

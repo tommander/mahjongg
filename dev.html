@@ -19,18 +19,18 @@
 
 	<div id="game"></div>
 
-	<dialog id="win" class="gamedlg">
+	<dialog id="win" class="gamedlg" aria-labelledby="winHeading" aria-describedby="winText">
 		<div class="dlgmessage">
 			<div class="dlgsmiley">👑</div>
 			<div id="winHeading" class="dlgheading">Vyhráli jste!</div>
-			<div class="dlgdetail">0m 0s</div>
+			<div id="winText" class="dlgdetail">0m 0s</div>
 		</div>
 		<form method="dialog" class="dlgbuttons">
 			<button type="button" class="newGame">Nová hra</button>
 			<button type="submit" class="closeButton">Zavřít</button>
 		</form>
 	</dialog>
-	<dialog id="lose" class="gamedlg">
+	<dialog id="lose" class="gamedlg" aria-labelledby="loseHeading" aria-describedby="loseText">
 		<div class="dlgmessage">
 			<div class="dlgsmiley">🥺</div>
 			<div id="loseHeading" class="dlgheading">Prohráli jste.</div>
@@ -41,7 +41,7 @@
 			<button type="submit" class="closeButton">Zavřít</button>
 		</form>
 	</dialog>
-	<dialog id="help" class="gamedlg">
+	<dialog id="help" class="gamedlg" aria-labelledby="helpHeading" aria-describedby="helpText">
 		<div class="dlgmessage">
 			<div class="dlgsmiley">❓</div>
 			<div id="helpHeading" class="dlgheading">Mahjongg Solitaire 0.0.0</div>
@@ -54,7 +54,7 @@
 		</form>
 	</dialog>
 
-	<div id="current">
+	<div id="current" role="tooltip">
 		<div id="currentimg"></div>
 		<div id="currentname">
 			<span id="🀐" class="cardname">Vrabec</span>
