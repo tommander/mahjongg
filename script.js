@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const elDlgDetail = document.querySelector('#win .dlgdetail');
 		const elTime = document.getElementById('time');
 		if ((elDlgDetail instanceof HTMLElement) && (elTime instanceof HTMLElement)) {
-			elDlgDetail.innerText = elTime.innerText;
+			elDlgDetail.innerText = elDlgDetail.innerText.replace('%s', elTime.innerText);
 		}
 		elWin.showModal();
 	}
