@@ -8,32 +8,29 @@
 </head>
 <body>
 	<div class="panel" id="toppanel">
-		<div id="points" aria-label="Body">0</div>
-		<div id="time" aria-label="Uběhlý čas">0:00</div>
+		<details id="time"><summary><time id="timeValue" datetime="PT0S">0:00</time></summary><span id="timeLabel">Uběhlý čas</span></details>
 		<button type="button" class="newGame"><span aria-hidden="true">🆕</span><span class="visually-hidden">Nová hra</span></button>
 		<button type="button" id="helpButton"><span aria-hidden="true">❓</span><span class="visually-hidden">Nápověda</span></button>
 		<button type="button" id="beginnerButton"><span aria-hidden="true">🧑‍🎓</span><span class="visually-hidden">Zvýraznění</span></button>
 		<button type="button" id="reshuffleButton"><span aria-hidden="true">↺</span><span class="visually-hidden">Zamíchat</span></button>
 		<button type="button" id="undoButton"><span aria-hidden="true">↶</span><span class="visually-hidden">Zpět</span></button>
 		<button type="button" id="redoButton"><span aria-hidden="true">↷</span><span class="visually-hidden">Vpřed</span></button>
-		<label id="language-switcher-label" for="language-switcher">Jazyk:</label>
-		<select id="language-switcher"></select>
 	</div>
 
 	<div id="game"></div>
 
-	<dialog id="win" class="gamedlg">
+	<dialog id="win" class="gamedlg" aria-labelledby="winHeading" aria-describedby="winText">
 		<div class="dlgmessage">
 			<div class="dlgsmiley">👑</div>
 			<div id="winHeading" class="dlgheading">Vyhráli jste!</div>
-			<div class="dlgdetail">0m 0s</div>
+			<div id="winText" class="dlgdetail">0m 0s</div>
 		</div>
 		<form method="dialog" class="dlgbuttons">
 			<button type="button" class="newGame">Nová hra</button>
 			<button type="submit" class="closeButton">Zavřít</button>
 		</form>
 	</dialog>
-	<dialog id="lose" class="gamedlg">
+	<dialog id="lose" class="gamedlg" aria-labelledby="loseHeading" aria-describedby="loseText">
 		<div class="dlgmessage">
 			<div class="dlgsmiley">🥺</div>
 			<div id="loseHeading" class="dlgheading">Prohráli jste.</div>
@@ -44,7 +41,7 @@
 			<button type="submit" class="closeButton">Zavřít</button>
 		</form>
 	</dialog>
-	<dialog id="help" class="gamedlg">
+	<dialog id="help" class="gamedlg" aria-labelledby="helpHeading" aria-describedby="helpText">
 		<div class="dlgmessage">
 			<div class="dlgsmiley">❓</div>
 			<div id="helpHeading" class="dlgheading">Mahjongg Solitaire 0.0.0</div>
@@ -57,7 +54,7 @@
 		</form>
 	</dialog>
 
-	<div id="current">
+	<div id="current" role="tooltip">
 		<div id="currentimg"></div>
 		<div id="currentname">
 			<span id="🀐" class="cardname">Vrabec</span>

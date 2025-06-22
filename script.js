@@ -4,12 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	 * 
 	 * @type {object}
 	 * @property {Date} start - Start timestamp of the game
-	 * @property {number} points - Player's collected points
 	 * @property {object} shapeDim - Width, height and maximum z-index of the current deal shape
 	 */
 	const initSession = () => {
 		sessionStorage.setItem('start', new Date().valueOf());
-		sessionStorage.setItem('points', 0);
 		sessionStorage.setItem('shapew', 0);
 		sessionStorage.setItem('shapeh', 0);
 		sessionStorage.setItem('shapez', 0);
@@ -25,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	 * 
 	 * @constant {string[]}
 	 */
-	const tileTypes = [
+	const tileset = [
 		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
 		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
 		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
@@ -94,22 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const seasons = ['🀩', '🀦', '🀨', '🀧'];
 
 	/**
-	 * Mapping of each Mahjongg tile to its points.
-	 * 
-	 * @constant {Object.<string,number>}
-	 */
-	const pointsMap = {
-		'🀇': 2, '🀈': 2, '🀉': 2, '🀊': 2, '🀋': 2, '🀌': 2, '🀍': 2, '🀎': 2, '🀏': 2,
-		'🀙': 4, '🀚': 4, '🀛': 4, '🀜': 4, '🀝': 4, '🀞': 4, '🀟': 4, '🀠': 4, '🀡': 4,
-		'🀐': 6, '🀑': 6, '🀒': 6, '🀓': 6, '🀔': 6, '🀕': 6, '🀖': 6, '🀗': 6, '🀘': 6,
-		'🀀': 8, '🀃': 8, '🀁': 8, '🀂': 8,
-		'🀆': 10, '🀅': 10, '🀄︎': 10,
-		'🀢': 12, '🀣': 12, '🀤': 12, '🀥': 12,
-		'🀩': 14, '🀦': 14, '🀨': 14, '🀧': 14,
-	};
-
-	/**
-	 * Contains references to open tiles grouped by their symbols. Used by tile highlighting.
+	 * Contains references to open tiles grouped by their symbols. Used by tile highlighting (i.e.
+	 * beginner mode).
 	 * 
 	 * @var {Object.<string,Array.<HTMLElement>>}
 	 */
@@ -171,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const elDlgDetail = document.querySelector('#win .dlgdetail');
 		const elTime = document.getElementById('time');
 		if ((elDlgDetail instanceof HTMLElement) && (elTime instanceof HTMLElement)) {
-			elDlgDetail.innerText = elTime.innerText;
+			elDlgDetail.innerText = elDlgDetail.innerText.replace('%s', elTime.innerText);
 		}
 		elWin.showModal();
 	}
@@ -232,17 +216,40 @@ document.addEventListener('DOMContentLoaded', () => {
 		);
 	}
 
+	/**
+	 * Is the beginner mode enabled?
+	 *
+	 * @returns {boolean}
+	 */
 	const isBeginner = () => {
 		return (localStorage.getItem('beginner') === 'true');
 	}
+
+	/**
+	 * Enable the beginner mode.
+	 * 
+	 * @returns {void}
+	 */
 	const enableBeginner = () => {
 		localStorage.setItem('beginner', 'true');
 		markFreeSidesForAll();
 	}
+
+	/**
+	 * Disable the beginner mode.
+	 * 
+	 * @returns {void}
+	 */
 	const disableBeginner = () => {
 		localStorage.setItem('beginner', 'false');
 		markFreeSidesForAll();
 	}
+
+	/**
+	 * Toggle the beginner mode.
+	 * 
+	 * @returns {void}
+	 */
 	const toggleBeginner = () => {
 		if (isBeginner()) {
 			disableBeginner();
@@ -251,6 +258,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 
+	/**
+	 * Mark the given tile with "free*" classes based on open edges and add the tile to the list of
+	 * open tiles (if it is open, that is) grouped by the symbol on it.
+	 *
+	 * @param {*} tile Tile element
+	 * @returns {void}
+	 */
 	const markFreeSides = (tile) => {
 		if (!isTile(tile)) {
 			return;
@@ -317,7 +331,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	/**
-	 * Mark free sides of all tiles by `free*` classes.
+	 * Mark free sides of all tiles with `free*` classes. Then go through the list of open tiles and
+	 * add "notBlocked" class to those that have at least one other tile with the same symbol to be
+	 * matched with.
 	 *
 	 * @return {void}
 	 */
@@ -391,9 +407,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		elPrev.insertAdjacentElement('afterend', elTile);
 	};
 
-	// Get array at pointer
-	// Dec pointer
-	// Add elems back to DOM
 	/**
 	 * Undo one step in history.
 	 * 
@@ -419,9 +432,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	};
 
-	// Inc pointer
-	// Get array at pointer
-	// Remove elems from DOM
 	/**
 	 * Redo one step in history.
 	 * 
@@ -528,11 +538,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			(flowers.indexOf(listSel[0].innerText) > -1 && flowers.indexOf(listSel[1].innerText) > -1) ||
 			(seasons.indexOf(listSel[0].innerText) > -1 && seasons.indexOf(listSel[1].innerText) > -1)
 		) {
-			sessionStorage.setItem('points', parseInt(sessionStorage.getItem('points')) + (pointsMap[listSel[0].innerText] + pointsMap[listSel[1].innerText]));
-			const elPoints = document.getElementById('points');
-			if (elPoints instanceof HTMLElement) {
-				elPoints.innerText = sessionStorage.getItem('points');
-			}
 			historyAdd(listSel[0], listSel[1]);
 			listSel[0].remove();
 			listSel[1].remove();
@@ -659,15 +664,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	 * @returns {void}
 	 */
 	const timeProc = () => {
-		const elTime = document.getElementById('time');
-		if (!(elTime instanceof HTMLElement)) {
+		const elTimeValue = document.getElementById('timeValue');
+		if (!(elTimeValue instanceof HTMLElement)) {
 			return;
 		}
 		const diff = Math.floor((new Date().valueOf() - parseInt(sessionStorage.getItem('start'))) / 1000);
 		const diffM = Math.floor(diff / 60);
 		const diffS = diff % 60;
 		const diffS0 = diffS < 10 ? '0' : '';
-		elTime.innerText = `${diffM}:${diffS0}${diffS}`;
+		elTimeValue.innerText = `${diffM}:${diffS0}${diffS}`;
 	};
 
 	/**
@@ -714,10 +719,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	/**
 	 * Deals tiles according to the given shape, computes tile/board size and creates all tiles.
 	 *
-	 * @param {string} shape 
+	 * @param {string} shape A string that identifies the deal shape (currently just 'turtle').
 	 * @returns {void}
 	 */
-	const drawGame = (shape) => {
+	const drawGame = (shape, customDealString = null) => {
 		let shapeDef = [];
 		if (shape === 'turtle') {
 			shapeDef = [
@@ -782,24 +787,20 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 
-		let dealStringParam = new URL(location.href).searchParams.get('deal');
-		if ((typeof dealStringParam === 'string' || (dealStringParam instanceof String)) &&
-		    dealStringParam.length === 292
-		) {
-			for (const c of dealStringParam) {
-				if (c.codePointAt(0) !== 65038 && c !== '🀄' && tileTypes.indexOf(c) < 0) {
-					dealStringParam = null;
-					break;
-				}
-			}
-		} else {
-			dealStringParam = null;
-		}
-		let dealString = dealStringParam;
+		let dealString = customDealString;
 		if (dealString === null) {
-			let tileTypesLocal = tileTypes;
-			shuffle(tileTypesLocal);
-			dealString = tileTypesLocal.toString().replaceAll(',','');
+			let dealStringParam = new URL(location.href).searchParams.get('deal');
+			if (
+				(typeof dealStringParam === 'string' || (dealStringParam instanceof String)) &&
+				dealStringParam.match(/^[🀇🀈🀉🀊🀋🀌🀍🀎🀏🀙🀚🀛🀜🀝🀞🀟🀠🀡🀐🀑🀒🀓🀔🀕🀖🀗🀘🀆🀅🀄︎🀀🀃🀁🀂🀢🀣🀤🀥🀩🀦🀨🀧]{292}$/)
+			) {
+				dealString = dealStringParam;
+			}
+		}
+		if (dealString === null) {
+			let tilesetLocal = tileset;
+			shuffle(tilesetLocal);
+			dealString = tilesetLocal.toString().replaceAll(',','');
 		}
 		console.log('Deal string:', dealString);
 
@@ -856,6 +857,154 @@ document.addEventListener('DOMContentLoaded', () => {
 		markFreeSidesForAll();
 	}
 
+	/**
+	 * Play a winning game.
+	 * 
+	 * @param {boolean} win Whether to play a win (true) or lose (false) game.
+	 *
+	 * @returns {void}
+	 */
+	const testPlay = (win) => {
+		const steps = (win === true) ? [
+			{"x1": 3, "y1": 15, "z1": 1, "x2": 14, "y2": 8, "z2": 5},
+			{"x1": 3, "y1": 1, "z1": 1, "x2": 9, "y2": 13, "z2": 2},
+			{"x1": 21, "y1": 3, "z1": 1, "x2": 9, "y2": 11, "z2": 2},
+			{"x1": 23, "y1": 5, "z1": 1, "x2": 11, "y2": 7, "z2": 3},
+			{"x1": 21, "y1": 5, "z1": 1, "x2": 9, "y2": 9, "z2": 2},
+			{"x1": 5, "y1": 5, "z1": 1, "x2": 17, "y2": 5, "z2": 3},
+			{"x1": 19, "y1": 9, "z1": 2, "x2": 11, "y2": 11, "z2": 3},
+			{"x1": 9, "y1": 3, "z1": 2, "x2": 13, "y2": 7, "z2": 4},
+			{"x1": 17, "y1": 11, "z1": 3, "x2": 15, "y2": 9, "z2": 4},
+			{"x1": 25, "y1": 1, "z1": 1, "x2": 11, "y2": 5, "z2": 3},
+			{"x1": 23, "y1": 1, "z1": 1, "x2": 25, "y2": 15, "z2": 1},
+			{"x1": 7, "y1": 3, "z1": 1, "x2": 23, "y2": 15, "z2": 1},
+			{"x1": 21, "y1": 15, "z1": 1, "x2": 11, "y2": 3, "z2": 2},
+			{"x1": 29, "y1": 8, "z1": 1, "x2": 9, "y2": 5, "z2": 2},
+			{"x1": 11, "y1": 5, "z1": 2, "x2": 17, "y2": 9, "z2": 3},
+			{"x1": 11, "y1": 13, "z1": 2, "x2": 15, "y2": 5, "z2": 3},
+			{"x1": 7, "y1": 13, "z1": 1, "x2": 13, "y2": 11, "z2": 3},
+			{"x1": 9, "y1": 13, "z1": 1, "x2": 11, "y2": 9, "z2": 3},
+			{"x1": 21, "y1": 1, "z1": 1, "x2": 7, "y2": 5, "z2": 1},
+			{"x1": 9, "y1": 5, "z1": 1, "x2": 23, "y2": 11, "z2": 1},
+			{"x1": 17, "y1": 9, "z1": 2, "x2": 19, "y2": 11, "z2": 2},
+			{"x1": 13, "y1": 7, "z1": 3, "x2": 17, "y2": 7, "z2": 3},
+			{"x1": 15, "y1": 11, "z1": 3, "x2": 15, "y2": 7, "z2": 4},
+			{"x1": 13, "y1": 5, "z1": 3, "x2": 15, "y2": 7, "z2": 3},
+			{"x1": 21, "y1": 11, "z1": 1, "x2": 13, "y2": 5, "z2": 2},
+			{"x1": 19, "y1": 3, "z1": 2, "x2": 17, "y2": 11, "z2": 2},
+			{"x1": 9, "y1": 3, "z1": 1, "x2": 11, "y2": 11, "z2": 2},
+			{"x1": 19, "y1": 1, "z1": 1, "x2": 19, "y2": 3, "z2": 1},
+			{"x1": 11, "y1": 5, "z1": 1, "x2": 19, "y2": 13, "z2": 2},
+			{"x1": 5, "y1": 1, "z1": 1, "x2": 13, "y2": 11, "z2": 2},
+			{"x1": 13, "y1": 5, "z1": 1, "x2": 9, "y2": 7, "z2": 2},
+			{"x1": 7, "y1": 1, "z1": 1, "x2": 19, "y2": 5, "z2": 2},
+			{"x1": 9, "y1": 1, "z1": 1, "x2": 5, "y2": 11, "z2": 1},
+			{"x1": 19, "y1": 5, "z1": 1, "x2": 5, "y2": 15, "z2": 1},
+			{"x1": 15, "y1": 5, "z1": 2, "x2": 17, "y2": 5, "z2": 2},
+			{"x1": 13, "y1": 3, "z1": 2, "x2": 11, "y2": 7, "z2": 2},
+			{"x1": 17, "y1": 5, "z1": 1, "x2": 13, "y2": 9, "z2": 4},
+			{"x1": 15, "y1": 5, "z1": 1, "x2": 13, "y2": 13, "z2": 2},
+			{"x1": 7, "y1": 15, "z1": 1, "x2": 15, "y2": 9, "z2": 3},
+			{"x1": 1, "y1": 8, "z1": 1, "x2": 15, "y2": 13, "z2": 2},
+			{"x1": 3, "y1": 7, "z1": 1, "x2": 3, "y2": 9, "z2": 1},
+			{"x1": 5, "y1": 7, "z1": 1, "x2": 5, "y2": 9, "z2": 1},
+			{"x1": 7, "y1": 9, "z1": 1, "x2": 7, "y2": 11, "z2": 1},
+			{"x1": 7, "y1": 7, "z1": 1, "x2": 15, "y2": 3, "z2": 2},
+			{"x1": 9, "y1": 11, "z1": 1, "x2": 9, "y2": 15, "z2": 1},
+			{"x1": 9, "y1": 9, "z1": 1, "x2": 11, "y2": 11, "z2": 1},
+			{"x1": 9, "y1": 7, "z1": 1, "x2": 13, "y2": 11, "z2": 1},
+			{"x1": 27, "y1": 8, "z1": 1, "x2": 13, "y2": 9, "z2": 3},
+			{"x1": 11, "y1": 3, "z1": 1, "x2": 25, "y2": 9, "z2": 1},
+			{"x1": 23, "y1": 9, "z1": 1, "x2": 11, "y2": 9, "z2": 2},
+			{"x1": 19, "y1": 11, "z1": 1, "x2": 13, "y2": 9, "z2": 2},
+			{"x1": 11, "y1": 9, "z1": 1, "x2": 17, "y2": 3, "z2": 2},
+			{"x1": 17, "y1": 3, "z1": 1, "x2": 13, "y2": 7, "z2": 2},
+			{"x1": 13, "y1": 3, "z1": 1, "x2": 15, "y2": 7, "z2": 2},
+			{"x1": 13, "y1": 9, "z1": 1, "x2": 17, "y2": 7, "z2": 2},
+			{"x1": 17, "y1": 11, "z1": 1, "x2": 19, "y2": 15, "z2": 1},
+			{"x1": 11, "y1": 13, "z1": 1, "x2": 17, "y2": 15, "z2": 1},
+			{"x1": 25, "y1": 7, "z1": 1, "x2": 13, "y2": 13, "z2": 1},
+			{"x1": 15, "y1": 13, "z1": 1, "x2": 19, "y2": 7, "z2": 2},
+			{"x1": 15, "y1": 15, "z1": 1, "x2": 15, "y2": 11, "z2": 2},
+			{"x1": 13, "y1": 15, "z1": 1, "x2": 15, "y2": 9, "z2": 2},
+			{"x1": 15, "y1": 9, "z1": 1, "x2": 21, "y2": 9, "z2": 1},
+			{"x1": 23, "y1": 7, "z1": 1, "x2": 17, "y2": 9, "z2": 1},
+			{"x1": 19, "y1": 9, "z1": 1, "x2": 17, "y2": 13, "z2": 2},
+			{"x1": 15, "y1": 11, "z1": 1, "x2": 17, "y2": 13, "z2": 1},
+			{"x1": 11, "y1": 7, "z1": 1, "x2": 21, "y2": 13, "z2": 1},
+			{"x1": 17, "y1": 1, "z1": 1, "x2": 19, "y2": 13, "z2": 1},
+			{"x1": 15, "y1": 3, "z1": 1, "x2": 13, "y2": 7, "z2": 1},
+			{"x1": 15, "y1": 1, "z1": 1, "x2": 15, "y2": 7, "z2": 1},
+			{"x1": 11, "y1": 1, "z1": 1, "x2": 13, "y2": 1, "z2": 1},
+			{"x1": 17, "y1": 7, "z1": 1, "x2": 21, "y2": 7, "z2": 1},
+			{"x1": 19, "y1": 7, "z1": 1, "x2": 11, "y2": 15, "z2": 1}
+		] : [
+			{"x1": 5, "y1": 11, "z1": 1, "x2": 21, "y2": 13, "z2": 1},
+			{"x1": 1, "y1": 8, "z1": 1, "x2": 17, "y2": 11, "z2": 3},
+			{"x1": 19, "y1": 11, "z1": 2, "x2": 15, "y2": 11, "z2": 3},
+			{"x1": 25, "y1": 1, "z1": 1, "x2": 29, "y2": 8, "z2": 1},
+			{"x1": 27, "y1": 8, "z1": 1, "x2": 14, "y2": 8, "z2": 5},
+			{"x1": 17, "y1": 9, "z1": 3, "x2": 15, "y2": 7, "z2": 4},
+			{"x1": 19, "y1": 5, "z1": 2, "x2": 9, "y2": 9, "z2": 2},
+			{"x1": 25, "y1": 7, "z1": 1, "x2": 9, "y2": 11, "z2": 2},
+			{"x1": 23, "y1": 7, "z1": 1, "x2": 19, "y2": 3, "z2": 2},
+			{"x1": 3, "y1": 7, "z1": 1, "x2": 25, "y2": 9, "z2": 1},
+			{"x1": 3, "y1": 9, "z1": 1, "x2": 19, "y2": 7, "z2": 2},
+			{"x1": 17, "y1": 11, "z1": 2, "x2": 17, "y2": 5, "z2": 3},
+			{"x1": 23, "y1": 1, "z1": 1, "x2": 11, "y2": 11, "z2": 3},
+			{"x1": 11, "y1": 11, "z1": 2, "x2": 15, "y2": 9, "z2": 4},
+			{"x1": 17, "y1": 5, "z1": 2, "x2": 13, "y2": 9, "z2": 4},
+			{"x1": 23, "y1": 5, "z1": 1, "x2": 15, "y2": 5, "z2": 3},
+			{"x1": 7, "y1": 3, "z1": 1, "x2": 15, "y2": 9, "z2": 3},
+			{"x1": 9, "y1": 3, "z1": 2, "x2": 13, "y2": 9, "z2": 3},
+			{"x1": 9, "y1": 5, "z1": 2, "x2": 11, "y2": 7, "z2": 3},
+			{"x1": 5, "y1": 7, "z1": 1, "x2": 7, "y2": 13, "z2": 1},
+			{"x1": 5, "y1": 5, "z1": 1, "x2": 9, "y2": 13, "z2": 2},
+			{"x1": 9, "y1": 3, "z1": 1, "x2": 11, "y2": 9, "z2": 3},
+			{"x1": 5, "y1": 9, "z1": 1, "x2": 13, "y2": 7, "z2": 4},
+			{"x1": 11, "y1": 13, "z1": 2, "x2": 13, "y2": 5, "z2": 3},
+			{"x1": 7, "y1": 7, "z1": 1, "x2": 11, "y2": 3, "z2": 2},
+			{"x1": 11, "y1": 3, "z1": 1, "x2": 9, "y2": 7, "z2": 2},
+			{"x1": 11, "y1": 9, "z1": 2, "x2": 11, "y2": 5, "z2": 3},
+			{"x1": 17, "y1": 3, "z1": 2, "x2": 13, "y2": 11, "z2": 3},
+			{"x1": 23, "y1": 11, "z1": 1, "x2": 13, "y2": 9, "z2": 2},
+			{"x1": 7, "y1": 5, "z1": 1, "x2": 7, "y2": 11, "z2": 1},
+			{"x1": 21, "y1": 7, "z1": 1, "x2": 7, "y2": 9, "z2": 1},
+			{"x1": 21, "y1": 5, "z1": 1, "x2": 17, "y2": 7, "z2": 3},
+			{"x1": 9, "y1": 9, "z1": 1, "x2": 15, "y2": 9, "z2": 2},
+			{"x1": 3, "y1": 1, "z1": 1, "x2": 23, "y2": 9, "z2": 1},
+			{"x1": 21, "y1": 9, "z1": 1, "x2": 17, "y2": 7, "z2": 2},
+			{"x1": 17, "y1": 9, "z1": 2, "x2": 13, "y2": 11, "z2": 2},
+			{"x1": 9, "y1": 11, "z1": 1, "x2": 19, "y2": 13, "z2": 2},
+			{"x1": 9, "y1": 5, "z1": 1, "x2": 21, "y2": 11, "z2": 1},
+			{"x1": 19, "y1": 5, "z1": 1, "x2": 11, "y2": 11, "z2": 1},
+			{"x1": 19, "y1": 13, "z1": 1, "x2": 13, "y2": 7, "z2": 3},
+			{"x1": 9, "y1": 7, "z1": 1, "x2": 19, "y2": 11, "z2": 1},
+			{"x1": 13, "y1": 11, "z1": 1, "x2": 15, "y2": 11, "z2": 2},
+			{"x1": 21, "y1": 1, "z1": 1, "x2": 9, "y2": 13, "z2": 1},
+			{"x1": 19, "y1": 1, "z1": 1, "x2": 17, "y2": 13, "z2": 2},
+			{"x1": 15, "y1": 11, "z1": 1, "x2": 11, "y2": 13, "z2": 1},
+			{"x1": 17, "y1": 1, "z1": 1, "x2": 13, "y2": 3, "z2": 2}
+		];
+
+		let step = 0;
+		const playInterval = setInterval(
+			() => {
+				const elTile1 = document.querySelector(`.tile[data-x="${steps[step].x1}"][data-y="${steps[step].y1}"][data-z="${steps[step].z1}"]`);
+				const elTile2 = document.querySelector(`.tile[data-x="${steps[step].x2}"][data-y="${steps[step].y2}"][data-z="${steps[step].z2}"]`);
+				elTile1.click();
+				elTile2.click();
+				step++;
+				if (step >= steps.length) {
+					clearInterval(playInterval);
+				}
+			},
+			100
+		);
+	};
+
+	let testParam = new URL(location.href).searchParams.get('test');
+
 	// Here is the end of definitions and start of the actual program flow. Finally :)
 	initSession();
 
@@ -864,7 +1013,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// Prepare UI
 	initEvents();
-	drawGame('turtle');
+	if (testParam === 'win') {
+		drawGame('turtle', '🀋🀞🀟🀆🀅🀅🀃🀗🀊🀗🀔🀒🀝🀇🀐🀇🀏🀞🀊🀊🀕🀗🀠🀕🀄︎🀌🀈🀏🀅🀎🀧🀎🀌🀛🀂🀜🀏🀃🀍🀀🀍🀉🀘🀎🀌🀟🀁🀖🀛🀩🀉🀁🀦🀍🀐🀝🀤🀆🀟🀔🀁🀂🀡🀙🀠🀡🀠🀃🀋🀒🀘🀚🀡🀗🀜🀈🀏🀓🀔🀀🀄︎🀑🀒🀙🀐🀝🀔🀚🀐🀣🀛🀖🀉🀥🀑🀡🀘🀘🀟🀄︎🀢🀞🀇🀛🀚🀅🀍🀠🀄︎🀆🀙🀊🀇🀞🀑🀉🀆🀋🀂🀌🀨🀁🀕🀒🀀🀂🀕🀎🀜🀀🀜🀋🀝🀓🀑🀙🀃🀓🀖🀚🀓🀈🀖🀈');
+	} else if (testParam === 'lose') {
+		drawGame('turtle', '🀜🀩🀒🀃🀘🀂🀛🀅🀋🀖🀄︎🀠🀕🀇🀧🀔🀆🀉🀓🀍🀗🀂🀐🀆🀕🀖🀂🀑🀚🀌🀟🀊🀆🀏🀟🀏🀊🀛🀤🀇🀠🀙🀀🀋🀉🀠🀒🀎🀔🀉🀇🀑🀝🀜🀊🀃🀠🀁🀂🀄︎🀑🀀🀞🀈🀟🀐🀎🀆🀖🀞🀡🀈🀒🀐🀁🀘🀙🀚🀜🀚🀖🀓🀏🀗🀁🀨🀁🀘🀏🀅🀊🀛🀙🀢🀗🀑🀕🀔🀈🀦🀙🀎🀍🀝🀋🀈🀝🀎🀒🀞🀣🀀🀓🀞🀀🀅🀡🀗🀌🀃🀜🀋🀄︎🀝🀌🀌🀅🀥🀐🀡🀚🀇🀘🀕🀍🀄︎🀛🀡🀟🀉🀍🀔🀓🀃');
+	} else {
+		drawGame('turtle');
+	}
 
 	// React to resizing with a 250ms timeout, so that we don't break the browser if the user gets
 	// crazy.
@@ -873,4 +1028,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		clearTimeout(resizeTimeout);
 		resizeTimeout = setTimeout(resizeBoard, 250);
 	});
+
+	// Start playing the win game if requested
+	if (testParam === 'win') {
+		testPlay(true);
+		return;
+	}
+
+	// Start playing the lose game if requested
+	if (testParam === 'lose') {
+		testPlay(false);
+		return;
+	}
 });

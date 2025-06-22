@@ -5,72 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	 * @constant {Object.<string, Object.<string, (string|Object.<string,string>)>>}
 	 */
 	const languages = {
-		'en-US': {
-			name: 'English',
-			language: 'Language',
-			txtpoints: 'Points',
-			txttime: 'Elapsed time',
-			btnnewgame: 'New game',
-			btnhelp: 'Help',
-			btnclose: 'Close',
-			btnhighlight: 'Highlight',
-			btnreshuffle: 'Reshuffle',
-			btnundo: 'Undo',
-			btnredo: 'Redo',
-			hdgwin: 'You won!',
-			hdglose: 'You lost!',
-			txtlose: 'I should have dealt the cards better.',
-			txthelp: 'Your goal is to collect all 144 tiles. You can pick tiles by pairs that are “open” (at least one long edge is unoccupied and there is no adjacent tile) and have either the same symbol or are both either a Season or a Flower. Note that dealing is random; your particular game might not have a way to be won!',
-			txtcopy: '%1s by %2s is marked %3s',
-			cards: {
-				'🀐': 'Sparrow',
-				'🀑': 'Two of Bamboos',
-				'🀒': 'Three of Bamboos',
-		 		'🀓': 'Four of Bamboos',
-				'🀔': 'Five of Bamboos',
-				'🀕': 'Six of Bamboos',
-		 		'🀖': 'Seven of Bamboos',
-				'🀗': 'Eight of Bamboos',
-				'🀘': 'Nine of Bamboos',
-	 			'🀇': 'One of Characters',
-				'🀈': 'Two of Characters',
-				'🀉': 'Three of Characters',
-	 			'🀊': 'Four of Characters',
-				'🀋': 'Five of Characters',
-				'🀌': 'Six of Characters',
-		 		'🀍': 'Seven of Characters',
-				'🀎': 'Eight of Characters',
-				'🀏': 'Nine of Characters',
-				'🀙': 'Jedna of Circles',
-				'🀚': 'Two of Circles',
-				'🀛': 'Three of Circles',
-				'🀜': 'Four of Circles',
-				'🀝': 'Five of Circles',
-				'🀞': 'Six of Circles',
-				'🀟': 'Seven of Circles',
-				'🀠': 'Eight of Circles',
-				'🀡': 'Nine of Circles',
-				'🀆': 'White Dragon',
-				'🀅': 'Green Dragon',
-				'🀄︎': 'Red Dragon',
-				'🀀': 'East Wind',
-				'🀃': 'North Wind',
-				'🀁': 'South Wind',
-				'🀂': 'West Wind',
-				'🀢': 'Plum',
-				'🀣': 'Orchid',
-				'🀤': 'Bamboo',
-				'🀥': 'Chrysanthemum',
-				'🀩': 'Winter',
-				'🀦': 'Spring',
-				'🀨': 'Autumn',
-				'🀧': 'Summer',
-			},
-		},
 		'cs-CZ': {
 			name: 'Čeština',
+			flag: '🇨🇿',
 			language: 'Jazyk',
-			txtpoints: 'Body',
 			txttime: 'Uběhlý čas',
 			btnnewgame: 'Nová hra',
 			btnhelp: 'Nápověda',
@@ -81,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			btnredo: 'Vpřed',
 			hdgwin: 'Vyhráli jste!',
 			hdglose: 'Prohráli jste.',
+			txtwin: 'Čas vaší hry byl %s. Gratulace!',
 			txtlose: 'Asi jsem to špatně rozdal.',
 			txthelp: 'Vaším cílem je posbírat všech 144 kostek. Sbírat můžete kostky se stejnými symboly, které nemají jinou kostku nad sebou či z obou delších stran. Kostky typu Období a Květina mohou být v páru v odlišných barvách. Ale pozor - hra nemusí být nutně rozdána tak, že určitě lze vyhrát!',
 			txtcopy: '%1s autora %2s je označen jako %3s',
@@ -129,40 +68,135 @@ document.addEventListener('DOMContentLoaded', () => {
 				'🀧': 'Léto',
 			},
 		},
-	};
-
-	/**
-	 * Handler for language switcher's "change" event.
-	 *
-	 * @param {Event} evt 
-	 */
-	const switchLanguage = (evt) => {
-		if ((evt.target instanceof HTMLSelectElement) && evt.target.value in languages) {
-			const newUrl = new URL(location.href);
-			newUrl.searchParams.set('lang', evt.target.value);
-			location.href = newUrl;
-		}
+		'en-US': {
+			name: 'English',
+			flag: '🇺🇸',
+			language: 'Language',
+			txttime: 'Elapsed time',
+			btnnewgame: 'New game',
+			btnhelp: 'Help',
+			btnclose: 'Close',
+			btnhighlight: 'Highlight',
+			btnreshuffle: 'Reshuffle',
+			btnundo: 'Undo',
+			btnredo: 'Redo',
+			hdgwin: 'You won!',
+			hdglose: 'You lost!',
+			txtwin: 'Your game time was %s. Congratulations!',
+			txtlose: 'I should have dealt the cards better.',
+			txthelp: 'Your goal is to collect all 144 tiles. You can pick tiles by pairs that are “open” (at least one long edge is unoccupied and there is no adjacent tile) and have either the same symbol or are both either a Season or a Flower. Note that dealing is random; your particular game might not have a way to be won!',
+			txtcopy: '%1s by %2s is marked %3s',
+			cards: {
+				'🀐': 'Sparrow',
+				'🀑': 'Two of Bamboos',
+				'🀒': 'Three of Bamboos',
+		 		'🀓': 'Four of Bamboos',
+				'🀔': 'Five of Bamboos',
+				'🀕': 'Six of Bamboos',
+		 		'🀖': 'Seven of Bamboos',
+				'🀗': 'Eight of Bamboos',
+				'🀘': 'Nine of Bamboos',
+	 			'🀇': 'One of Characters',
+				'🀈': 'Two of Characters',
+				'🀉': 'Three of Characters',
+	 			'🀊': 'Four of Characters',
+				'🀋': 'Five of Characters',
+				'🀌': 'Six of Characters',
+		 		'🀍': 'Seven of Characters',
+				'🀎': 'Eight of Characters',
+				'🀏': 'Nine of Characters',
+				'🀙': 'Jedna of Circles',
+				'🀚': 'Two of Circles',
+				'🀛': 'Three of Circles',
+				'🀜': 'Four of Circles',
+				'🀝': 'Five of Circles',
+				'🀞': 'Six of Circles',
+				'🀟': 'Seven of Circles',
+				'🀠': 'Eight of Circles',
+				'🀡': 'Nine of Circles',
+				'🀆': 'White Dragon',
+				'🀅': 'Green Dragon',
+				'🀄︎': 'Red Dragon',
+				'🀀': 'East Wind',
+				'🀃': 'North Wind',
+				'🀁': 'South Wind',
+				'🀂': 'West Wind',
+				'🀢': 'Plum',
+				'🀣': 'Orchid',
+				'🀤': 'Bamboo',
+				'🀥': 'Chrysanthemum',
+				'🀩': 'Winter',
+				'🀦': 'Spring',
+				'🀨': 'Autumn',
+				'🀧': 'Summer',
+			},
+		},
 	};
 
 	// Set the current language ("cs-CZ" by default).
 	let lang = 'cs-CZ';
-	const sp = new URL(location.href).searchParams;
-	const urllang = sp.get('lang');
+	const urllang = new URL(location.href).searchParams.get('lang');
 	if (urllang in languages) {
 		lang = urllang;
 	}
 
-	// Build language switcher contents.
-	const elLanguageSwitcher = document.getElementById('language-switcher');
-	if (elLanguageSwitcher instanceof HTMLSelectElement) {
-		elLanguageSwitcher.addEventListener('change', switchLanguage);
-		for (const languageCode in languages) {
-			const elLanguage = document.createElement('option');
-			elLanguage.value = languageCode;
-			elLanguage.innerText = languages[languageCode].name;
-			elLanguage.selected = (languageCode === lang);
-			elLanguageSwitcher.insertAdjacentElement('beforeend', elLanguage);
+	/**
+	 * Handler for language switcher button's "click" event.
+	 * 
+	 * Reloads the page, changing only the "lang" query var in the URL (everything else incl. other
+	 * query vars stays intact).
+	 *
+	 * @param {Event} evt Event object
+	 * @returns {void}
+	 */
+	const onLanguageSwitch = (evt) => {
+		let theTarget = evt.target;
+		if (!(theTarget instanceof HTMLButtonElement)) {
+			if ((theTarget instanceof Node) && (theTarget.parentElement instanceof HTMLButtonElement)) {
+				theTarget = theTarget.parentElement;
+			} else {
+				return;
+			}
 		}
+		const newUrl = new URL(location.href);
+		newUrl.searchParams.set('lang', theTarget.dataset.lang);
+		location.href = newUrl;
+	}
+
+	/**
+	 * Handler for language switcher button's "keyup" event.
+	 * 
+	 * Calls the "click" handler in case "Enter" or "Space" key is referenced.
+	 * 
+	 * @param {KeyboardEvent} evt 
+	 * @returns {void}
+	 */
+	const onLanguageSwitcherKeyUp = (evt) => {
+		if (evt.key !== 'Enter' && evt.key !== ' ') {
+			return;
+		}
+		evt.preventDefault();
+		onLanguageSwitch(evt);
+	};
+
+
+	// Create language switcher buttons
+	const elTopPanel = document.getElementById('toppanel');
+	for (const languageCode in languages) {
+		const elLanguage = document.createElement('button');
+		elLanguage.type = 'button';
+		elLanguage.dataset.lang = languageCode;
+		const elLanguageFlag = document.createElement('span');
+		elLanguageFlag.ariaHidden = true;
+		elLanguageFlag.innerText = languages[languageCode].flag;
+		const elLanguageName = document.createElement('span');
+		elLanguageName.classList.add('visually-hidden');
+		elLanguageName.innerText = languages[languageCode].name;
+		elLanguage.insertAdjacentElement('beforeend', elLanguageFlag);
+		elLanguage.insertAdjacentElement('beforeend', elLanguageName);
+		elLanguage.addEventListener('click', onLanguageSwitch);
+		elLanguage.addEventListener('keyup', onLanguageSwitcherKeyUp);
+		elTopPanel.insertAdjacentElement('beforeend', elLanguage);
 	}
 
 	// From here on until the end: setting translatable texts.
@@ -170,22 +204,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	// <html> element language.
 	document.documentElement.lang = lang;
 
-	// Language switcher label (top panel).
-	const elLanguageSwitcherLabel = document.getElementById('language-switcher-label');
-	if (elLanguageSwitcherLabel instanceof HTMLElement) {
-		elLanguageSwitcherLabel.innerText = `${languages[lang].language}:`;
-	}
-
-	// Points label (top panel).
-	const elPoints = document.getElementById('points');
-	if (elPoints instanceof HTMLElement) {
-		elPoints.ariaLabel = languages[lang].txtpoints;
-	}
-
 	// Elapsed time label (top panel).
-	const elTime = document.getElementById('time');
+	const elTime = document.getElementById('timeLabel');
 	if (elTime instanceof HTMLElement) {
-		elTime.ariaLabel = languages[lang].txttime;
+		elTime.innerText = languages[lang].txttime;
 	}
 
 	// New game button (top panel).
@@ -206,19 +228,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		elHighlightButton.innerText = languages[lang].btnhighlight;
 	}
 
-	// Highlight button (top panel)
+	// Reshuffle button (top panel)
 	const elReshuffleButton = document.querySelector('#reshuffleButton .visually-hidden');
 	if (elReshuffleButton instanceof HTMLElement) {
 		elReshuffleButton.innerText = languages[lang].btnreshuffle;
 	}
 
-	// Highlight button (top panel)
+	// Undo button (top panel)
 	const elUndoButton = document.querySelector('#undoButton .visually-hidden');
 	if (elUndoButton instanceof HTMLElement) {
 		elUndoButton.innerText = languages[lang].btnundo;
 	}
 
-	// Highlight button (top panel)
+	// Redo button (top panel)
 	const elRedoButton = document.querySelector('#redoButton .visually-hidden');
 	if (elRedoButton instanceof HTMLElement) {
 		elRedoButton.innerText = languages[lang].btnredo;
@@ -246,6 +268,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	const elLoseHeading = document.getElementById('loseHeading');
 	if (elLoseHeading instanceof HTMLElement) {
 		elLoseHeading.innerText = languages[lang].hdglose;
+	}
+
+	// Text (win dialog).
+	const elWinText = document.getElementById('winText');
+	if (elWinText instanceof HTMLElement) {
+		elWinText.innerText = languages[lang].txtwin;
 	}
 
 	// Text (lose dialog).
