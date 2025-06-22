@@ -6,9 +6,9 @@ Main advantages:
 
 - Basic accessibility (contrasts, labels, keyboard-only)
 - Should work on most devices and browsers (auto-resize)
-   - It is recommended to play this game on mobile devices in landscape
+   - It is recommended to play this game on mobile devices in landscape mode
 - Fast even on slower devices
-- Only around 84 KiB in total
+- Under 100 KiB in total
 - No personal data collection, analytics, cookies etc.
 - No external dependencies or assets (e.g. frameworks, images, composer/npm/yarn packages)
 - No vibe-coded / "AI"-generated part

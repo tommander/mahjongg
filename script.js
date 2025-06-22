@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	 * 
 	 * @constant {string[]}
 	 */
-	const tileTypes = [
+	const tileset = [
 		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
 		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
 		'🀐','🀑','🀒','🀓','🀔','🀕','🀖','🀗','🀘',
@@ -92,7 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const seasons = ['🀩', '🀦', '🀨', '🀧'];
 
 	/**
-	 * Contains references to open tiles grouped by their symbols. Used by tile highlighting.
+	 * Contains references to open tiles grouped by their symbols. Used by tile highlighting (i.e.
+	 * beginner mode).
 	 * 
 	 * @var {Object.<string,Array.<HTMLElement>>}
 	 */
@@ -215,17 +216,40 @@ document.addEventListener('DOMContentLoaded', () => {
 		);
 	}
 
+	/**
+	 * Is the beginner mode enabled?
+	 *
+	 * @returns {boolean}
+	 */
 	const isBeginner = () => {
 		return (localStorage.getItem('beginner') === 'true');
 	}
+
+	/**
+	 * Enable the beginner mode.
+	 * 
+	 * @returns {void}
+	 */
 	const enableBeginner = () => {
 		localStorage.setItem('beginner', 'true');
 		markFreeSidesForAll();
 	}
+
+	/**
+	 * Disable the beginner mode.
+	 * 
+	 * @returns {void}
+	 */
 	const disableBeginner = () => {
 		localStorage.setItem('beginner', 'false');
 		markFreeSidesForAll();
 	}
+
+	/**
+	 * Toggle the beginner mode.
+	 * 
+	 * @returns {void}
+	 */
 	const toggleBeginner = () => {
 		if (isBeginner()) {
 			disableBeginner();
@@ -234,6 +258,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 
+	/**
+	 * Mark the given tile with "free*" classes based on open edges and add the tile to the list of
+	 * open tiles (if it is open, that is) grouped by the symbol on it.
+	 *
+	 * @param {*} tile Tile element
+	 * @returns {void}
+	 */
 	const markFreeSides = (tile) => {
 		if (!isTile(tile)) {
 			return;
@@ -300,7 +331,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	/**
-	 * Mark free sides of all tiles by `free*` classes.
+	 * Mark free sides of all tiles with `free*` classes. Then go through the list of open tiles and
+	 * add "notBlocked" class to those that have at least one other tile with the same symbol to be
+	 * matched with.
 	 *
 	 * @return {void}
 	 */
@@ -374,9 +407,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		elPrev.insertAdjacentElement('afterend', elTile);
 	};
 
-	// Get array at pointer
-	// Dec pointer
-	// Add elems back to DOM
 	/**
 	 * Undo one step in history.
 	 * 
@@ -402,9 +432,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	};
 
-	// Inc pointer
-	// Get array at pointer
-	// Remove elems from DOM
 	/**
 	 * Redo one step in history.
 	 * 
@@ -692,7 +719,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	/**
 	 * Deals tiles according to the given shape, computes tile/board size and creates all tiles.
 	 *
-	 * @param {string} shape 
+	 * @param {string} shape A string that identifies the deal shape (currently just 'turtle').
 	 * @returns {void}
 	 */
 	const drawGame = (shape, customDealString = null) => {
@@ -771,9 +798,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		}
 		if (dealString === null) {
-			let tileTypesLocal = tileTypes;
-			shuffle(tileTypesLocal);
-			dealString = tileTypesLocal.toString().replaceAll(',','');
+			let tilesetLocal = tileset;
+			shuffle(tilesetLocal);
+			dealString = tilesetLocal.toString().replaceAll(',','');
 		}
 		console.log('Deal string:', dealString);
 
@@ -832,6 +859,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	/**
 	 * Play a winning game.
+	 * 
+	 * @param {boolean} win Whether to play a win (true) or lose (false) game.
 	 *
 	 * @returns {void}
 	 */
@@ -1000,11 +1029,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		resizeTimeout = setTimeout(resizeBoard, 250);
 	});
 
+	// Start playing the win game if requested
 	if (testParam === 'win') {
 		testPlay(true);
 		return;
 	}
 
+	// Start playing the lose game if requested
 	if (testParam === 'lose') {
 		testPlay(false);
 		return;

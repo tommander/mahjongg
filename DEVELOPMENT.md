@@ -25,7 +25,7 @@ things.
 Firstly, you might find it strange (once and if you stumble upon it) that the default language is
 Czech and not English. The explanation is super simple - this game was originally developed as a
 potential replacement for my mom's favourite Mahjongg Alchemy game written in Flash, and I wanted to
-make it easier for her in case the game has some issue deducting the correct language. That's it.
+make it easier for her in case the game has some issue deducing the correct language. That's it.
 
 Now let's go to how the translations are defined and how to add a new one.
 
@@ -38,77 +38,12 @@ translate the string values. There are some comments to help you a little bit.
 
 Hint: keys starting with "btn" are texts on buttons, "hdg" marks a heading text.
 
-You do not need to do anything else; the language is automatically added to language switcher and
-recognised by the app once user switches to it.
-
-```js
-'en-US': {
-    name: 'English',
-    language: 'Language',
-    txtpoints: 'Points',
-    txttime: 'Elapsed time',
-    btnnewgame: 'New game',
-    btnhelp: 'Help',
-    btnclose: 'Close',
-    btnhighlight: 'Highlight',
-    btnundo: 'Undo',
-    btnredo: 'Redo',
-    hdgwin: 'You won!',
-    hdglose: 'You lost!',
-    txtlose: 'I should have dealt the cards better.',
-    hdghelp: 'Help',
-    txthelp: 'Your goal is to collect all 144 tiles. You can pick tiles by pairs that are “open” (at least one long edge is unoccupied and there is no adjacent tile) and have either the same symbol or are both either a Season or a Flower. Note that dealing is random; your particular game might not have a way to be won!',
-    txtcopy: '%1s by %2s is marked %3s',
-    cards: {
-        '🀐': 'Sparrow',
-        '🀑': 'Two of Bamboos',
-        '🀒': 'Three of Bamboos',
-        '🀓': 'Four of Bamboos',
-        '🀔': 'Five of Bamboos',
-        '🀕': 'Six of Bamboos',
-        '🀖': 'Seven of Bamboos',
-        '🀗': 'Eight of Bamboos',
-        '🀘': 'Nine of Bamboos',
-        '🀇': 'One of Characters',
-        '🀈': 'Two of Characters',
-        '🀉': 'Three of Characters',
-        '🀊': 'Four of Characters',
-        '🀋': 'Five of Characters',
-        '🀌': 'Six of Characters',
-        '🀍': 'Seven of Characters',
-        '🀎': 'Eight of Characters',
-        '🀏': 'Nine of Characters',
-        '🀙': 'Jedna of Circles',
-        '🀚': 'Two of Circles',
-        '🀛': 'Three of Circles',
-        '🀜': 'Four of Circles',
-        '🀝': 'Five of Circles',
-        '🀞': 'Six of Circles',
-        '🀟': 'Seven of Circles',
-        '🀠': 'Eight of Circles',
-        '🀡': 'Nine of Circles',
-        '🀆': 'White Dragon',
-        '🀅': 'Green Dragon',
-        '🀄︎': 'Red Dragon',
-        '🀀': 'East Wind',
-        '🀃': 'North Wind',
-        '🀁': 'South Wind',
-        '🀂': 'West Wind',
-        '🀢': 'Plum',
-        '🀣': 'Orchid',
-        '🀤': 'Bamboo',
-        '🀥': 'Chrysanthemum',
-        '🀩': 'Winter',
-        '🀦': 'Spring',
-        '🀨': 'Autumn',
-        '🀧': 'Summer',
-    },
-},
-```
+You do not need to do anything else; the button to switch to that language will be dynamically
+added to the top panel when the web page is loaded.
 
 ## Deal shapes
 
-The game comes with the definition of the `turtle` deal shape, which is kind of a classic deal.
+The game comes with a definition of the `turtle` deal shape, which is kind of a classic deal.
 
 An important aspect of the shape is how the grid of the board works. Since tiles can be placed or
 stacked so that they "touch" only partially, each tile practically takes up two horizontal and two
@@ -138,16 +73,16 @@ The `dev.html` itself just contains the structure and by itself is not really in
 
 The screen has three main parts - top panel, game board and current tile.
 
-*Top panel* is a single-row panel that shows player's points and elapsed time. It also contains
-several buttons for game navigation and features:
+*Top panel* is a single-row panel that shows elapsed time and several buttons for game navigation
+and features:
 
 - "New Game" that reloads the page and effectively starts a new game,
 - "Help" for some basic game rules and license information,
-- "Highlight" to highlight open tiles,
-- "Undo" to go one step back in the tile-matching history, and
-- "Redo" to go one step forward in the tile-matching history.
-
-The last part is a language switcher in a form of a select (combobox).
+- "Highlight" to highlight tiles that are open and can be matched,
+- "Reshuffle" to randomly redistribute symbols on remaining tiles,
+- "Undo" to go one step back in the tile-matching history,
+- "Redo" to go one step forward in the tile-matching history, and
+- Buttons to switch to the language it references.
 
 *Game board* takes up the rest of the screen and contains the tiles that the player plays with.
 
@@ -196,7 +131,6 @@ The `script.js` creates sessionStorage items to keep some information for the wh
 game. These items are:
 
 - `start` ... timestamp when the page was loaded (start of the game)
-- `points` ... player's collected points from matching tiles
 - `shapew` ... number of cells in the shape's grid horizontally
 - `shapeh` ... number of cells in the shape's grid vertically
 - `shapez` ... number of stacked cells in the shape
@@ -212,7 +146,7 @@ The `language.js` goes like this:
 1. Define the constant `languages` with translated texts for each language.
 2. Check the URL query variable "lang". If it exists and it's a known language, use it, otherwise
 use Czech.
-3. Create the language switcher content.
+3. Create language switcher buttons.
 4. Replace all texts in the DOM with translated texts.
 
 ## Releases

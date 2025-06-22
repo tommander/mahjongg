@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			name: 'Čeština',
 			flag: '🇨🇿',
 			language: 'Jazyk',
-			txtpoints: 'Body',
 			txttime: 'Uběhlý čas',
 			btnnewgame: 'Nová hra',
 			btnhelp: 'Nápověda',
@@ -73,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			name: 'English',
 			flag: '🇺🇸',
 			language: 'Language',
-			txtpoints: 'Points',
 			txttime: 'Elapsed time',
 			btnnewgame: 'New game',
 			btnhelp: 'Help',
@@ -142,6 +140,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		lang = urllang;
 	}
 
+	/**
+	 * Handler for language switcher button's "click" event.
+	 * 
+	 * Reloads the page, changing only the "lang" query var in the URL (everything else incl. other
+	 * query vars stays intact).
+	 *
+	 * @param {Event} evt Event object
+	 * @returns {void}
+	 */
 	const onLanguageSwitch = (evt) => {
 		let theTarget = evt.target;
 		if (!(theTarget instanceof HTMLButtonElement)) {
@@ -156,6 +163,14 @@ document.addEventListener('DOMContentLoaded', () => {
 		location.href = newUrl;
 	}
 
+	/**
+	 * Handler for language switcher button's "keyup" event.
+	 * 
+	 * Calls the "click" handler in case "Enter" or "Space" key is referenced.
+	 * 
+	 * @param {KeyboardEvent} evt 
+	 * @returns {void}
+	 */
 	const onLanguageSwitcherKeyUp = (evt) => {
 		if (evt.key !== 'Enter' && evt.key !== ' ') {
 			return;
@@ -165,8 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 
+	// Create language switcher buttons
 	const elTopPanel = document.getElementById('toppanel');
-	// Build language switcher contents.
 	for (const languageCode in languages) {
 		const elLanguage = document.createElement('button');
 		elLanguage.type = 'button';
@@ -188,12 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// <html> element language.
 	document.documentElement.lang = lang;
-
-	// Points label (top panel).
-	const elPoints = document.getElementById('points');
-	if (elPoints instanceof HTMLElement) {
-		elPoints.ariaLabel = languages[lang].txtpoints;
-	}
 
 	// Elapsed time label (top panel).
 	const elTime = document.getElementById('timeLabel');
@@ -219,19 +228,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		elHighlightButton.innerText = languages[lang].btnhighlight;
 	}
 
-	// Highlight button (top panel)
+	// Reshuffle button (top panel)
 	const elReshuffleButton = document.querySelector('#reshuffleButton .visually-hidden');
 	if (elReshuffleButton instanceof HTMLElement) {
 		elReshuffleButton.innerText = languages[lang].btnreshuffle;
 	}
 
-	// Highlight button (top panel)
+	// Undo button (top panel)
 	const elUndoButton = document.querySelector('#undoButton .visually-hidden');
 	if (elUndoButton instanceof HTMLElement) {
 		elUndoButton.innerText = languages[lang].btnundo;
 	}
 
-	// Highlight button (top panel)
+	// Redo button (top panel)
 	const elRedoButton = document.querySelector('#redoButton .visually-hidden');
 	if (elRedoButton instanceof HTMLElement) {
 		elRedoButton.innerText = languages[lang].btnredo;
