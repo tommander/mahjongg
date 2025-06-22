@@ -162,6 +162,7 @@ button {
 	align-items: center;
 	column-gap: 1rem;
 	padding: 0.25rem 0.5rem;
+	font-size: 125%;
 }
 .panel a {
 	text-decoration: none;
