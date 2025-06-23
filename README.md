@@ -6,11 +6,8 @@ Main advantages:
 
 - Basic accessibility (contrasts, labels, keyboard-only)
 - Should work on most devices and browsers (auto-resize)
-   - It is recommended to play this game on mobile devices in landscape mode
 - Fast even on slower devices
-- Under 100 KiB in total
 - No personal data collection, analytics, cookies etc.
-- No external dependencies or assets (e.g. frameworks, images, composer/npm/yarn packages)
 - No vibe-coded / "AI"-generated part
 
 [![Screenshot of Mahjongg Solitaire](screenshot_thumbnail.webp)](screenshot.webp)
@@ -101,3 +98,5 @@ is marked [CC0 1.0](LICENSE).
 [Background photo](https://get.pxhere.com/photo/architecture-bridge-river-jungle-garden-waterway-rainforest-china-rural-area-arch-bridge-leshan-1166576.jpg)
 from [Pxhere](https://pxhere.com/ko/photo/1166576) is also marked
 [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
+
+Font [Source Code Pro](https://github.com/adobe-fonts/source-code-pro) is licensed under the [SIL Open Font License, Version 1.1](source-code-pro/LICENSE.md).
