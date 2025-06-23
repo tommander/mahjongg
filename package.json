@@ -1,0 +1,23 @@
+{
+  "name": "mahjongg",
+  "version": "0.0.0",
+  "description": "A simple Mahjongg Solitaire game, using HTML + CSS + JS with a timer and points.",
+  "homepage": "https://github.com/tommander/mahjongg#readme",
+  "bugs": {
+    "url": "https://github.com/tommander/mahjongg/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tommander/mahjongg.git"
+  },
+  "license": "CC0-1.0",
+  "author": "",
+  "type": "commonjs",
+  "main": "script.js",
+  "scripts": {
+    "test": "node visual-test.mjs && php verify-visual-test.php"
+  },
+  "dependencies": {
+    "puppeteer": "^24.10.2"
+  }
+}
