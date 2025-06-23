@@ -504,6 +504,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			elsTile[randomIndex].innerText = tmpText;
 			elsTile[randomIndex].dataset.t = tmpType;
 		}
+
+		markFreeSidesForAll();
 	}
 
 	/**
