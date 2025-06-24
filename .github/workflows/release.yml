@@ -24,8 +24,8 @@ jobs:
           cat dev.html | sed "s|0.0.0|${{ inputs.version }}| ; s|src=\"script.js\"|src=\"script.js\" integrity=\"$SCRIPTJS\"| ; s|src=\"language.js\"|src=\"language.js\" integrity=\"$LANGJS\"| ; s|href=\"style.css\"|href=\"style.css\" integrity=\"$STYLECSS\"|" - > index.html
       - name: 'Create archives'
         run: |
-          tar -cJvf mahjongg-${{ inputs.version }}.tar.xz background.webp index.html language.js LICENSE script.js style.css
-          zip -j mahjongg-${{ inputs.version }}.zip background.webp index.html language.js LICENSE script.js style.css
+          tar -cJvf mahjongg-${{ inputs.version }}.tar.xz background.webp index.html language.js LICENSE script.js style.css source-code-pro
+          zip -j mahjongg-${{ inputs.version }}.zip background.webp index.html language.js LICENSE script.js style.css source-code-pro
       - name: 'Create release'
         run: |
           gh release create ${{ inputs.version }} -t ${{ inputs.version }} --generate-notes --notes "Automatic release" --target master mahjongg-${{ inputs.version }}.tar.xz mahjongg-${{ inputs.version }}.zip
