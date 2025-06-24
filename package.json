@@ -15,9 +15,10 @@
   "type": "commonjs",
   "main": "script.js",
   "scripts": {
-    "test": "node visual-test.mjs && php verify-visual-test.php"
+    "test": "node visual-test.mjs"
   },
   "dependencies": {
+    "pixelmatch": "^7.1.0",
     "puppeteer": "^24.10.2"
   }
 }
