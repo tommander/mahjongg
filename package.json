@@ -12,13 +12,15 @@
   },
   "license": "CC0-1.0",
   "author": "",
-  "type": "commonjs",
-  "main": "script.js",
+  "type": "module",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "node visual-test.mjs"
+    "test": "node visual-test.mjs",
+    "build": "tsc"
   },
   "dependencies": {
     "pixelmatch": "^7.1.0",
-    "puppeteer": "^24.10.2"
+    "puppeteer": "^24.10.2",
+    "typescript": "^5.8.3"
   }
 }
