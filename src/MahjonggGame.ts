@@ -35,12 +35,11 @@ export class MahjonggGame {
 			this.newGame()
 		})
 		this.panel.addEventListener('dialog', (evt: Event) => {
-			if (!(evt instanceof CustomEvent)) {
-				return
-			}
-			if (evt.detail === 'help') {
-				this.helpDialog.show()
-			}
+			this.dialog(evt)
+		})
+		this.panel.addEventListener('beginner', () => {
+			this.board.beginner.toggle()
+			this.board.refreshTiles()
 		})
 		this.board.addEventListener('showtooltip', (evt: Event) => {
 			if (!(evt instanceof CustomEvent)) {
@@ -51,9 +50,27 @@ export class MahjonggGame {
 		this.board.addEventListener('closetooltip', () => {
 			this.tooltip.close()
 		})
+		this.board.addEventListener('dialog', (evt: Event) => {
+			this.dialog(evt)
+		})
 	}
 
 	newGame() {
 		window.location.reload()
+	}
+
+	dialog(evt: Event) {
+		if (!(evt instanceof CustomEvent)) {
+			return
+		}
+		if (evt.detail === 'help') {
+			this.helpDialog.show()
+		}
+		if (evt.detail === 'win') {
+			this.winDialog.show()
+		}
+		if (evt.detail === 'lose') {
+			this.loseDialog.show()
+		}
 	}
 }

@@ -3,3 +3,4 @@ node_modules
 visual-test-result/*.png
 visual-test-result/holotypes.json
 lighttpd.conf
+dist

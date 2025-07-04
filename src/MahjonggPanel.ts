@@ -54,6 +54,9 @@ export class MahjonggPanel extends EventTarget {
         this.elBtnBeginner = MahjonggUi.elementId(HTMLButtonElement, 'beginnerButton')
         this.elSpnBeginnerIcon = MahjonggUi.elementSelector(HTMLSpanElement, 'span', 0, this.elBtnBeginner)
         this.elSpnBeginnerText = MahjonggUi.elementSelector(HTMLSpanElement, 'span', 1, this.elBtnBeginner)
+        this.elBtnBeginner.addEventListener('click', () => {
+            this.dispatchEvent(new CustomEvent('beginner'))
+        })
 
         this.elBtnReshuffle = MahjonggUi.elementId(HTMLButtonElement, 'reshuffleButton')
         this.elSpnReshuffleIcon = MahjonggUi.elementSelector(HTMLSpanElement, 'span', 0, this.elBtnReshuffle)
