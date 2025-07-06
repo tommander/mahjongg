@@ -53,6 +53,10 @@ export class MahjonggGame {
 		this.board.addEventListener('dialog', (evt: Event) => {
 			this.dialog(evt)
 		})
+		this.board.addEventListener('stopTimer', (evt: Event) => {
+			this.panel.mt.stop()
+		})
+		
 	}
 
 	newGame() {

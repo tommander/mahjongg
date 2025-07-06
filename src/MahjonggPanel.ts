@@ -1,8 +1,10 @@
 import {MahjonggLanguage} from './MahjonggLanguage.js'
+import { MahjonggTimer } from './MahjonggTimer.js';
 import {MahjonggUi} from './MahjonggUi.js'
 
 export class MahjonggPanel extends EventTarget {
     ml: MahjonggLanguage;
+    mt: MahjonggTimer
     elDivPanel: HTMLDivElement
     elDtlTime: HTMLDetailsElement
     elSmrTime: HTMLElement
@@ -74,6 +76,15 @@ export class MahjonggPanel extends EventTarget {
         this.ml.addEventListener('switch', () => {
             this.updateLanguage()
         })
+
+        this.mt = new MahjonggTimer()
+        this.mt.addEventListener('tick', (evt: Event) => {
+            if (!(evt instanceof CustomEvent)) {
+                return
+            }
+            this.elTimTime.innerText = evt.detail
+        })
+        this.mt.start()
     }
 
     updateLanguage() {

@@ -152,48 +152,38 @@ export class MahjonggBoard extends EventTarget {
 	}
 
 	checkGameStatus() {
-		// const anyTile = document.querySelector('.tile');
-		// if (anyTile) {
-		// 	const allTiles = document.querySelectorAll('.tile');
-		// 	let notBlocked = [];
-		// 	for (const tile of allTiles) {
-		// 		if (isBlocked(tile) === false) {
-		// 			notBlocked.push(tile.innerText);
-		// 		}
-		// 	}
-		// 	notBlocked.sort();
-		// 	const notBlockedPairs = [];
-		// 	let prev = null;
-		// 	for (const one of notBlocked) {
-		// 		if (prev !== null && (prev === one || (flowers.indexOf(prev) > -1 && flowers.indexOf(one) > -1) || (seasons.indexOf(prev) > -1 && seasons.indexOf(one) > -1)) && notBlockedPairs.indexOf(one) === -1) {
-		// 			notBlockedPairs.push(one);
-		// 		}
-		// 		prev = one;
-		// 	}
+		const elTiles = document.getElementsByClassName('tile');
+		if (elTiles.length > 0) {
+			let notBlocked = [];
+			for (const elTile of elTiles) {
+				if (!(elTile instanceof HTMLElement)) {
+					continue;
+				}
+				if (this.tileBlocked(elTile).blocked === false) {
+					notBlocked.push(elTile.innerText);
+				}
+			}
+			notBlocked.sort();
+			const notBlockedPairs = [];
+			let prev = null;
+			for (const one of notBlocked) {
+				if (prev !== null && (prev === one || (mahjonggTileFlowers.indexOf(prev) > -1 && mahjonggTileFlowers.indexOf(one) > -1) || (mahjonggTileSeasons.indexOf(prev) > -1 && mahjonggTileSeasons.indexOf(one) > -1)) && notBlockedPairs.indexOf(one) === -1) {
+					notBlockedPairs.push(one);
+				}
+				prev = one;
+			}
 
-		// 	if (notBlockedPairs.length > 0) {
-		// 		return;
-		// 	}
+			if (notBlockedPairs.length === 0) {
+				this.dispatchEvent(new CustomEvent('stopTimer'))
+				this.dispatchEvent(new CustomEvent('dialog', {detail: 'lose'}))
+			}
 
-		// 	const elLose = document.getElementById('lose');
-		// 	if (!elLose) {
-		// 		return;
-		// 	}
-		// 	elLose.showModal();
-		// 	return;
-		// }
+			return;
+		}
 
-		// const elWin = document.getElementById('win');
-		// if (!elWin) {
-		// 	return;
-		// }
-		// clearInterval(timeInt);
-		// const elDlgDetail = document.querySelector('#win .dlgdetail');
-		// const elTime = document.getElementById('time');
-		// if ((elDlgDetail instanceof HTMLElement) && (elTime instanceof HTMLElement)) {
-		// 	elDlgDetail.innerText = elDlgDetail.innerText.replace('%s', elTime.innerText);
-		// }
-		// elWin.showModal();
+		this.dispatchEvent(new CustomEvent('stopTimer'))
+		//clearInterval(timeInt);
+		this.dispatchEvent(new CustomEvent('dialog', {detail: 'win'}))
 	}
 
 	resizeBoard() {
