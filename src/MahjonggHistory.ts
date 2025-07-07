@@ -8,13 +8,22 @@ export type MahjonggHistoryTile = {
     prev: string,
 }
 
-export function isMahjonggHistoryItem(something: any): something is MahjonggHistoryItem {
+export function isMahjonggHistoryTile(something: any): something is MahjonggHistoryTile {
     return (
         ('x' in something) &&
         ('y' in something) &&
         ('z' in something) &&
         ('s' in something) &&
         ('prev' in something)
+    )
+}
+
+export function isMahjonggHistoryItem(something: any): something is MahjonggHistoryItem {
+    return (
+        ('i1' in something) &&
+        ('i2' in something) &&
+        isMahjonggHistoryTile(something.i1) &&
+        isMahjonggHistoryTile(something.i2)
     )
 }
 
@@ -63,9 +72,9 @@ export class MahjonggHistory extends EventTarget {
             return
         }
 
-        this.ptr--
         this.dispatchEvent(new CustomEvent('restoreTiles', {detail: this.list[this.ptr]}))
         this.dispatchEvent(new CustomEvent('redraw'))
+        this.ptr--
     }
 
     redo() {

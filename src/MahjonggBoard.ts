@@ -21,6 +21,7 @@ export class MahjonggBoard extends EventTarget {
 
 		this.history.addEventListener('restoreTiles', (evt: Event) => {
 			if (!(evt instanceof CustomEvent) || !isMahjonggHistoryItem(evt.detail)) {
+				console.error('Wrong RestoreTiles event', evt)
 				return
 			}
 			this.updateTile(evt.detail.i1.x, evt.detail.i1.y, evt.detail.i1.z, evt.detail.i1.s, evt.detail.i1.prev)
@@ -32,7 +33,6 @@ export class MahjonggBoard extends EventTarget {
 		})
 
 		this.dealTiles(customDealString)
-		this.refreshTiles()
 	}
 
 	dealTiles(customDealString: string|null = null) {
@@ -52,6 +52,8 @@ export class MahjonggBoard extends EventTarget {
 			dealString = dealString.slice(2);
 			this.updateTile(oneDef.x, oneDef.y, oneDef.z, <MahjonggTileSymbol>sym)
 		}
+		this.refreshTiles()
+		this.history.clear()
 	}
 
 	shuffle(aDealArray: Array<string>) {
@@ -182,7 +184,6 @@ export class MahjonggBoard extends EventTarget {
 		}
 
 		this.dispatchEvent(new CustomEvent('stopTimer'))
-		//clearInterval(timeInt);
 		this.dispatchEvent(new CustomEvent('dialog', {detail: 'win'}))
 	}
 

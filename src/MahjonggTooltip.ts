@@ -28,6 +28,7 @@ export class MahjonggTooltip {
     }
 
     show(sym: MahjonggTileSymbol) {
+        this.close()
         this.elImage.innerText = sym
         const elSpan = MahjonggUi.elementId(HTMLSpanElement, sym)
         if (!elSpan.classList.contains('shown')) {

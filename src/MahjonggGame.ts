@@ -12,6 +12,7 @@ export class MahjonggGame {
 	loseDialog: MahjonggDialog
 	helpDialog: MahjonggDialog
 	tooltip: MahjonggTooltip
+	resizeTimeout: NodeJS.Timeout|undefined = undefined;
 
 	constructor() {
 		this.language = new MahjonggLanguage()
@@ -41,6 +42,17 @@ export class MahjonggGame {
 			this.board.beginner.toggle()
 			this.board.refreshTiles()
 		})
+		this.panel.addEventListener('reshuffle', () => {
+			this.board.reshuffle()
+		})
+		this.panel.addEventListener('undo', () => {
+			this.board.history.undo()
+			this.board.refreshTiles()
+		})
+		this.panel.addEventListener('redo', () => {
+			this.board.history.redo()
+			this.board.refreshTiles()
+		})
 		this.board.addEventListener('showtooltip', (evt: Event) => {
 			if (!(evt instanceof CustomEvent)) {
 				return
@@ -56,11 +68,19 @@ export class MahjonggGame {
 		this.board.addEventListener('stopTimer', (evt: Event) => {
 			this.panel.mt.stop()
 		})
-		
+		window.addEventListener('resize', () => {
+			clearTimeout(this.resizeTimeout);
+			this.resizeTimeout = setTimeout(this.board.resizeBoard.bind(this.board), 250);
+		});
 	}
 
 	newGame() {
-		window.location.reload()
+		this.board.dealTiles(null)
+		this.panel.mt.stop()
+		this.panel.mt.start()
+		this.helpDialog.close()
+		this.winDialog.close()
+		this.loseDialog.close()
 	}
 
 	dialog(evt: Event) {
@@ -71,7 +91,7 @@ export class MahjonggGame {
 			this.helpDialog.show()
 		}
 		if (evt.detail === 'win') {
-			this.winDialog.show()
+			this.winDialog.show(this.panel.elTimTime.innerText)
 		}
 		if (evt.detail === 'lose') {
 			this.loseDialog.show()

@@ -63,14 +63,23 @@ export class MahjonggPanel extends EventTarget {
         this.elBtnReshuffle = MahjonggUi.elementId(HTMLButtonElement, 'reshuffleButton')
         this.elSpnReshuffleIcon = MahjonggUi.elementSelector(HTMLSpanElement, 'span', 0, this.elBtnReshuffle)
         this.elSpnReshuffleText = MahjonggUi.elementSelector(HTMLSpanElement, 'span', 1, this.elBtnReshuffle)
+        this.elBtnReshuffle.addEventListener('click', () => {
+            this.dispatchEvent(new CustomEvent('reshuffle'))
+        })
 
         this.elBtnUndo = MahjonggUi.elementId(HTMLButtonElement, 'undoButton')
         this.elSpnUndoIcon = MahjonggUi.elementSelector(HTMLSpanElement, 'span', 0, this.elBtnUndo)
         this.elSpnUndoText = MahjonggUi.elementSelector(HTMLSpanElement, 'span', 1, this.elBtnUndo)
+        this.elBtnUndo.addEventListener('click', () => {
+            this.dispatchEvent(new CustomEvent('undo'))
+        })
 
         this.elBtnRedo = MahjonggUi.elementId(HTMLButtonElement, 'redoButton')
         this.elSpnRedoIcon = MahjonggUi.elementSelector(HTMLSpanElement, 'span', 0, this.elBtnRedo)
         this.elSpnRedoText = MahjonggUi.elementSelector(HTMLSpanElement, 'span', 1, this.elBtnRedo)
+        this.elBtnRedo.addEventListener('click', () => {
+            this.dispatchEvent(new CustomEvent('redo'))
+        })
 
         this.ml.appendLangButtons(this.elDivPanel)
         this.ml.addEventListener('switch', () => {

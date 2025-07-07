@@ -58,7 +58,17 @@ export class MahjonggDialog extends EventTarget {
         this.elButtonClose.innerText = this.ml._('btnclose', '')
     }
 
-    show() {
+    show(text: string|null = null) {
+        if (text !== null) {
+            this.elText.innerText = text
+        }
         this.elDialog.showModal()
+    }
+
+    close() {
+        if (!this.elDialog.open) {
+            return
+        }
+        this.elDialog.close()
     }
 }
