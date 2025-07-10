@@ -1,35 +1,17 @@
-import {MahjonggTileSymbol} from "./MahjonggCommon.js"
-
-export type MahjonggHistoryTile = {
-    x: number,
-    y: number,
-    z: number,
-    s: MahjonggTileSymbol,
-    prev: string,
-}
-
-export function isMahjonggHistoryTile(something: any): something is MahjonggHistoryTile {
-    return (
-        ('x' in something) &&
-        ('y' in something) &&
-        ('z' in something) &&
-        ('s' in something) &&
-        ('prev' in something)
-    )
-}
+import {MahjonggTile} from "./MahjonggTile.js"
 
 export function isMahjonggHistoryItem(something: any): something is MahjonggHistoryItem {
     return (
         ('i1' in something) &&
         ('i2' in something) &&
-        isMahjonggHistoryTile(something.i1) &&
-        isMahjonggHistoryTile(something.i2)
+        (something.i1 instanceof MahjonggTile) &&
+        (something.i2 instanceof MahjonggTile)
     )
 }
 
 export type MahjonggHistoryItem = {
-    i1: MahjonggHistoryTile,
-    i2: MahjonggHistoryTile,
+    i1: MahjonggTile,
+    i2: MahjonggTile,
 }
 
 export class MahjonggHistory extends EventTarget {
@@ -41,21 +23,6 @@ export class MahjonggHistory extends EventTarget {
 
         this.list = []
         this.ptr = -1
-    }
-
-    static historyTile(elTile: HTMLElement): MahjonggHistoryTile {
-        let prevId = ''
-        const nodePrev = elTile.previousSibling
-        if ((nodePrev instanceof HTMLElement) && nodePrev.classList.contains('tile')) {
-            prevId = nodePrev.id
-        }
-        return {
-            x: parseInt(elTile.dataset.x ?? '-1'),
-            y: parseInt(elTile.dataset.y ?? '-1'),
-            z: parseInt(elTile.dataset.z ?? '-1'),
-            s: <MahjonggTileSymbol>elTile.innerText,
-            prev: prevId,
-        }
     }
 
     add(item: MahjonggHistoryItem) {
@@ -72,8 +39,8 @@ export class MahjonggHistory extends EventTarget {
             return
         }
 
+        //this.list[this.ptr].i1
         this.dispatchEvent(new CustomEvent('restoreTiles', {detail: this.list[this.ptr]}))
-        this.dispatchEvent(new CustomEvent('redraw'))
         this.ptr--
     }
 
@@ -83,14 +50,15 @@ export class MahjonggHistory extends EventTarget {
         }
 
         this.ptr++
-        const elTile1 = document.getElementById(`tile-${this.list[this.ptr].i1.x}-${this.list[this.ptr].i1.y}-${this.list[this.ptr].i1.z}`)
-        const elTile2 = document.getElementById(`tile-${this.list[this.ptr].i2.x}-${this.list[this.ptr].i2.y}-${this.list[this.ptr].i2.z}`)
-        if (!(elTile1 instanceof HTMLElement) || !(elTile2 instanceof HTMLElement)) {
-            throw new Error('Broken history')
-        }
-        elTile1.remove()
-        elTile2.remove()
-        this.dispatchEvent(new CustomEvent('redraw'))
+        this.dispatchEvent(new CustomEvent('unrestoreTiles', {detail: this.list[this.ptr]}))
+        // const elTile1 = document.getElementById(`tile-${this.list[this.ptr].i1.x}-${this.list[this.ptr].i1.y}-${this.list[this.ptr].i1.z}`)
+        // const elTile2 = document.getElementById(`tile-${this.list[this.ptr].i2.x}-${this.list[this.ptr].i2.y}-${this.list[this.ptr].i2.z}`)
+        // if (!(elTile1 instanceof HTMLElement) || !(elTile2 instanceof HTMLElement)) {
+        //     throw new Error('Broken history')
+        // }
+        // elTile1.remove()
+        // elTile2.remove()
+        // this.dispatchEvent(new CustomEvent('redraw'))
     }
 
     clear() {

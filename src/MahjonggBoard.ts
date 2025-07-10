@@ -1,14 +1,20 @@
 import {MahjonggUi} from "./MahjonggUi.js"
-import {mahjonggTileCharacters,mahjonggTileSticks,mahjonggTileCircles,mahjonggTileDragons,mahjonggTileWinds,mahjonggTileFlowers,mahjonggTileSeasons,MahjonggTileSymbol} from "./MahjonggCommon.js"
+import {mahjonggTileFlowers,mahjonggTileSeasons,MahjonggTileSymbol} from "./MahjonggCommon.js"
 import {MahjonggShape, MahjonggShapeName, mahjonggShapeMap} from "./MahjonggShape.js"
-import {isMahjonggHistoryItem, MahjonggHistory, MahjonggHistoryItem} from "./MahjonggHistory.js"
+import {isMahjonggHistoryItem, MahjonggHistory} from "./MahjonggHistory.js"
 import {MahjonggBeginner} from "./MahjonggBeginner.js"
+import {MahjonggTile} from "./MahjonggTile.js"
+
+export type MahjonggTileList = {
+	[k: string]: MahjonggTile
+}
 
 export class MahjonggBoard extends EventTarget {
 	elBoard: HTMLDivElement
 	shape: MahjonggShape
 	history: MahjonggHistory
 	beginner: MahjonggBeginner
+	tiles: MahjonggTileList
 
 	constructor(shapeName: MahjonggShapeName, customDealString: string|null = null) {
 		super()
@@ -18,21 +24,96 @@ export class MahjonggBoard extends EventTarget {
 		this.resizeBoard()
 		this.history = new MahjonggHistory()
 		this.beginner = new MahjonggBeginner()
+		this.tiles = {}
 
 		this.history.addEventListener('restoreTiles', (evt: Event) => {
 			if (!(evt instanceof CustomEvent) || !isMahjonggHistoryItem(evt.detail)) {
 				console.error('Wrong RestoreTiles event', evt)
 				return
 			}
-			this.updateTile(evt.detail.i1.x, evt.detail.i1.y, evt.detail.i1.z, evt.detail.i1.s, evt.detail.i1.prev)
-			this.updateTile(evt.detail.i2.x, evt.detail.i2.y, evt.detail.i2.z, evt.detail.i2.s, evt.detail.i2.prev)
-
+			this.findTile(evt.detail.i1.x, evt.detail.i1.y, evt.detail.i1.z).show()
+			this.findTile(evt.detail.i2.x, evt.detail.i2.y, evt.detail.i2.z).show()
+			this.refreshTiles()
 		})
-		this.history.addEventListener('redraw', (evt: Event) => {
+		this.history.addEventListener('unrestoreTiles', (evt: Event) => {
+			if (!(evt instanceof CustomEvent) || !isMahjonggHistoryItem(evt.detail)) {
+				console.error('Wrong UnrestoreTiles event', evt)
+				return
+			}
+			this.findTile(evt.detail.i1.x, evt.detail.i1.y, evt.detail.i1.z).hide()
+			this.findTile(evt.detail.i2.x, evt.detail.i2.y, evt.detail.i2.z).hide()
 			this.refreshTiles()
 		})
 
+		let lastId = ''
+		for (const oneDef of this.shape.shapeDefinition) {
+			const tile = new MahjonggTile(oneDef.x, oneDef.y, oneDef.z)
+			tile.prev = lastId
+			tile.addEventListener('tileclick', (evt: Event) => {
+				if (!(evt instanceof CustomEvent) || !(evt.detail instanceof MahjonggTile)) {
+					return
+				}
+				if (!(evt.detail.el instanceof HTMLElement)) {
+					return
+				}
+				if (evt.detail.blocked().blocked !== false) {
+					return;
+				}
+
+				if (evt.detail.el.dataset.s === "selected") {
+					delete evt.detail.el.dataset.s;
+					return;
+				}
+				evt.detail.el.dataset.s = "selected";
+
+				const listSel = []
+				for (const tileIdx of Object.getOwnPropertyNames(this.tiles)) {
+					if (this.tiles[tileIdx].el?.dataset.s !== 'selected') {
+						continue;
+					}
+					listSel.push(tileIdx)
+				}
+				if (listSel.length !== 2) {
+					return;
+				}
+
+				if (
+					this.tiles[listSel[0]].s === this.tiles[listSel[1]].s ||
+					(mahjonggTileFlowers.indexOf(this.tiles[listSel[0]].s) > -1 && mahjonggTileFlowers.indexOf(this.tiles[listSel[1]].s) > -1) ||
+					(mahjonggTileSeasons.indexOf(this.tiles[listSel[0]].s) > -1 && mahjonggTileSeasons.indexOf(this.tiles[listSel[1]].s) > -1)
+				) {
+					this.history.add({i1: this.tiles[listSel[0]], i2: this.tiles[listSel[1]]});
+					this.tiles[listSel[0]].hide()
+					this.tiles[listSel[1]].hide()
+					this.refreshTiles();
+					this.checkGameStatus();
+					return;
+				}
+
+				delete evt.detail.el.dataset.s;				
+			})
+			tile.addEventListener('showtooltip', (evt: Event) => {
+				if (!(evt instanceof CustomEvent)) {
+					return
+				}
+				this.dispatchEvent(new CustomEvent('showtooltip', {detail: evt.detail}))
+			})
+			tile.addEventListener('closetooltip', () => {
+				this.dispatchEvent(new CustomEvent('closetooltip'))
+			})
+			this.tiles[tile.id] = tile
+			lastId = tile.id
+		}
+
 		this.dealTiles(customDealString)
+	}
+
+	findTile(x: number, y: number, z: number): MahjonggTile {
+		const tile = this.tiles[MahjonggTile.createId(x, y, z)]
+		if (!(tile instanceof MahjonggTile)) {
+			throw new Error('Tile not initialized')
+		}
+		return tile
 	}
 
 	dealTiles(customDealString: string|null = null) {
@@ -50,7 +131,12 @@ export class MahjonggBoard extends EventTarget {
 				dealString = dealString.slice(1);
 			}
 			dealString = dealString.slice(2);
-			this.updateTile(oneDef.x, oneDef.y, oneDef.z, <MahjonggTileSymbol>sym)
+			const tile = this.tiles[MahjonggTile.createId(oneDef.x, oneDef.y, oneDef.z)]
+			if (!(tile instanceof MahjonggTile)) {
+				throw new Error('Tile not initialized')
+			}
+			tile.s = <MahjonggTileSymbol>sym
+			tile.updateTile()
 		}
 		this.refreshTiles()
 		this.history.clear()
@@ -92,44 +178,44 @@ export class MahjonggBoard extends EventTarget {
 
 	refreshTiles() {
 		const markPairs: {[k: string]: Array<HTMLElement>} = {};
-		const elsTile = document.getElementsByClassName('tile');
-		for (const elTile of elsTile) {
-			if (!(elTile instanceof HTMLElement)) {
-				return;
+		for (const tileId of Object.getOwnPropertyNames(this.tiles)) {
+			const tile = this.tiles[tileId]
+			if (tile.el === null) {
+				throw new Error('Tile has no element')
 			}
 
-			if (elTile.classList.contains('freeTop')) {
-				elTile.classList.remove('freeTop');
+			if (tile.el.classList.contains('freeTop')) {
+				tile.el.classList.remove('freeTop');
 			}
-			if (elTile.classList.contains('freeBottom')) {
-				elTile.classList.remove('freeBottom');
+			if (tile.el.classList.contains('freeBottom')) {
+				tile.el.classList.remove('freeBottom');
 			}
-			if (elTile.classList.contains('freeLeft')) {
-				elTile.classList.remove('freeLeft');
+			if (tile.el.classList.contains('freeLeft')) {
+				tile.el.classList.remove('freeLeft');
 			}
-			if (elTile.classList.contains('freeRight')) {
-				elTile.classList.remove('freeRight');
+			if (tile.el.classList.contains('freeRight')) {
+				tile.el.classList.remove('freeRight');
 			}
-			if (elTile.classList.contains('notBlocked')) {
-				elTile.classList.remove('notBlocked');
+			if (tile.el.classList.contains('notBlocked')) {
+				tile.el.classList.remove('notBlocked');
 			}
 
-			const block = this.tileBlocked(elTile)
+			const tileBlocked = tile.blocked()
 
-			if (!block.l) {
-				elTile.classList.add('freeLeft');
+			if (!tileBlocked.l) {
+				tile.el.classList.add('freeLeft');
 			}
-			if (!block.r) {
-				elTile.classList.add('freeRight');
+			if (!tileBlocked.r) {
+				tile.el.classList.add('freeRight');
 			}
-			if (!block.t) {
-				elTile.classList.add('freeTop');
+			if (!tileBlocked.t) {
+				tile.el.classList.add('freeTop');
 			}
-			if (!block.b) {
-				elTile.classList.add('freeBottom');
+			if (!tileBlocked.b) {
+				tile.el.classList.add('freeBottom');
 			}
-			if (this.beginner.value && !block.blocked) {
-				let markSymbol = elTile.innerText;
+			if (this.beginner.value && !tileBlocked.blocked) {
+				let markSymbol = tile.el.innerText;
 				if (mahjonggTileFlowers.indexOf(markSymbol) > -1) {
 					markSymbol = 'f';
 				}
@@ -139,7 +225,7 @@ export class MahjonggBoard extends EventTarget {
 				if (markPairs[markSymbol] === undefined) {
 					markPairs[markSymbol] = [];
 				}
-				markPairs[markSymbol].push(elTile);
+				markPairs[markSymbol].push(tile.el);
 			}
 		}
 		for (const markPair of Object.getOwnPropertyNames(markPairs)) {
@@ -153,16 +239,23 @@ export class MahjonggBoard extends EventTarget {
 
 	}
 
+	hasShownTile(): boolean {
+		let cnt = 0
+		for (const tileIdx of Object.getOwnPropertyNames(this.tiles)) {
+			if (this.tiles[tileIdx].hidden) {
+				continue
+			}
+			return true
+		}
+		return false
+	}
+
 	checkGameStatus() {
-		const elTiles = document.getElementsByClassName('tile');
-		if (elTiles.length > 0) {
+		if (this.hasShownTile()) {
 			let notBlocked = [];
-			for (const elTile of elTiles) {
-				if (!(elTile instanceof HTMLElement)) {
-					continue;
-				}
-				if (this.tileBlocked(elTile).blocked === false) {
-					notBlocked.push(elTile.innerText);
+			for (const tileIdx of Object.getOwnPropertyNames(this.tiles)) {
+				if (this.tiles[tileIdx].blocked().blocked === false) {
+					notBlocked.push(this.tiles[tileIdx].s);
 				}
 			}
 			notBlocked.sort();
@@ -180,7 +273,7 @@ export class MahjonggBoard extends EventTarget {
 				this.dispatchEvent(new CustomEvent('dialog', {detail: 'lose'}))
 			}
 
-			return;
+			return
 		}
 
 		this.dispatchEvent(new CustomEvent('stopTimer'))
@@ -205,155 +298,5 @@ export class MahjonggBoard extends EventTarget {
 		this.elBoard.style.gridTemplateColumns = `repeat(${this.shape.width + 1}, ${Math.round(tileW / 2)}px)`;
 		this.elBoard.style.gridTemplateRows = `repeat(${this.shape.height + 1}, ${Math.round(tileH / 2)}px)`;
 		this.elBoard.style.fontSize = `${Math.round(tileH * 0.625)}px`;
-	}
-
-	tileBlocked(tile: HTMLElement): {l: boolean, r: boolean, t: boolean, b: boolean, u: boolean, blocked: boolean} {
-		const myX = parseInt(tile.style.gridColumn);
-		const myY = parseInt(tile.style.gridRow);
-		const myZ = parseInt(tile.style.zIndex);
-
-		const selectorL = `#tile-${myX-2}-${myY-1}-${myZ},` +
-						  `#tile-${myX-2}-${myY}-${myZ},` +
-						  `#tile-${myX-2}-${myY+1}-${myZ}`;
-		const selectorR = `#tile-${myX+2}-${myY-1}-${myZ},` + 
-						  `#tile-${myX+2}-${myY}-${myZ},` + 
-						  `#tile-${myX+2}-${myY+1}-${myZ}`;
-		const selectorT = `#tile-${myX-1}-${myY-2}-${myZ},` + 
-						  `#tile-${myX}-${myY-2}-${myZ},` + 
-						  `#tile-${myX+1}-${myY-2}-${myZ}`;
-		const selectorB = `#tile-${myX-1}-${myY+2}-${myZ},` + 
-						  `#tile-${myX}-${myY+2}-${myZ},` + 
-						  `#tile-${myX+1}-${myY+2}-${myZ}`;
-		const selectorU = `#tile-${myX-1}-${myY}-${myZ+1},` + 
-						  `#tile-${myX}-${myY}-${myZ+1},` +
-						  `#tile-${myX+1}-${myY}-${myZ+1},` +
-						  `#tile-${myX-1}-${myY-1}-${myZ+1},` +
-						  `#tile-${myX}-${myY-1}-${myZ+1},` +
-						  `#tile-${myX+1}-${myY-1}-${myZ+1},` +
-						  `#tile-${myX-1}-${myY+1}-${myZ+1},` +
-						  `#tile-${myX}-${myY+1}-${myZ+1},` +
-						  `#tile-${myX+1}-${myY+1}-${myZ+1}`;
-		const res = {
-			l: (document.querySelector(selectorL) !== null),
-			r: (document.querySelector(selectorR) !== null),
-			t: (document.querySelector(selectorT) !== null),
-			b: (document.querySelector(selectorB) !== null),
-			u: (document.querySelector(selectorU) !== null),
-		};
-		return {...res, blocked: (res.u || (res.l && res.r))}
-	}
-
-	updateTile(x: number, y: number, z: number, s: MahjonggTileSymbol, prev: string = '') {
-		const tileExists = document.getElementById(`tile-${x}-${y}-${z}`)
-		const elTile: HTMLElement = (tileExists instanceof HTMLElement) ? tileExists : document.createElement('div')
-		
-		elTile.id = `tile-${x}-${y}-${z}`
-		if (!elTile.classList.contains('tile')) {
-			elTile.classList.add('tile');
-		}
-		if (!elTile.classList.contains(`z${z}`)) {
-			elTile.classList.add(`z${z}`);
-		}
-		elTile.role = 'button';
-		elTile.tabIndex = 0;
-		elTile.style.gridColumn = `${x} / ${x + 2}`;
-		elTile.style.gridRow = `${y} / ${y + 2}`;
-		elTile.style.zIndex = z.toString();
-		if (z > 1) {
-			elTile.style.left = `${Math.round((z-1) * -4)}px`;
-			elTile.style.top = `${Math.round((z-1) * -4)}px`;
-		}
-		elTile.dataset.x = x.toString();
-		elTile.dataset.y = y.toString();
-		elTile.dataset.z = z.toString();
-
-		if (tileExists === null) {
-			elTile.addEventListener('click', (evt) => {
-				if (!(evt.target instanceof HTMLElement)) {
-					return
-				}
-				if (this.tileBlocked(evt.target).blocked !== false) {
-					return;
-				}
-
-				if (evt.target.dataset.s === "selected") {
-					delete evt.target.dataset.s;
-					return;
-				}
-				evt.target.dataset.s = "selected";
-
-				const listSel = document.querySelectorAll(`.tile[data-s="selected"]`);
-				if (listSel.length !== 2 || !(listSel[0] instanceof HTMLElement) || !(listSel[1] instanceof HTMLElement)) {
-					return;
-				}
-
-				if (
-					listSel[0].innerText === listSel[1].innerText ||
-					(mahjonggTileFlowers.indexOf(listSel[0].innerText) > -1 && mahjonggTileFlowers.indexOf(listSel[1].innerText) > -1) ||
-					(mahjonggTileSeasons.indexOf(listSel[0].innerText) > -1 && mahjonggTileSeasons.indexOf(listSel[1].innerText) > -1)
-				) {
-					this.history.add({i1: MahjonggHistory.historyTile(listSel[0]), i2: MahjonggHistory.historyTile(listSel[1])});
-					listSel[0].remove();
-					listSel[1].remove();
-					this.refreshTiles();
-					this.checkGameStatus();
-					return;
-				}
-
-				delete evt.target.dataset.s;
-			});
-			elTile.addEventListener('keyup', (evt: KeyboardEvent) => {
-				if (evt.key !== 'Enter' && evt.key !== ' ') {
-					return;
-				}
-				if (!(evt.target instanceof EventTarget)) {
-					return;
-				}
-				evt.target.dispatchEvent(new MouseEvent('click'))
-			});
-			elTile.addEventListener('mouseenter', (evt) => {
-				if (!(evt.target instanceof HTMLElement)) {
-					return
-				}
-				this.dispatchEvent(new CustomEvent('showtooltip', {detail: evt.target.innerText}))
-			});
-			elTile.addEventListener('mouseleave', () => {
-				this.dispatchEvent(new CustomEvent('closetooltip'))
-			});
-		}
-		
-		elTile.innerText = s
-		if (mahjonggTileCharacters.indexOf(elTile.innerText) > -1) {
-			elTile.dataset.t = 'character';
-		}
-		if (mahjonggTileSticks.indexOf(elTile.innerText) > -1) {
-			elTile.dataset.t = 'stick';
-		}
-		if (mahjonggTileCircles.indexOf(elTile.innerText) > -1) {
-			elTile.dataset.t = 'circle';
-		}
-		if (mahjonggTileDragons.indexOf(elTile.innerText) > -1) {
-			elTile.dataset.t = 'dragon';
-		}
-		if (mahjonggTileWinds.indexOf(elTile.innerText) > -1) {
-			elTile.dataset.t = 'wind';
-		}
-		if (mahjonggTileFlowers.indexOf(elTile.innerText) > -1) {
-			elTile.dataset.t = 'flower';
-		}
-		if (mahjonggTileSeasons.indexOf(elTile.innerText) > -1) {
-			elTile.dataset.t = 'season';
-		}
-
-		if (tileExists === null) {
-			if (prev !== '') {
-				const elPrev = document.getElementById(prev)
-				if ((elPrev instanceof HTMLElement)) {
-					elPrev.insertAdjacentElement('afterend', elTile)
-					return
-				}
-			}
-			this.elBoard.insertAdjacentElement('beforeend', elTile);
-		}
 	}
 }
