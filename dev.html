@@ -23,8 +23,8 @@
 	<dialog id="win" class="gamedlg" aria-labelledby="winHeading" aria-describedby="winText">
 		<div class="dlgmessage">
 			<div class="dlgsmiley">👑</div>
-			<div id="winHeading" class="dlgheading">Vyhráli jste!</div>
-			<div id="winText" class="dlgdetail">0m 0s</div>
+			<div class="dlgheading">Vyhráli jste!</div>
+			<div class="dlgtext">0m 0s</div>
 		</div>
 		<form method="dialog" class="dlgbuttons">
 			<button type="button" class="newGame">Nová hra</button>
@@ -34,8 +34,8 @@
 	<dialog id="lose" class="gamedlg" aria-labelledby="loseHeading" aria-describedby="loseText">
 		<div class="dlgmessage">
 			<div class="dlgsmiley">🥺</div>
-			<div id="loseHeading" class="dlgheading">Prohráli jste.</div>
-			<div id="loseText">Asi jsem to špatně rozdal.</div>
+			<div class="dlgheading">Prohráli jste.</div>
+			<div class="dlgtext">Asi jsem to špatně rozdal.</div>
 		</div>
 		<form method="dialog" class="dlgbuttons">
 			<button type="button" class="newGame">Nová hra</button>
@@ -45,9 +45,8 @@
 	<dialog id="help" class="gamedlg" aria-labelledby="helpHeading" aria-describedby="helpText">
 		<div class="dlgmessage">
 			<div class="dlgsmiley">❓</div>
-			<div id="helpHeading" class="dlgheading">Mahjongg Solitaire 0.0.0</div>
-			<div id="helpText">Vaším cílem je posbírat všech 144 kostek. Sbírat můžete kostky se stejnými symboly, které nemají jinou kostku nad sebou či z obou delších stran. Kostky typu Období a Květina mohou být v páru v odlišných barvách. <strong>Pozor!</strong> Hra nemusí být nutně rozdána tak, že určitě lze vyhrát!</div>
-			<div id="helpCopy"><a href="https://github.com/tommander/mahjongg">Mahjongg Solitaire</a> od <a href="https://tommander.cz">Tomáše Rajnohy</a> je označen jako <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></div>
+			<div class="dlgheading">Mahjongg Solitaire 0.0.0</div>
+			<div class="dlgtext">Vaším cílem je posbírat všech 144 kostek. Sbírat můžete kostky se stejnými symboly, které nemají jinou kostku nad sebou či z obou delších stran. Kostky typu Období a Květina mohou být v páru v odlišných barvách. <strong>Pozor!</strong> Hra nemusí být nutně rozdána tak, že určitě lze vyhrát!<br><a href="https://github.com/tommander/mahjongg">Mahjongg Solitaire</a> od <a href="https://tommander.cz">Tomáše Rajnohy</a> je označen jako <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></div>
 		</div>
 		<form method="dialog" class="dlgbuttons">
 			<button type="button" class="newGame">Nová hra</button>
@@ -103,7 +102,6 @@
 		</div>
 	</div>
 
-	<script src="script.js"></script>
-	<script src="language.js"></script>
+	<script src="dist/index.js" type="module"></script>
 </body>
 </html>
