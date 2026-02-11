@@ -1,5 +1,8 @@
 # Mahjongg Solitaire
 
+> [!WARNING]
+> Design is OK on Debian+Firefox, but any other os/browser combination seems to have inconsistencies.
+
 A simple Mahjongg Solitaire game, using HTML + CSS + JS with a timer and points.
 
 Main advantages:
